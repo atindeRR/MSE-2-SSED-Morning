@@ -2,7 +2,8 @@ name: Docker Practical - Publish and Verify
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
