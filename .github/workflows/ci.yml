@@ -112,7 +112,6 @@ jobs:
         working-directory: instructor-evaluation/tests
         env:
           BASE_URL: http://localhost:3000
-        env:
           NODE_OPTIONS: --experimental-vm-modules
         run: npm test -- --json --outputFile=test-results.json
 
