@@ -1,0 +1,114 @@
+# TaskFlow: deployment from published Docker Hub images (no build: directives).
+#   docker compose -f docker-compose.deploy.yml pull
+#   docker compose -f docker-compose.deploy.yml up -d
+# Needs only this file and a .env (see .env.example).
+# All credentials come from .env; nothing secret is written here.
+# Host ports default to 8080 (frontend) and 3000 (backend). Set DEPLOY_FRONTEND_PORT /
+# DEPLOY_BACKEND_PORT to run it next to the docker-compose.yml stack without conflicts.
+
+name: taskflow-deploy
+
+services:
+  frontend:
+    # IMAGE_TAG defaults to latest; the CD workflow sets it to the commit SHA it just pushed.
+    image: adyanshisingh/frontend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - "${DEPLOY_FRONTEND_PORT:-8080}:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks: [web]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+
+  backend:
+    image: adyanshisingh/backend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      PORT: ${PORT:-3000}
+      # Service names, not localhost: postgres and redis resolve on the data network.
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be set in .env}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in .env}
+    ports:
+      - "${DEPLOY_BACKEND_PORT:-3000}:${PORT:-3000}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks: [web, data]
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:' + (process.env.PORT || 3000) + '/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    configs:
+      # Schema from backend/db/init.sql, embedded so no repository files are needed.
+      - source: db_init
+        target: /docker-entrypoint-initdb.d/01-init.sql
+    networks: [data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks: [data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+configs:
+  # Keep in sync with backend/db/init.sql.
+  db_init:
+    content: |
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        email VARCHAR(255) UNIQUE NOT NULL,
+        password_hash TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE TABLE IF NOT EXISTS tasks (
+        id SERIAL PRIMARY KEY,
+        user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+        title VARCHAR(200) NOT NULL,
+        description TEXT NOT NULL DEFAULT '',
+        status VARCHAR(20) NOT NULL DEFAULT 'Pending'
+          CHECK (status IN ('Pending', 'In Progress', 'Completed')),
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+
+      CREATE INDEX IF NOT EXISTS idx_tasks_user_id ON tasks(user_id);
+
+networks:
+  web:    # frontend <-> backend
+  data:   # backend <-> postgres, redis
+
+volumes:
+  postgres_data:
