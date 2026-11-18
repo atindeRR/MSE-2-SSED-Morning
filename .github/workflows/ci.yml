@@ -15,18 +15,18 @@ concurrency:
 
 jobs:
   evaluate:
-    name: Validate, build and test submission
+    name: Validate, Build and Test
     runs-on: ubuntu-latest
     timeout-minutes: 25
 
     steps:
-      - name: Checkout submitted Pull Request commit
+      - name: Checkout student submission
         uses: actions/checkout@v4
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
 
-      - name: Checkout instructor-controlled evaluation files
+      - name: Checkout instructor evaluation files
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
@@ -40,7 +40,7 @@ jobs:
           if [ -f submission.json ]; then
             cat submission.json
           else
-            echo "::warning::submission.json is missing"
+            echo "submission.json is missing"
           fi
 
       - name: Check required files
@@ -55,7 +55,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Create CI environment file
+      - name: Create CI environment
         run: |
           cat > .env <<'EOF'
           POSTGRES_DB=taskflow
@@ -67,32 +67,31 @@ jobs:
           PORT=3000
           EOF
 
-      - name: Validate Docker Compose configuration
+      - name: Validate Docker Compose
         run: docker compose config --quiet
 
-      - name: Build frontend and backend images
+      - name: Build Docker images
         run: docker compose build
 
-      - name: Start application stack
+      - name: Start application
         run: docker compose up -d
 
       - name: Wait for backend health
         run: |
           for attempt in $(seq 1 40); do
             if curl --fail --silent http://localhost:3000/health; then
-              echo
               echo "Backend is healthy"
               exit 0
             fi
-            echo "Waiting for backend ($attempt/40)..."
+            echo "Waiting for backend ($attempt/40)"
             sleep 3
           done
-          echo "Backend did not become healthy"
+
           docker compose ps
-          docker compose logs --no-color
+          docker compose logs
           exit 1
 
-      - name: Check frontend response
+      - name: Check frontend
         run: |
           for attempt in $(seq 1 20); do
             if curl --fail --silent http://localhost:8080/ > /dev/null; then
@@ -101,6 +100,7 @@ jobs:
             fi
             sleep 3
           done
+
           docker compose logs frontend
           exit 1
 
@@ -130,12 +130,9 @@ jobs:
         run: |
           {
             echo "## Docker Practical CI Evaluation"
-            echo ""
-            echo "- Repository: \`$GITHUB_REPOSITORY\`"
-            echo "- Commit: \`$GITHUB_SHA\`"
-            echo "- Pull request: \`${{ github.event.pull_request.html_url || 'Manual run' }}\`"
-            echo ""
-            echo "Review the workflow jobs and uploaded artifacts for detailed results."
+            echo "- Repository: $GITHUB_REPOSITORY"
+            echo "- Commit: $GITHUB_SHA"
+            echo "- Pull Request: ${{ github.event.pull_request.html_url || 'Manual run' }}"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload evaluation artifacts
