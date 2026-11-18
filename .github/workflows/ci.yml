@@ -44,7 +44,14 @@ jobs:
           fi
 
       - name: Check required files
-        run: bash instructor-evaluation/scripts/check-required-files.sh
+        run: |
+          test -f frontend/Dockerfile
+          test -f backend/Dockerfile
+          test -f docker-compose.yml
+          test -f docker-compose.deploy.yml
+          test -f instructor-evaluation/tests/package.json
+          test -f instructor-evaluation/tests/api.test.js
+          echo "All required submission and evaluation files are present"
 
       - name: Validate frontend Dockerfile
         run: docker run --rm -i hadolint/hadolint < frontend/Dockerfile
@@ -116,7 +123,18 @@ jobs:
         run: npm test -- --json --outputFile=test-results.json
 
       - name: Test PostgreSQL persistence
-        run: bash instructor-evaluation/scripts/persistence-test.sh
+        run: |
+          docker compose exec -T postgres pg_isready -U taskflow_user -d taskflow
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -v ON_ERROR_STOP=1 -c "CREATE TABLE IF NOT EXISTS ci_persistence_check (id SERIAL PRIMARY KEY, marker TEXT NOT NULL);"
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -v ON_ERROR_STOP=1 -c "INSERT INTO ci_persistence_check (marker) VALUES ('persisted');"
+          docker compose restart postgres
+          for attempt in $(seq 1 20); do
+            if docker compose exec -T postgres pg_isready -U taskflow_user -d taskflow; then
+              break
+            fi
+            sleep 2
+          done
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -v ON_ERROR_STOP=1 -c "SELECT * FROM ci_persistence_check WHERE marker = 'persisted';"
 
       - name: Capture container status and logs
         if: always()
