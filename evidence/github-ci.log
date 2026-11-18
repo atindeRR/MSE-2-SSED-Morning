@@ -1,0 +1,1094 @@
+Validate, build and test submission	Set up job	﻿2026-11-18T04:54:22.3862296Z Current runner version: '2.338.2'
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3884756Z ##[group]Runner Image Provisioner
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3885458Z Hosted Compute Agent
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3885992Z Version: 20261103.629
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3886546Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3887137Z Build Date: 2026-11-03T17:26:59Z
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3887724Z Worker ID: {dc3efbf0-0c53-430a-a946-82f80447611a}
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3888326Z Region: eastus2
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3888837Z Cloud: Azure
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3889318Z ##[endgroup]
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3890412Z ##[group]Operating System
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3891300Z Ubuntu
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3891989Z 26.04.1
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3892411Z LTS
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3892925Z ##[endgroup]
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3893479Z ##[group]Runner Image
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3894045Z Image: ubuntu-26.04
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3894576Z Version: 20261111.196.1
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3895422Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261111.196/images/ubuntu/Ubuntu2604-Readme.md
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3896929Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261111.196
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3898382Z ##[endgroup]
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3899721Z ##[group]GITHUB_TOKEN Permissions
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3902223Z Contents: read
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3902744Z Metadata: read
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3903193Z ##[endgroup]
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3904976Z Secret source: Actions
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3905733Z Cache mode: write
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.3906672Z Prepare workflow directory
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.4169218Z Prepare all required actions
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.4208494Z Getting action download info
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.5936537Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.7081439Z Download action repository 'docker/setup-buildx-action@v3' (SHA:8d2750c68a42422c14e847fe6c8ac0403b4cbd6f)
+Validate, build and test submission	Set up job	2026-11-18T04:54:22.9536909Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+Validate, build and test submission	Set up job	2026-11-18T04:54:23.1590535Z Complete job name: Validate, build and test submission
+Validate, build and test submission	Checkout submitted Pull Request commit	﻿2026-11-18T04:54:23.2345465Z ##[group]Run actions/checkout@v4
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2346349Z with:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2346841Z   repository: mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2347428Z   ref: d284fc94158bdec41d47852650feca757bd02868
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2350917Z   token: ***
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2351359Z   ssh-strict: true
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2352051Z   ssh-user: git
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2352524Z   persist-credentials: true
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2353004Z   clean: true
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2353556Z   sparse-checkout-cone-mode: true
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2354067Z   fetch-depth: 1
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2354542Z   fetch-tags: false
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2355003Z   show-progress: true
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2355451Z   lfs: false
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2355941Z   submodules: false
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2356394Z   set-safe-directory: true
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2356876Z   allow-unsafe-pr-checkout: false
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.2357676Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5005914Z Syncing repository: mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5012278Z ##[group]Getting Git version info
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5015502Z Working directory is '/home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning'
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5099223Z [command]/usr/bin/git version
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5100094Z git version 2.56.1
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5102367Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5107836Z Temporarily overriding HOME='/home/runner/work/_temp/c2110aea-3a47-4373-bee7-18f599e3dcb1' before making global git config changes
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5109639Z Adding repository directory to the temporary git global config as a safe directory
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5111260Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5235145Z Deleting the contents of '/home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning'
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5238804Z ##[group]Initializing the repository
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5243704Z [command]/usr/bin/git init /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5325983Z hint: Using 'master' as the name for the initial branch. This default branch name
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5327572Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5329775Z hint: to use in all of your new repositories, which will suppress this warning,
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5331038Z hint: call:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5331957Z hint:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5332699Z hint: 	git config --global init.defaultBranch <name>
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5333429Z hint:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5334114Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5335255Z hint: 'development'. The just-created branch can be renamed via this command:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5336122Z hint:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5336610Z hint: 	git branch -m <name>
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5337092Z hint:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5337595Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5338517Z Initialized empty Git repository in /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning/.git/
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5347105Z [command]/usr/bin/git remote add origin https://github.com/mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5391442Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5392579Z ##[group]Disabling automatic garbage collection
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5395475Z [command]/usr/bin/git config --local gc.auto 0
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5426209Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5427180Z ##[group]Setting up auth
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5432124Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5466957Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5855678Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.5885243Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.6116291Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.6144447Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.6373439Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.6406894Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.6407676Z ##[group]Fetching the repository
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:23.6414436Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin d284fc94158bdec41d47852650feca757bd02868
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1040321Z From https://github.com/mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1042319Z  * branch            d284fc94158bdec41d47852650feca757bd02868 -> FETCH_HEAD
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1049748Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1050927Z ##[group]Determining the checkout info
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1052253Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1052867Z [command]/usr/bin/git sparse-checkout disable
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1207400Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1244437Z ##[group]Checking out the ref
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1247754Z [command]/usr/bin/git checkout --progress --force d284fc94158bdec41d47852650feca757bd02868
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1419329Z Note: switching to 'd284fc94158bdec41d47852650feca757bd02868'.
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1420257Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1420905Z You are in 'detached HEAD' state. You can look around, make experimental
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1422661Z changes and commit them, and you can discard any commits you make in this
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1423955Z state without impacting any branches by switching back to a branch.
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1424961Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1425731Z If you want to create a new branch to retain commits you create, you may
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1427524Z do so (now or later) by using -c with the switch command. Example:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1428562Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1429028Z   git switch -c <new-branch-name>
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1429830Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1430361Z Or undo this operation with:
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1431173Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1431829Z   git switch -
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1432602Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1433579Z Turn off this advice by setting config variable advice.detachedHead to false
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1434924Z 
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1435854Z HEAD is now at d284fc9 Use numeric runtime users and exec-form health checks
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1439958Z ##[endgroup]
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1468646Z [command]/usr/bin/git log -1 --format=%H
+Validate, build and test submission	Checkout submitted Pull Request commit	2026-11-18T04:54:24.1490808Z d284fc94158bdec41d47852650feca757bd02868
+Validate, build and test submission	Checkout instructor-controlled evaluation files	﻿2026-11-18T04:54:24.1817754Z ##[group]Run actions/checkout@v4
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1818650Z with:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1819329Z   repository: mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1820200Z   ref: main
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1820873Z   path: instructor-evaluation
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1828919Z   token: ***
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1829587Z   ssh-strict: true
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1830284Z   ssh-user: git
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1830972Z   persist-credentials: true
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1831851Z   clean: true
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1832561Z   sparse-checkout-cone-mode: true
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1833420Z   fetch-depth: 1
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1834100Z   fetch-tags: false
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1834805Z   show-progress: true
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1835518Z   lfs: false
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1836167Z   submodules: false
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1836891Z   set-safe-directory: true
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1837703Z   allow-unsafe-pr-checkout: false
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.1838533Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2572702Z Syncing repository: mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2580148Z ##[group]Getting Git version info
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2582377Z Working directory is '/home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning/instructor-evaluation'
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2603421Z [command]/usr/bin/git version
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2639926Z git version 2.56.1
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2658657Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2670497Z Temporarily overriding HOME='/home/runner/work/_temp/8491752f-7fb6-400d-a5a1-28f8731cb657' before making global git config changes
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2673437Z Adding repository directory to the temporary git global config as a safe directory
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2676699Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning/instructor-evaluation
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2707164Z ##[group]Initializing the repository
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.2712385Z [command]/usr/bin/git init /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning/instructor-evaluation
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4278006Z hint: Using 'master' as the name for the initial branch. This default branch name
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4278812Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4279383Z hint: to use in all of your new repositories, which will suppress this warning,
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4279846Z hint: call:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4280149Z hint:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4280509Z hint: 	git config --global init.defaultBranch <name>
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4280940Z hint:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4281341Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4282213Z hint: 'development'. The just-created branch can be renamed via this command:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4282855Z hint:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4283252Z hint: 	git branch -m <name>
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4283618Z hint:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4284004Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4284825Z Initialized empty Git repository in /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning/instructor-evaluation/.git/
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4288014Z [command]/usr/bin/git remote add origin https://github.com/mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4322050Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4322740Z ##[group]Disabling automatic garbage collection
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4325125Z [command]/usr/bin/git config --local gc.auto 0
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4352577Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4353589Z ##[group]Setting up auth
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4358396Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4385668Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4619566Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4647822Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4883443Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.4912744Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.5144052Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.5178376Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.5179330Z ##[group]Fetching the repository
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.5186780Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +refs/heads/main*:refs/remotes/origin/main* +refs/tags/main*:refs/tags/main*
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8139284Z From https://github.com/mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8140669Z  * [new branch]      main       -> origin/main
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8144937Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8146204Z ##[group]Determining the checkout info
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8152598Z [command]/usr/bin/git branch --list --remote origin/main
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8175207Z   origin/main
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8183476Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8191288Z [command]/usr/bin/git sparse-checkout disable
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8222736Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8251999Z ##[group]Checking out the ref
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8254262Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8356676Z Switched to a new branch 'main'
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8357706Z branch 'main' set up to track 'origin/main'.
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8362636Z ##[endgroup]
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8396243Z [command]/usr/bin/git log -1 --format=%H
+Validate, build and test submission	Checkout instructor-controlled evaluation files	2026-11-18T04:54:24.8419158Z d284fc94158bdec41d47852650feca757bd02868
+Validate, build and test submission	Show submission identity	﻿2026-11-18T04:54:24.8687376Z ##[group]Run echo "Repository: $GITHUB_REPOSITORY"
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8687990Z [36;1mecho "Repository: $GITHUB_REPOSITORY"[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8688467Z [36;1mecho "Commit: $GITHUB_SHA"[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8688904Z [36;1mif [ -f submission.json ]; then[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8689315Z [36;1m  cat submission.json[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8689675Z [36;1melse[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8690055Z [36;1m  echo "::warning::submission.json is missing"[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8690468Z [36;1mfi[0m
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8740147Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8740562Z ##[endgroup]
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8824302Z Repository: mg8273/MSE-2-SSED-Morning
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8824785Z Commit: d284fc94158bdec41d47852650feca757bd02868
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8846605Z {
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8846982Z   "name": "Manu Garg",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8847351Z   "roll_number": "2400291520149",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8847760Z   "section": "CSE-AI-C",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8848143Z   "branch": "CSE (Artificial Intelligence)",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8848630Z   "github_username": "mg8273",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8849009Z   "dockerhub_username": "mg8273",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8849754Z   "repository": "https://github.com/mg8273/MSE-2-SSED-Morning",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8850268Z   "frontend_image": "docker.io/mg8273/frontend:latest",
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8850731Z   "backend_image": "docker.io/mg8273/backend:latest"
+Validate, build and test submission	Show submission identity	2026-11-18T04:54:24.8851129Z }
+Validate, build and test submission	Check required files	﻿2026-11-18T04:54:24.8887884Z ##[group]Run bash instructor-evaluation/scripts/check-required-files.sh
+Validate, build and test submission	Check required files	2026-11-18T04:54:24.8888531Z [36;1mbash instructor-evaluation/scripts/check-required-files.sh[0m
+Validate, build and test submission	Check required files	2026-11-18T04:54:24.8931399Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Check required files	2026-11-18T04:54:24.8931877Z ##[endgroup]
+Validate, build and test submission	Check required files	2026-11-18T04:54:24.9016428Z Required submission files present; deployment Compose uses images.
+Validate, build and test submission	Validate frontend Dockerfile	﻿2026-11-18T04:54:24.9051894Z ##[group]Run docker run --rm -i hadolint/hadolint < frontend/Dockerfile
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:24.9052538Z [36;1mdocker run --rm -i hadolint/hadolint < frontend/Dockerfile[0m
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:24.9093859Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:24.9094264Z ##[endgroup]
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:25.0070441Z Unable to find image 'hadolint/hadolint:latest' locally
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:25.3012071Z latest: Pulling from hadolint/hadolint
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:25.4405995Z 83cf56c1bf8f: Pulling fs layer
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:25.7100385Z 3c27a54fbbc3: Download complete
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:25.7102192Z 83cf56c1bf8f: Download complete
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:25.7742698Z 83cf56c1bf8f: Pull complete
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:28.0006145Z Digest: sha256:32dac94127fd60b7b7e3fbfc65e1383b9b5e25c9bfd7b8536de7a539fe68a12d
+Validate, build and test submission	Validate frontend Dockerfile	2026-11-18T04:54:28.0006602Z Status: Downloaded newer image for hadolint/hadolint:latest
+Validate, build and test submission	Validate backend Dockerfile	﻿2026-11-18T04:54:28.0053549Z ##[group]Run docker run --rm -i hadolint/hadolint < backend/Dockerfile
+Validate, build and test submission	Validate backend Dockerfile	2026-11-18T04:54:28.0054093Z [36;1mdocker run --rm -i hadolint/hadolint < backend/Dockerfile[0m
+Validate, build and test submission	Validate backend Dockerfile	2026-11-18T04:54:28.0100167Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Validate backend Dockerfile	2026-11-18T04:54:28.0100401Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	﻿2026-11-18T04:54:28.2540171Z ##[group]Run docker/setup-buildx-action@v3
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2540428Z with:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2540609Z   driver: docker-container
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2540828Z   use: true
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2540992Z   keep-state: false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2541164Z   cache-binary: true
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2541341Z   cleanup: true
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2541508Z   install: false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.2541902Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.5699202Z (node:2550) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.5744040Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.5746504Z ##[group]Docker info
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.5767434Z [command]/usr/bin/docker version
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6002152Z Client: Docker Engine - Community
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6002925Z  Version:           29.4.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6003280Z  API version:       1.54
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6003595Z  Go version:        go1.26.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6004131Z  Git commit:        055a478
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6004455Z  Built:             Fri May  1 10:24:04 2026
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6004818Z  OS/Arch:           linux/amd64
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6005158Z  Context:           default
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6005352Z 
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6005485Z Server: Docker Engine - Community
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6005804Z  Engine:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6006044Z   Version:          29.4.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6006376Z   API version:      1.54 (minimum version 1.40)
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6006768Z   Go version:       go1.26.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6007072Z   Git commit:       d329809
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6007383Z   Built:            Fri May  1 10:24:04 2026
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6007759Z   OS/Arch:          linux/amd64
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6008066Z   Experimental:     false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6008334Z  containerd:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6008564Z   Version:          v2.4.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6008917Z   GitCommit:        b7a25261e029d68978bbf290df0a62fc819b3c51
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6009316Z  runc:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6009557Z   Version:          1.5.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6009849Z   GitCommit:        v1.5.2-0-g29dd3dc2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6010192Z  docker-init:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6010818Z   Version:          0.19.0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6011110Z   GitCommit:        de40ad0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:28.6044278Z [command]/usr/bin/docker info
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7780465Z Client: Docker Engine - Community
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7780860Z  Version:    29.4.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7781097Z  Context:    default
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7781338Z  Debug Mode: false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7781745Z  Plugins:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7781982Z   buildx: Docker Buildx (Docker Inc.)
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7782263Z     Version:  v0.38.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7782573Z     Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7783112Z   compose: Docker Compose (Docker Inc.)
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7783391Z     Version:  v5.1.3
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7783705Z     Path:     /usr/libexec/docker/cli-plugins/docker-compose
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7783930Z 
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7784000Z Server:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7784157Z  Containers: 0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7784322Z   Running: 0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7784484Z   Paused: 0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7784841Z   Stopped: 0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7785057Z  Images: 7
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7785290Z  Server Version: 29.4.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7785568Z  Storage Driver: overlayfs
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7785882Z   driver-type: io.containerd.snapshotter.v1
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7786244Z  Logging Driver: json-file
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7786536Z  Cgroup Driver: systemd
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7786814Z  Cgroup Version: 2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7787068Z  Plugins:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7787285Z   Volume: local
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7787488Z   Network: bridge host ipvlan macvlan null overlay
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7787856Z   Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7788159Z  CDI spec directories:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7788334Z   /etc/cdi
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7788490Z   /var/run/cdi
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7789052Z  Swarm: inactive
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7789237Z  Runtimes: io.containerd.runc.v2 runc
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7789457Z  Default Runtime: runc
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7789645Z  Init Binary: docker-init
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7789892Z  containerd version: b7a25261e029d68978bbf290df0a62fc819b3c51
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7790171Z  runc version: v1.5.2-0-g29dd3dc2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7790399Z  init version: de40ad0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7790592Z  Security Options:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7790765Z   apparmor
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7790920Z   seccomp
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7791077Z    Profile: builtin
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7791245Z   cgroupns
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7791401Z  Kernel Version: 7.0.0-1019-azure
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7791954Z  Operating System: Ubuntu 26.04.1 LTS
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7792173Z  OSType: linux
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7792352Z  Architecture: x86_64
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7792531Z  CPUs: 4
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7792691Z  Total Memory: 15.61GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7792886Z  Name: runnervmccnms
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7793079Z  ID: 2e9a7954-494c-4cfc-bff9-50a0425c70dc
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7793319Z  Docker Root Dir: /var/lib/docker
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7793521Z  Debug Mode: false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7793702Z  Username: githubactions
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7793895Z  Experimental: false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7794071Z  Insecure Registries:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7797347Z   ::1/128
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7797572Z   127.0.0.0/8
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7797758Z  Live Restore Enabled: false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7797985Z  Firewall Backend: iptables
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7798117Z 
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:31.7805508Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0073359Z ##[group]Buildx version
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0096501Z [command]/usr/bin/docker buildx version
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0554492Z github.com/docker/buildx v0.38.2 3c4cbd35852fc1a476923627a780a7836c28b654
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0586000Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0743127Z ##[group]Inspecting default docker context
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0882420Z [
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0882718Z   {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0882948Z     "Name": "default",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0883270Z     "Metadata": {},
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0883531Z     "Endpoints": {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0883774Z       "docker": {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0884531Z         "Host": "unix:///var/run/docker.sock",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0884914Z         "SkipTLSVerify": false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0885227Z       }
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0885453Z     },
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0885689Z     "TLSMaterial": {},
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0885951Z     "Storage": {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0886232Z       "MetadataPath": "<IN MEMORY>",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0886572Z       "TLSPath": "<IN MEMORY>"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0886872Z     }
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0887079Z   }
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0887276Z ]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0887762Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.0888085Z ##[group]Creating a new builder instance
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.2150756Z [command]/usr/bin/docker buildx create --name builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e --driver docker-container --buildkitd-flags --allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host --use
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.3419216Z builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.3459759Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.3460411Z ##[group]Booting builder
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.3490476Z [command]/usr/bin/docker buildx inspect --bootstrap --builder builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.4157125Z #1 [internal] booting buildkit
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:32.5667340Z #1 pulling image moby/buildkit:buildx-stable-1
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:35.0901431Z #1 pulling image moby/buildkit:buildx-stable-1 2.7s done
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:35.7149715Z #1 creating container buildx_buildkit_builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.3953159Z #1 creating container buildx_buildkit_builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e0 1.7s done
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4312580Z #1 DONE 5.0s
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4714117Z Name:          builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4714868Z Driver:        docker-container
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4715438Z Last Activity: 2026-11-18 04:54:32 +0000 UTC
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4716313Z 
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4716393Z Nodes:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4716653Z Name:                  builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e0
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4716974Z Endpoint:              unix:///var/run/docker.sock
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4717221Z Status:                running
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4717650Z BuildKit daemon flags: --allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4718080Z BuildKit version:      v0.34.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4718398Z Platforms:             linux/amd64, linux/amd64/v2, linux/amd64/v3, linux/amd64/v4, linux/386
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4718747Z Labels:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4718970Z  org.mobyproject.buildkit.worker.executor:         oci
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4719299Z  org.mobyproject.buildkit.worker.hostname:         349d8b145c64
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4719626Z  org.mobyproject.buildkit.worker.network:          host
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4719937Z  org.mobyproject.buildkit.worker.oci.process-mode: sandbox
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4720265Z  org.mobyproject.buildkit.worker.selinux.enabled:  false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4720583Z  org.mobyproject.buildkit.worker.snapshotter:      overlayfs
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4720862Z GC Policy rule#0:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4721034Z  All:            false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4721310Z  Filters:        type==source.local type==exec.cachemount type==source.git.checkout
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4721838Z  Keep Duration:  48h0m0s
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4722045Z  Max Used Space: 488.3MiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4722230Z GC Policy rule#1:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4722396Z  All:            false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4722571Z  Keep Duration:  1440h0m0s
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4722753Z  Reserved Space: 9.313GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4722933Z  Max Used Space: 93.13GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4723109Z  Min Free Space: 27.01GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4723292Z GC Policy rule#2:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4723464Z  All:            false
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4723632Z  Reserved Space: 9.313GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4723808Z  Max Used Space: 93.13GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4723993Z  Min Free Space: 27.01GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4724169Z GC Policy rule#3:
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4724329Z  All:            true
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4724686Z  Reserved Space: 9.313GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4724866Z  Max Used Space: 93.13GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4725042Z  Min Free Space: 27.01GiB
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.4772284Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5837256Z ##[group]Inspect builder
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5873609Z {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5873927Z   "nodes": [
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5874187Z     {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5874517Z       "name": "builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e0",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5875008Z       "endpoint": "unix:///var/run/docker.sock",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5875326Z       "status": "running",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5875763Z       "buildkitd-flags": "--allow-insecure-entitlement security.insecure --allow-insecure-entitlement network.host",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5876299Z       "buildkit": "v0.34.2",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5876622Z       "platforms": "linux/amd64,linux/amd64/v2,linux/amd64/v3,linux/amd64/v4,linux/386",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5876985Z       "features": {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5877335Z         "Automatically load images to the Docker Engine image store": true,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5877671Z         "Cache export": true,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5877879Z         "Direct push": true,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5878081Z         "Docker exporter": true,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5878296Z         "Multi-platform build": true,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5878584Z         "OCI exporter": true
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5878804Z       },
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5878960Z       "labels": {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5879183Z         "org.mobyproject.buildkit.worker.executor": "oci",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5879510Z         "org.mobyproject.buildkit.worker.hostname": "349d8b145c64",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5879845Z         "org.mobyproject.buildkit.worker.network": "host",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5880181Z         "org.mobyproject.buildkit.worker.oci.process-mode": "sandbox",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5880535Z         "org.mobyproject.buildkit.worker.selinux.enabled": "false",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5881174Z         "org.mobyproject.buildkit.worker.snapshotter": "overlayfs"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5881817Z       },
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5882019Z       "gcPolicy": [
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5882190Z         {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5882346Z           "all": false,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5882553Z           "filter": [
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5882822Z             "type==source.local type==exec.cachemount type==source.git.checkout"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5883161Z           ],
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5883339Z           "keepDuration": "48h0m0s",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5883556Z           "maxUsedSpace": "488.3MiB"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5883771Z         },
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5883929Z         {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5884081Z           "all": false,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5884269Z           "keepDuration": "1440h0m0s",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5884502Z           "reservedSpace": "9.313GiB",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5884753Z           "maxUsedSpace": "93.13GiB",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5885003Z           "minFreeSpace": "27.01GiB"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5885201Z         },
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5885351Z         {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5885505Z           "all": false,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5885688Z           "reservedSpace": "9.313GiB",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5885894Z           "maxUsedSpace": "93.13GiB",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5886100Z           "minFreeSpace": "27.01GiB"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5886315Z         },
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5886467Z         {
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5886621Z           "all": true,
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5886824Z           "reservedSpace": "9.313GiB",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5887048Z           "maxUsedSpace": "93.13GiB",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5887255Z           "minFreeSpace": "27.01GiB"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5887465Z         }
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5887625Z       ]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5887779Z     }
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5887936Z   ],
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5888140Z   "name": "builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5888430Z   "driver": "docker-container",
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5888678Z   "lastActivity": "2026-11-18T04:54:32.000Z"
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5888924Z }
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5889325Z ##[endgroup]
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5889641Z ##[group]BuildKit version
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5890080Z builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e0: v0.34.2
+Validate, build and test submission	Set up Docker Buildx	2026-11-18T04:54:37.5890469Z ##[endgroup]
+Validate, build and test submission	Create CI environment file	﻿2026-11-18T04:54:37.6005516Z ##[group]Run cat > .env <<'EOF'
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6005788Z [36;1mcat > .env <<'EOF'[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6005996Z [36;1mPOSTGRES_DB=taskflow[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6006203Z [36;1mPOSTGRES_USER=taskflow_user[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6006448Z [36;1mPOSTGRES_PASSWORD=ci_test_password_123[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6007093Z [36;1mDATABASE_URL=***postgres:5432/taskflow[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6007379Z [36;1mREDIS_URL=redis://redis:6379[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6007663Z [36;1mJWT_SECRET=ci_only_secret_change_for_real_deployment[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6007935Z [36;1mPORT=3000[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6008108Z [36;1mEOF[0m
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6052957Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Create CI environment file	2026-11-18T04:54:37.6053196Z ##[endgroup]
+Validate, build and test submission	Validate Docker Compose configuration	﻿2026-11-18T04:54:37.6167967Z ##[group]Run docker compose config --quiet
+Validate, build and test submission	Validate Docker Compose configuration	2026-11-18T04:54:37.6168260Z [36;1mdocker compose config --quiet[0m
+Validate, build and test submission	Validate Docker Compose configuration	2026-11-18T04:54:37.6209763Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Validate Docker Compose configuration	2026-11-18T04:54:37.6209998Z ##[endgroup]
+Validate, build and test submission	Build frontend and backend images	﻿2026-11-18T04:54:37.7699014Z ##[group]Run docker compose build
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:37.7699297Z [36;1mdocker compose build[0m
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:37.7744341Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:37.7744585Z ##[endgroup]
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:37.9234219Z  Image mse-2-ssed-morning-frontend Building 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:37.9234850Z  Image mse-2-ssed-morning-backend Building 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:37.9723255Z #1 [internal] load local bake definitions
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.1226062Z #1 reading from stdin 1.13kB done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.1226635Z #1 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3887400Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3888068Z #2 [backend internal] load build definition from Dockerfile
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3888584Z #2 transferring dockerfile: 548B 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3888931Z #2 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3889081Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3889276Z #3 [frontend internal] load build definition from Dockerfile
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3889755Z #3 transferring dockerfile: 470B 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3890093Z #3 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3890229Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3890476Z #4 [auth] library/node:pull token for registry-1.docker.io
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3890873Z #4 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3891019Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3891269Z #5 [auth] nginxinc/nginx-unprivileged:pull token for registry-1.docker.io
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3891929Z #5 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3892062Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.3892334Z #6 [frontend internal] load metadata for docker.io/library/node:22.21.1-alpine
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8136475Z #6 DONE 0.5s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8136751Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8137110Z #7 [frontend internal] load metadata for docker.io/nginxinc/nginx-unprivileged:1.27-alpine
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8137666Z #7 DONE 0.5s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8137801Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8138636Z #8 [backend internal] load .dockerignore
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8138959Z #8 transferring context: 109B done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8139168Z #8 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8139301Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8139392Z #9 [frontend internal] load .dockerignore
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8139623Z #9 transferring context: 109B done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8139847Z #9 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8139946Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8140034Z #10 [backend internal] load build context
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8140281Z #10 transferring context: 53.49kB done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8140492Z #10 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8140584Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8140677Z #11 [frontend internal] load build context
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8140904Z #11 transferring context: 69.06kB done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8141111Z #11 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8141206Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8142212Z #12 [backend 1/5] FROM docker.io/library/node:22.21.1-alpine@sha256:0340fa682d72068edf603c305bfbc10e23219fb0e40df58d9ea4d6f33a9798bf
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8143089Z #12 resolve docker.io/library/node:22.21.1-alpine@sha256:0340fa682d72068edf603c305bfbc10e23219fb0e40df58d9ea4d6f33a9798bf done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.8143668Z #12 sha256:df42fde706147d8465782dcb26b2297f24a734079eadfcd035ceb21ee351e36e 448B / 448B 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.9408710Z #12 sha256:df42fde706147d8465782dcb26b2297f24a734079eadfcd035ceb21ee351e36e 448B / 448B 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.9410039Z #12 sha256:1e51518bad62c492c11e17439908faa5137221cf82279cc330086334b7d93c21 1.26MB / 1.26MB 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.9411204Z #12 sha256:d53378de7b14aa8ba0119f9adbe3097551dcc406ae16048777b5c24be77371e4 1.05MB / 51.60MB 0.2s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:38.9412366Z #12 sha256:1074353eec0db2c1d81d5af2671e56e00cf5738486f5762609ea33d606f88612 3.86MB / 3.86MB 0.2s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.0485581Z #12 sha256:1074353eec0db2c1d81d5af2671e56e00cf5738486f5762609ea33d606f88612 3.86MB / 3.86MB 0.2s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.0487195Z #12 extracting sha256:1074353eec0db2c1d81d5af2671e56e00cf5738486f5762609ea33d606f88612 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.1936624Z #12 sha256:d53378de7b14aa8ba0119f9adbe3097551dcc406ae16048777b5c24be77371e4 51.60MB / 51.60MB 0.3s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.1937566Z #12 extracting sha256:1074353eec0db2c1d81d5af2671e56e00cf5738486f5762609ea33d606f88612 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.3240647Z #12 sha256:d53378de7b14aa8ba0119f9adbe3097551dcc406ae16048777b5c24be77371e4 51.60MB / 51.60MB 0.5s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4951497Z #12 ...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4951932Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4952575Z #13 [frontend stage-1 1/3] FROM docker.io/nginxinc/nginx-unprivileged:1.27-alpine@sha256:65e3e85dbaed8ba248841d9d58a899b6197106c23cb0ff1a132b7bfe0547e4c0
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4953367Z #13 resolve docker.io/nginxinc/nginx-unprivileged:1.27-alpine@sha256:65e3e85dbaed8ba248841d9d58a899b6197106c23cb0ff1a132b7bfe0547e4c0 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4954315Z #13 sha256:f79056b7935ee1a11822640a4e32333a6fccfc86efddab21fd6d7300edf2d054 1.40kB / 1.40kB 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4955548Z #13 sha256:400c1de759f415b6b2a0ba96bcef3e516f26171d5930757dcddc3d6971bf3e81 15.52MB / 15.52MB 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4956690Z #13 sha256:048c29a613179205d158f722a495c6b3bbd77439864c075ea5db2d42331d1dcc 956B / 956B 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4957474Z #13 sha256:b16687ec2b7bf8ddce81f21d836d6f9821f1b864f3e8e7fad1734d8295cb4a12 1.20kB / 1.20kB 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4958143Z #13 sha256:8f7ead5f2dc0fb85f6d6b3c81284ccd4b80b783030d202a18ba5ccc5ee98f451 403B / 403B 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4958984Z #13 sha256:945f5aaec3d7649d815440e6030ec4e4f562488ee50fa779a69f920cab3c5871 2.80kB / 2.80kB 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4959869Z #13 sha256:576fe098e8467d48ff489eb63f411a74b9e3769957a5c26462c4468a731c3e3d 1.79MB / 1.79MB 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4960558Z #13 sha256:513bae533eb237e219e2d3412e0dbb9cd94c25b2b84530b5131fda9512c0e773 627B / 627B 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4961685Z #13 sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 3.64MB / 3.64MB 0.3s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4962639Z #13 extracting sha256:f18232174bc91741fdf3da96d85011092101a032a93a388b79e99e69c2d5c870 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4963362Z #13 extracting sha256:576fe098e8467d48ff489eb63f411a74b9e3769957a5c26462c4468a731c3e3d 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4963727Z #13 DONE 0.7s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4963897Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4964222Z #12 [backend 1/5] FROM docker.io/library/node:22.21.1-alpine@sha256:0340fa682d72068edf603c305bfbc10e23219fb0e40df58d9ea4d6f33a9798bf
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4964930Z #12 sha256:d53378de7b14aa8ba0119f9adbe3097551dcc406ae16048777b5c24be77371e4 51.60MB / 51.60MB 0.5s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.4965687Z #12 extracting sha256:d53378de7b14aa8ba0119f9adbe3097551dcc406ae16048777b5c24be77371e4
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8197148Z #12 ...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8199060Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8199960Z #13 [frontend stage-1 1/3] FROM docker.io/nginxinc/nginx-unprivileged:1.27-alpine@sha256:65e3e85dbaed8ba248841d9d58a899b6197106c23cb0ff1a132b7bfe0547e4c0
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8201497Z #13 extracting sha256:945f5aaec3d7649d815440e6030ec4e4f562488ee50fa779a69f920cab3c5871 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8202476Z #13 extracting sha256:513bae533eb237e219e2d3412e0dbb9cd94c25b2b84530b5131fda9512c0e773 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8203262Z #13 extracting sha256:048c29a613179205d158f722a495c6b3bbd77439864c075ea5db2d42331d1dcc done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8204553Z #13 extracting sha256:8f7ead5f2dc0fb85f6d6b3c81284ccd4b80b783030d202a18ba5ccc5ee98f451 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8205272Z #13 extracting sha256:b16687ec2b7bf8ddce81f21d836d6f9821f1b864f3e8e7fad1734d8295cb4a12 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8205971Z #13 extracting sha256:f79056b7935ee1a11822640a4e32333a6fccfc86efddab21fd6d7300edf2d054 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8206472Z #13 extracting sha256:400c1de759f415b6b2a0ba96bcef3e516f26171d5930757dcddc3d6971bf3e81 0.3s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.8206939Z #13 DONE 1.1s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.9702643Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:39.9703274Z #14 [frontend stage-1 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9970957Z #14 ...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9971216Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9971885Z #12 [backend 1/5] FROM docker.io/library/node:22.21.1-alpine@sha256:0340fa682d72068edf603c305bfbc10e23219fb0e40df58d9ea4d6f33a9798bf
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9972527Z #12 extracting sha256:d53378de7b14aa8ba0119f9adbe3097551dcc406ae16048777b5c24be77371e4 1.3s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9973066Z #12 extracting sha256:1e51518bad62c492c11e17439908faa5137221cf82279cc330086334b7d93c21 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9973934Z #12 extracting sha256:df42fde706147d8465782dcb26b2297f24a734079eadfcd035ceb21ee351e36e 0.1s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:40.9974290Z #12 DONE 2.1s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.0617716Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.0618465Z #15 [frontend 2/5] WORKDIR /app
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2244001Z #15 DONE 0.2s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2244275Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2244646Z #14 [frontend stage-1 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2244974Z #14 DONE 1.2s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2245086Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2245257Z #16 [frontend build 3/6] COPY package.json package-lock.json ./
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2245534Z #16 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2245625Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2245747Z #17 [backend 3/5] COPY package.json package-lock.json ./
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2245998Z #17 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2246122Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:41.2246274Z #18 [backend 4/5] RUN npm ci --omit=dev && npm cache clean --force
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.5396668Z #18 1.463 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.5397190Z #18 1.463 added 109 packages, and audited 110 packages in 1s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.5397601Z #18 1.463 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6904703Z #18 1.464 19 packages are looking for funding
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6905209Z #18 1.464   run `npm fund` for details
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6905536Z #18 1.464 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6905787Z #18 1.464 found 0 vulnerabilities
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6906096Z #18 1.466 npm notice
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6906511Z #18 1.466 npm notice New major version of npm available! 10.9.4 -> 12.2.3
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6907165Z #18 1.466 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6907746Z #18 1.466 npm notice To update run: npm install -g npm@12.2.3
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.6908202Z #18 1.466 npm notice
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:42.7042870Z #18 1.630 npm warn using --force Recommended protections disabled.
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6855246Z #18 DONE 2.6s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6855538Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6855674Z #19 [frontend build 4/6] RUN npm ci
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6856074Z #19 1.995 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6856559Z #19 1.995 added 62 packages, and audited 63 packages in 2s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6857005Z #19 1.995 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6857301Z #19 1.995 7 packages are looking for funding
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6857674Z #19 1.995   run `npm fund` for details
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6858000Z #19 2.004 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6858301Z #19 2.004 2 vulnerabilities (1 moderate, 1 high)
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6858573Z #19 2.004 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6858909Z #19 2.004 To address all issues (including breaking changes), run:
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6859215Z #19 2.004   npm audit fix --force
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6859521Z #19 2.004 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6859756Z #19 2.004 Run `npm audit` for details.
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6860043Z #19 2.005 npm notice
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6860417Z #19 2.005 npm notice New major version of npm available! 10.9.4 -> 12.2.3
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6861415Z #19 2.005 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6862129Z #19 2.005 npm notice To update run: npm install -g npm@12.2.3
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.6862560Z #19 2.005 npm notice
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8952357Z #19 DONE 2.6s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8952600Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8952745Z #20 [frontend build 5/6] COPY . .
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8953066Z #20 DONE 0.1s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8953214Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8953405Z #21 [backend 5/5] COPY --chown=node:node src ./src
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8953770Z #21 DONE 0.1s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8953913Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8954045Z #22 [backend] exporting to oci image format
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:43.8954392Z #22 exporting layers
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:44.0331310Z #22 exporting layers 0.3s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:44.1766159Z #22 exporting manifest sha256:b80b2b91b92f55f6f396cfc0e670cb43123ca243d9085dde2d05092b7d0ab7f1 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:44.1769480Z #22 exporting config sha256:747bdca99bd7ec142f619a47893e64bd5e310e94638fff63a698141ec35def87 done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:44.1770182Z #22 sending tarball
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3301396Z #22 ...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3302012Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3302631Z #23 [frontend build 6/6] RUN npm run build
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3303017Z #23 0.160 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3303287Z #23 0.160 > taskflow-frontend@1.0.0 build
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3303791Z #23 0.160 > vite build
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3304060Z #23 0.160 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3304344Z #23 0.435 vite v5.4.21 building for production...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3304732Z #23 0.509 transforming...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3308787Z #23 1.324 ✓ 30 modules transformed.
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3309432Z #23 1.452 rendering chunks...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3310108Z #23 1.461 computing gzip size...
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3310980Z #23 1.469 dist/index.html                   0.36 kB │ gzip:  0.26 kB
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3312007Z #23 1.469 dist/assets/index-CSCkzEz8.css    3.68 kB │ gzip:  1.35 kB
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3312908Z #23 1.469 dist/assets/index-Dp5VgsuS.js   147.70 kB │ gzip: 47.52 kB
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3314704Z #23 1.470 ✓ built in 1.00s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.3314983Z #23 DONE 2.6s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.4667955Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.4669240Z #24 [frontend stage-1 3/3] COPY --from=build /app/dist /usr/share/nginx/html
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.4670019Z #24 DONE 0.1s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.4670180Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.4670317Z #22 [backend] exporting to oci image format
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9600292Z #22 sending tarball 2.7s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9601764Z #22 DONE 3.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9601987Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9602101Z #25 importing to docker
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9602380Z #25 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9602532Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9602704Z #26 [backend] resolving provenance for metadata file
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9602964Z #26 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9603061Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9603164Z #27 [frontend] exporting to oci image format
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9603410Z #27 exporting layers 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9603795Z #27 exporting manifest sha256:41aea05a535099e7d688ba7c710191c022018f4860f6618abb4d52bd7a07f263 0.0s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:46.9604651Z #27 exporting config sha256:707485f6666687fa0855ccc03a089a597538140ca686e3e9df90dc4e65b2613c done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3157677Z #27 sending tarball 0.8s done
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3158105Z #27 DONE 0.8s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3158246Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3158372Z #28 importing to docker
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3158653Z #28 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3158787Z 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3158962Z #29 [frontend] resolving provenance for metadata file
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3159372Z #29 DONE 0.0s
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3159898Z  Image mse-2-ssed-morning-frontend Built 
+Validate, build and test submission	Build frontend and backend images	2026-11-18T04:54:47.3160245Z  Image mse-2-ssed-morning-backend Built 
+Validate, build and test submission	Start application stack	﻿2026-11-18T04:54:47.3228907Z ##[group]Run docker compose up -d
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.3229192Z [36;1mdocker compose up -d[0m
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.3272553Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.3272779Z ##[endgroup]
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.4057207Z  Image redis:7.4-alpine Pulling 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.4057728Z  Image postgres:16-alpine Pulling 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7419009Z  b7106f8586ee Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7419447Z  f997efa53d88 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7419786Z  a2d17f5b24d5 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7420099Z  881fc932939e Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7420393Z  f85a33377d83 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7420647Z  ea98517a315c Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7420849Z  86cc7190d1c0 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7421068Z  5959c7ea857a Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7421293Z  5788ee6f91dc Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7421719Z  6bceb0db2fd1 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7422034Z  41713cbe7496 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7785553Z  710f3da1112f Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7786062Z  4a603bc2424c Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7786405Z  6c0bde7286d0 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7787007Z  0e50696bc150 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7787317Z  f55179448640 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7787646Z  ad83137ff0b2 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.7787968Z  4f4fb700ef54 Pulling fs layer 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8093988Z  4f4fb700ef54 Already exists 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8097781Z  4a603bc2424c Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8098238Z  f997efa53d88 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8098994Z  86cc7190d1c0 Downloading 128B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8106088Z  5788ee6f91dc Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8106459Z  41713cbe7496 Downloading 900kB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8114524Z  b7106f8586ee Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8116264Z  f85a33377d83 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8118127Z  ea98517a315c Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8127246Z  5959c7ea857a Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.8128021Z  6bceb0db2fd1 Downloading 6.108kB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9093306Z  a2d17f5b24d5 Downloading 16.78MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9100554Z  0e50696bc150 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9102102Z  881fc932939e Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9122544Z  6bceb0db2fd1 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9123229Z  89872578f4c5 Downloading 44.3kB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9159661Z  86cc7190d1c0 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9160513Z  41713cbe7496 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9160871Z  ad83137ff0b2 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9169227Z  6c0bde7286d0 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9169917Z  f55179448640 Downloading 7.34MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9196322Z  710f3da1112f Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9466924Z  881fc932939e Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:47.9514772Z  710f3da1112f Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0199384Z  df1cd84c95ef Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0199798Z  a2d17f5b24d5 Downloading 36.7MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0200945Z  89872578f4c5 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0233359Z  dfed3a5d50b9 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0234451Z  5864e364268f Downloading 463.4kB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0234786Z  f55179448640 Downloading 12.42MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0366680Z  710f3da1112f Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.0397428Z  881fc932939e Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1081191Z  a2d17f5b24d5 Downloading 62.91MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1102157Z  f55179448640 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1113600Z  5864e364268f Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1129583Z  5788ee6f91dc Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1211064Z  ea98517a315c Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1254105Z  ad83137ff0b2 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1264624Z  881fc932939e Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1279146Z  6c0bde7286d0 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1293223Z  710f3da1112f Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.1318101Z  41713cbe7496 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.2085136Z  a2d17f5b24d5 Downloading 96.47MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.2100423Z  f997efa53d88 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.2180618Z  ad83137ff0b2 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.2203935Z  f55179448640 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.3082720Z  a2d17f5b24d5 Downloading 111.5MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.3150143Z  f55179448640 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.4085067Z  a2d17f5b24d5 Downloading 111.5MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.5084813Z  a2d17f5b24d5 Downloading 111.5MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.6086868Z  a2d17f5b24d5 Downloading 111.5MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.7080115Z  a2d17f5b24d5 Downloading 111.5MB
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.7131248Z  f55179448640 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.8083170Z  a2d17f5b24d5 Download complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.8087259Z  4f4fb700ef54 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.8135309Z  0e50696bc150 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.8174754Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.8319397Z  4a603bc2424c Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.8328194Z  Image redis:7.4-alpine Pulled 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:48.9148861Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.0151178Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.1163035Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.2156926Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.3163609Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.4167477Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.5144896Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.6158171Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.7160092Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.8158750Z  a2d17f5b24d5 Extracting 1B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:49.9159497Z  a2d17f5b24d5 Extracting 2B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.0179682Z  a2d17f5b24d5 Extracting 2B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3177589Z  a2d17f5b24d5 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3626406Z  b7106f8586ee Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3650622Z  f85a33377d83 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3663795Z  5959c7ea857a Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3673155Z  6bceb0db2fd1 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3683174Z  86cc7190d1c0 Pull complete 0B
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.3696369Z  Image postgres:16-alpine Pulled 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4039654Z  Network mse-2-ssed-morning_data Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4309594Z  Network mse-2-ssed-morning_data Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4317405Z  Network mse-2-ssed-morning_web Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4559404Z  Network mse-2-ssed-morning_web Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4563160Z  Volume mse-2-ssed-morning_postgres_data Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4574048Z  Volume mse-2-ssed-morning_postgres_data Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4578132Z  Container mse-2-ssed-morning-postgres-1 Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:50.4578538Z  Container mse-2-ssed-morning-redis-1 Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.2661173Z  Container mse-2-ssed-morning-redis-1 Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.2661722Z  Container mse-2-ssed-morning-postgres-1 Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.2662071Z  Container mse-2-ssed-morning-backend-1 Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.2860593Z  Container mse-2-ssed-morning-backend-1 Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.2869467Z  Container mse-2-ssed-morning-frontend-1 Creating 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.6469096Z  Container mse-2-ssed-morning-frontend-1 Created 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.6612760Z  Container mse-2-ssed-morning-redis-1 Starting 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:53.6613457Z  Container mse-2-ssed-morning-postgres-1 Starting 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:54.1792273Z  Container mse-2-ssed-morning-redis-1 Started 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:54.1883698Z  Container mse-2-ssed-morning-postgres-1 Started 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:54.1884357Z  Container mse-2-ssed-morning-postgres-1 Waiting 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:54.1884870Z  Container mse-2-ssed-morning-redis-1 Waiting 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:59.6895295Z  Container mse-2-ssed-morning-postgres-1 Healthy 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:59.6895839Z  Container mse-2-ssed-morning-redis-1 Healthy 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:59.6896259Z  Container mse-2-ssed-morning-backend-1 Starting 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:59.8833176Z  Container mse-2-ssed-morning-backend-1 Started 
+Validate, build and test submission	Start application stack	2026-11-18T04:54:59.8833587Z  Container mse-2-ssed-morning-backend-1 Waiting 
+Validate, build and test submission	Start application stack	2026-11-18T04:55:05.3843222Z  Container mse-2-ssed-morning-backend-1 Healthy 
+Validate, build and test submission	Start application stack	2026-11-18T04:55:05.3844258Z  Container mse-2-ssed-morning-frontend-1 Starting 
+Validate, build and test submission	Start application stack	2026-11-18T04:55:05.5032651Z  Container mse-2-ssed-morning-frontend-1 Started 
+Validate, build and test submission	Wait for backend health	﻿2026-11-18T04:55:05.5106797Z ##[group]Run for attempt in $(seq 1 40); do
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5107240Z [36;1mfor attempt in $(seq 1 40); do[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5107916Z [36;1m  if curl --fail --silent http://localhost:3000/health; then[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5108343Z [36;1m    echo[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5108603Z [36;1m    echo "Backend is healthy"[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5108924Z [36;1m    exit 0[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5109174Z [36;1m  fi[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5109446Z [36;1m  echo "Waiting for backend ($attempt/40)..."[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5109797Z [36;1m  sleep 3[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5110046Z [36;1mdone[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5110319Z [36;1mecho "Backend did not become healthy"[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5110676Z [36;1mdocker compose ps[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5110985Z [36;1mdocker compose logs --no-color[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5111314Z [36;1mexit 1[0m
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5167477Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5167715Z ##[endgroup]
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5366893Z {"status":"ok","postgres":"ok","redis":"ok"}
+Validate, build and test submission	Wait for backend health	2026-11-18T04:55:05.5367292Z Backend is healthy
+Validate, build and test submission	Check frontend response	﻿2026-11-18T04:55:05.5392276Z ##[group]Run for attempt in $(seq 1 20); do
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5392596Z [36;1mfor attempt in $(seq 1 20); do[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5392929Z [36;1m  if curl --fail --silent http://localhost:8080/ > /dev/null; then[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5393269Z [36;1m    echo "Frontend is responding"[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5393496Z [36;1m    exit 0[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5393674Z [36;1m  fi[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5393845Z [36;1m  sleep 3[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5394028Z [36;1mdone[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5394205Z [36;1mdocker compose logs frontend[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5394418Z [36;1mexit 1[0m
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5434161Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5434385Z ##[endgroup]
+Validate, build and test submission	Check frontend response	2026-11-18T04:55:05.5574784Z Frontend is responding
+Validate, build and test submission	Install test dependencies	﻿2026-11-18T04:55:05.5599726Z ##[group]Run npm install
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:05.5599949Z [36;1mnpm install[0m
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:05.5637244Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:05.5637469Z ##[endgroup]
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:07.0449326Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:07.1202134Z npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.3827526Z 
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.3828117Z added 304 packages, and audited 305 packages in 4s
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.3828459Z 
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.3828659Z 46 packages are looking for funding
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.3829117Z   run `npm fund` for details
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4358737Z 
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4359026Z 34 high severity vulnerabilities
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4359276Z 
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4359474Z To address all issues (including breaking changes), run:
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4359856Z   npm audit fix --force
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4360009Z 
+Validate, build and test submission	Install test dependencies	2026-11-18T04:55:09.4360092Z Run `npm audit` for details.
+Validate, build and test submission	Run API and Redis tests	﻿2026-11-18T04:55:09.4886400Z ##[group]Run npm test -- --json --outputFile=test-results.json
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.4886908Z [36;1mnpm test -- --json --outputFile=test-results.json[0m
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.4931793Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.4932020Z env:
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.4932216Z   BASE_URL: http://localhost:3000
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.4932473Z   NODE_OPTIONS: --experimental-vm-modules
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.4932709Z ##[endgroup]
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.5895705Z 
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.5896235Z > taskflow-tests@1.0.0 test
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.5896596Z > jest --runInBand --json --outputFile=test-results.json
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:09.5896813Z 
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.1395839Z (node:4226) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.1396408Z (Use `node --trace-warnings ...` to show where the warning was created)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4413624Z PASS ./api.test.js
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4414804Z   TaskFlow deployed API
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4417442Z     ✓ TC01: health endpoint confirms API, PostgreSQL and Redis (29 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4418119Z     ✓ TC02: register a user (93 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4418540Z     ✓ TC03: reject duplicate email (75 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4418959Z     ✓ TC04: login and receive token (84 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4419430Z     ✓ TC05: reject unauthenticated task request (2 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4419875Z     ✓ TC06: create a task (5 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4420296Z     ✓ TC07: list tasks and populate cache (5 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4420819Z     ✓ TC08: subsequent list can be served from Redis (3 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4421363Z     ✓ TC09: update task status and invalidate cache (4 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4422090Z     ✓ TC10: reject invalid task status (2 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4422491Z     ✓ TC11: delete task (2 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4422879Z     ✓ TC12: deleted task is no longer in list (3 ms)
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4423131Z 
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4438120Z Test Suites: 1 passed, 1 total
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4438384Z Tests:       12 passed, 12 total
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4438726Z Snapshots:   0 total
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4438974Z Time:        0.622 s
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4439147Z Ran all test suites.
+Validate, build and test submission	Run API and Redis tests	2026-11-18T04:55:10.4448024Z Test results written to: test-results.json
+Validate, build and test submission	Test PostgreSQL persistence	﻿2026-11-18T04:55:10.5648651Z ##[group]Run bash instructor-evaluation/scripts/persistence-test.sh
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:10.5649079Z [36;1mbash instructor-evaluation/scripts/persistence-test.sh[0m
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:10.5692287Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:10.5692514Z ##[endgroup]
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:10.7663229Z Created task 2 before container recreation
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:10.8248069Z  Container mse-2-ssed-morning-frontend-1 Stopping 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.3992962Z  Container mse-2-ssed-morning-frontend-1 Stopped 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.3993510Z  Container mse-2-ssed-morning-frontend-1 Removing 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.4126153Z  Container mse-2-ssed-morning-frontend-1 Removed 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.4126698Z  Container mse-2-ssed-morning-backend-1 Stopping 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.5559524Z  Container mse-2-ssed-morning-backend-1 Stopped 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.5560073Z  Container mse-2-ssed-morning-backend-1 Removing 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.5626755Z  Container mse-2-ssed-morning-backend-1 Removed 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.5627357Z  Container mse-2-ssed-morning-postgres-1 Stopping 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.5627867Z  Container mse-2-ssed-morning-redis-1 Stopping 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.6443252Z  Container mse-2-ssed-morning-postgres-1 Stopped 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.6443805Z  Container mse-2-ssed-morning-postgres-1 Removing 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.6509886Z  Container mse-2-ssed-morning-postgres-1 Removed 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.7456148Z  Container mse-2-ssed-morning-redis-1 Stopped 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.7456558Z  Container mse-2-ssed-morning-redis-1 Removing 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.7522658Z  Container mse-2-ssed-morning-redis-1 Removed 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.7528361Z  Network mse-2-ssed-morning_web Removing 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.7528824Z  Network mse-2-ssed-morning_data Removing 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.7965428Z  Network mse-2-ssed-morning_data Removed 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.8504735Z  Network mse-2-ssed-morning_web Removed 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.9415339Z  Network mse-2-ssed-morning_data Creating 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.9684351Z  Network mse-2-ssed-morning_data Created 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.9690538Z  Network mse-2-ssed-morning_web Creating 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.9921998Z  Network mse-2-ssed-morning_web Created 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.9929595Z  Container mse-2-ssed-morning-redis-1 Creating 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:11.9930412Z  Container mse-2-ssed-morning-postgres-1 Creating 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0322338Z  Container mse-2-ssed-morning-postgres-1 Created 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0331351Z  Container mse-2-ssed-morning-redis-1 Created 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0332113Z  Container mse-2-ssed-morning-backend-1 Creating 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0635890Z  Container mse-2-ssed-morning-backend-1 Created 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0636406Z  Container mse-2-ssed-morning-frontend-1 Creating 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0790457Z  Container mse-2-ssed-morning-frontend-1 Created 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0919219Z  Container mse-2-ssed-morning-redis-1 Starting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.0919714Z  Container mse-2-ssed-morning-postgres-1 Starting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.2231415Z  Container mse-2-ssed-morning-redis-1 Started 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.2318267Z  Container mse-2-ssed-morning-postgres-1 Started 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.2319016Z  Container mse-2-ssed-morning-postgres-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:12.2319581Z  Container mse-2-ssed-morning-redis-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:17.7331758Z  Container mse-2-ssed-morning-postgres-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:17.7332338Z  Container mse-2-ssed-morning-redis-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:17.7332732Z  Container mse-2-ssed-morning-backend-1 Starting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:17.8714393Z  Container mse-2-ssed-morning-backend-1 Started 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:17.8715027Z  Container mse-2-ssed-morning-backend-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.3724289Z  Container mse-2-ssed-morning-backend-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.3724889Z  Container mse-2-ssed-morning-frontend-1 Starting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.5124225Z  Container mse-2-ssed-morning-frontend-1 Started 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.5132153Z  Container mse-2-ssed-morning-redis-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.5132649Z  Container mse-2-ssed-morning-frontend-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.5133097Z  Container mse-2-ssed-morning-backend-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:23.5133989Z  Container mse-2-ssed-morning-postgres-1 Waiting 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:24.0142697Z  Container mse-2-ssed-morning-postgres-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:24.0144026Z  Container mse-2-ssed-morning-backend-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:24.0144812Z  Container mse-2-ssed-morning-redis-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:29.0133869Z  Container mse-2-ssed-morning-frontend-1 Healthy 
+Validate, build and test submission	Test PostgreSQL persistence	2026-11-18T04:55:29.1193150Z PASS: PostgreSQL task survived down/up, and Redis cache repopulated correctly.
+Validate, build and test submission	Capture container status and logs	﻿2026-11-18T04:55:29.1299353Z ##[group]Run mkdir -p evaluation-output
+Validate, build and test submission	Capture container status and logs	2026-11-18T04:55:29.1299682Z [36;1mmkdir -p evaluation-output[0m
+Validate, build and test submission	Capture container status and logs	2026-11-18T04:55:29.1299998Z [36;1mdocker compose ps > evaluation-output/containers.txt || true[0m
+Validate, build and test submission	Capture container status and logs	2026-11-18T04:55:29.1300404Z [36;1mdocker compose logs --no-color > evaluation-output/container-logs.txt || true[0m
+Validate, build and test submission	Capture container status and logs	2026-11-18T04:55:29.1343113Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Capture container status and logs	2026-11-18T04:55:29.1343336Z ##[endgroup]
+Validate, build and test submission	Generate evaluation summary	﻿2026-11-18T04:55:29.3138272Z ##[group]Run {
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3138501Z [36;1m{[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3138706Z [36;1m  echo "## Docker Practical CI Evaluation"[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3138954Z [36;1m  echo ""[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3139183Z [36;1m  echo "- Repository: \`$GITHUB_REPOSITORY\`"[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3139453Z [36;1m  echo "- Commit: \`$GITHUB_SHA\`"[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3139702Z [36;1m  echo "- Pull request: \`Manual run\`"[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3139936Z [36;1m  echo ""[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3140219Z [36;1m  echo "Review the workflow jobs and uploaded artifacts for detailed results."[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3140569Z [36;1m} >> "$GITHUB_STEP_SUMMARY"[0m
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3185155Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Generate evaluation summary	2026-11-18T04:55:29.3185387Z ##[endgroup]
+Validate, build and test submission	Upload evaluation artifacts	﻿2026-11-18T04:55:29.3291484Z ##[group]Run actions/upload-artifact@v4
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3291884Z with:
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3292084Z   name: docker-practical-results-44240512562
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3292412Z   path: instructor-evaluation/tests/test-results.json
+Validate, build and test submission	Upload evaluation artifacts	evaluation-output/
+Validate, build and test submission	Upload evaluation artifacts	
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3292733Z   if-no-files-found: ignore
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3292931Z   retention-days: 30
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3293115Z   compression-level: 6
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3293300Z   overwrite: false
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3293483Z   include-hidden-files: false
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.3293688Z ##[endgroup]
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4625594Z (node:5201) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4626531Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4714500Z Multiple search paths detected. Calculating the least common ancestor of all paths
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4716699Z The least common ancestor is /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning. This will be the root directory of the artifact
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4717750Z With the provided path, there will be 3 files uploaded
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4718642Z Artifact name is valid!
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.4719103Z Root directory input is valid!
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.6718235Z Beginning upload of artifact content to blob storage
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.6880404Z (node:5201) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.7347686Z Uploaded bytes 2912
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.7524218Z Finished uploading artifact content to blob storage!
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.7525043Z SHA256 digest of uploaded artifact zip is c04ea5ab3a2e614b81d1f73f4effdf7b7b8be9a9e97d926e9dd992c43003a7e8
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:29.7526258Z Finalizing artifact upload
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:30.0750119Z Artifact docker-practical-results-44240512562.zip successfully finalized. Artifact ID 14399930194
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:30.0751268Z Artifact docker-practical-results-44240512562 has been successfully uploaded! Final size is 2912 bytes. Artifact ID is 14399930194
+Validate, build and test submission	Upload evaluation artifacts	2026-11-18T04:55:30.0756256Z Artifact download URL: https://github.com/mg8273/MSE-2-SSED-Morning/actions/runs/44240512562/artifacts/14399930194
+Validate, build and test submission	Cleanup containers	﻿2026-11-18T04:55:30.0880077Z ##[group]Run docker compose down -v --remove-orphans || true
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.0880452Z [36;1mdocker compose down -v --remove-orphans || true[0m
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.0924347Z shell: /usr/bin/bash -e {0}
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.0924588Z ##[endgroup]
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.1556534Z  Container mse-2-ssed-morning-frontend-1 Stopping 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.2679513Z  Container mse-2-ssed-morning-frontend-1 Stopped 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.2680326Z  Container mse-2-ssed-morning-frontend-1 Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.2765734Z  Container mse-2-ssed-morning-frontend-1 Removed 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.2766320Z  Container mse-2-ssed-morning-backend-1 Stopping 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.4184031Z  Container mse-2-ssed-morning-backend-1 Stopped 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.4184830Z  Container mse-2-ssed-morning-backend-1 Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.4252955Z  Container mse-2-ssed-morning-backend-1 Removed 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.4253690Z  Container mse-2-ssed-morning-postgres-1 Stopping 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.4254343Z  Container mse-2-ssed-morning-redis-1 Stopping 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5062619Z  Container mse-2-ssed-morning-postgres-1 Stopped 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5063060Z  Container mse-2-ssed-morning-postgres-1 Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5145081Z  Container mse-2-ssed-morning-postgres-1 Removed 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5780161Z  Container mse-2-ssed-morning-redis-1 Stopped 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5780607Z  Container mse-2-ssed-morning-redis-1 Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5848491Z  Container mse-2-ssed-morning-redis-1 Removed 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5854383Z  Volume mse-2-ssed-morning_postgres_data Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5854891Z  Network mse-2-ssed-morning_web Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.5857220Z  Network mse-2-ssed-morning_data Removing 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.6347110Z  Network mse-2-ssed-morning_web Removed 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.6835396Z  Network mse-2-ssed-morning_data Removed 
+Validate, build and test submission	Cleanup containers	2026-11-18T04:55:30.7561795Z  Volume mse-2-ssed-morning_postgres_data Removed 
+Validate, build and test submission	Post Set up Docker Buildx	﻿2026-11-18T04:55:30.7677298Z Post job cleanup.
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:30.9717223Z ##[group]Removing builder
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:30.9722464Z (node:5463) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:30.9723319Z (Use `node --trace-deprecation ...` to show where the warning was created)
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:31.0894674Z [command]/usr/bin/docker buildx rm builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6585431Z builder-f93afef1-dce6-41e4-bcd3-d7d96d8f2a6e removed
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6628489Z ##[endgroup]
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6628994Z ##[group]Cleaning up certificates
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6630538Z ##[endgroup]
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6631308Z ##[group]Post cache
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6633001Z State not set
+Validate, build and test submission	Post Set up Docker Buildx	2026-11-18T04:55:32.6633513Z ##[endgroup]
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	﻿2026-11-18T04:55:32.6798996Z Post job cleanup.
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7533040Z [command]/usr/bin/git version
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7572676Z git version 2.56.1
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7600582Z Temporarily overriding HOME='/home/runner/work/_temp/77e3f3bb-50ae-4d26-b194-b741b7e92c10' before making global git config changes
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7602437Z Adding repository directory to the temporary git global config as a safe directory
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7605511Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning/instructor-evaluation
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7644963Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7689869Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7960420Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.7986113Z http.https://github.com/.extraheader
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.8013351Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.8049000Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.8313746Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Validate, build and test submission	Post Checkout instructor-controlled evaluation files	2026-11-18T04:55:32.8344756Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Validate, build and test submission	Post Checkout submitted Pull Request commit	﻿2026-11-18T04:55:32.8723345Z Post job cleanup.
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9468756Z [command]/usr/bin/git version
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9513642Z git version 2.56.1
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9547907Z Temporarily overriding HOME='/home/runner/work/_temp/d94a3621-48e9-4c9c-b343-9d1b9482eb11' before making global git config changes
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9552880Z Adding repository directory to the temporary git global config as a safe directory
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9553707Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/MSE-2-SSED-Morning/MSE-2-SSED-Morning
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9592765Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9626925Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9899892Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9930841Z http.https://github.com/.extraheader
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9941400Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:32.9980726Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:33.0239652Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Validate, build and test submission	Post Checkout submitted Pull Request commit	2026-11-18T04:55:33.0269385Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Validate, build and test submission	Complete job	﻿2026-11-18T04:55:33.0631144Z Cleaning up orphan processes
+Validate, build and test submission	Complete job	2026-11-18T04:55:33.1008703Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4, docker/setup-buildx-action@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

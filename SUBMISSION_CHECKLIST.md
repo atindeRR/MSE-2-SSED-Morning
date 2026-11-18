@@ -24,10 +24,10 @@
 
 ## Required remote steps
 
-- [ ] Both public Docker Hub repositories contain the submitted images.
-- [ ] Published images can be pulled and deployed without local builds.
-- [ ] Latest main-branch CD run passes all required stages.
-- [ ] Latest implementation is committed and pushed to the personal fork.
+- [x] Both public Docker Hub repositories contain the submitted images.
+- [x] Published images can be pulled and deployed without local builds.
+- [x] Latest main-branch CD run passes all required stages.
+- [x] Latest implementation is committed and pushed to the personal fork.
 - [ ] Final pull request is created against the instructor's actual repository.
 - [ ] PDF is attached/linked in the PR and uploaded to Moodle.
 

@@ -95,3 +95,14 @@ that external condition. The instructor CI workflow is preserved unchanged.
 See `SUBMISSION_CHECKLIST.md`. The PDF is mandatory, must include real CI/CD
 screenshots, and must be attached to the final PR and submitted on Moodle.
 A local pass alone does not satisfy publication or CD requirements.
+
+## Recorded verification
+
+- Supplied API tests: 12/12 passed.
+- PostgreSQL task survived down/up; Redis cache repopulation passed.
+- Both Dockerfiles passed the current instructor Hadolint checks.
+- Fork CI passed: https://github.com/mg8273/MSE-2-SSED-Morning/actions/runs/44240512562
+- CD passed: https://github.com/mg8273/MSE-2-SSED-Morning/actions/runs/44240555155
+- Both public Docker Hub images provide AMD64 and ARM64 variants.
+- Published-image deployment passed on this Apple Silicon Mac.
+- Final PDF: evidence/2400291520149_Manu_Garg.pdf. Review before Moodle upload.
