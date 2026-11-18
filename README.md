@@ -21,11 +21,15 @@ The objective is to demonstrate your understanding of containerization, Docker n
 
 ## 2. Repository Details
 
+**Docker Hub namespace configured for this working copy:** `sumedha1245`
+
+The GitHub repository must be your own fork. Replace `YOUR_USERNAME` in the clone command with your GitHub username.
+
 You will receive the starter repository .
 
 Repository URL: https://github.com/atindeRR/MSE-2-SSED-Morning
 
-You must complete the practical using your own GitHub and Dockerhub account.
+You must complete the practical using your own GitHub and Docker Hub account.
 
 ### Initial Setup
 
@@ -34,7 +38,7 @@ You must complete the practical using your own GitHub and Dockerhub account.
 3. Clone your forked repository to your local machine.
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/MSE-2-SSED-Morning.git
+git clone https://github.com/YOUR_GITHUB_USERNAME/MSE-2-SSED-Morning.git
 cd MSE-2-SSED-Morning
 ```
 
@@ -111,13 +115,19 @@ Your Docker Compose configuration must include:
 docker-compose.yml
 ```
 
-**Application Startup:**
+**Local setup and application startup:**
+
+Copy `.env.example` to `.env`, then set a strong `POSTGRES_PASSWORD` and `JWT_SECRET`. Keep `.env` private; it is ignored by Git.
 
 ```bash
+cp .env.example .env
 docker compose up -d --build
+docker compose ps
 ```
 
-Verify that all four containers are running successfully.
+On Windows PowerShell, use `Copy-Item .env.example .env` instead of `cp`.
+
+Verify that all four containers are running successfully. The frontend is available at `http://localhost:8080` and the backend health endpoint at `http://localhost:3000/health`.
 
 ### Task 3: Docker Hub Image Publishing
 
@@ -137,12 +147,21 @@ Publish your frontend and backend Docker images to your personal Docker Hub acco
 **Expected image naming convention:**
 
 ```text
-YOUR_DOCKERHUB_USERNAME/frontend
+sumedha1245/frontend
 
-YOUR_DOCKERHUB_USERNAME/backend
+sumedha1245/backend
 ```
 
-You may also publish a `latest` tag.
+You may also publish a `latest` tag. This working copy is configured for Docker Hub username `sumedha1245`; create the public repositories `frontend` and `backend` in that account before pushing.
+
+To build and publish both images manually after logging in to Docker Hub:
+
+```bash
+docker compose build
+docker compose push
+```
+
+The Compose file tags the images as `sumedha1245/frontend:latest` and `sumedha1245/backend:latest`.
 
 ### Task 4: Deployment Using Published Images
 
