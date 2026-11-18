@@ -1,0 +1,10 @@
+{
+  "name": "HARSHITA KUMARI",
+  "roll_number": "202401100300119",
+  "section": "B",
+  "branch": "CSEAI",
+  "github_username": "kharshita590",
+  "dockerhub_username": "ihatetheworld",
+  "frontend_image": "ihatetheworld/taskflow-frontend:latest",
+  "backend_image": "ihatetheworld/taskflow-backend:latest"
+}
