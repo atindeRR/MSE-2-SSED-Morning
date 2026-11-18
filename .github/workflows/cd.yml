@@ -57,16 +57,19 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
 
       - name: Create deployment environment file
+        env:
+          DH_USER: ${{ secrets.DOCKERHUB_USERNAME }}
+          PG_PASS: ${{ secrets.POSTGRES_PASSWORD || 'deployment_change_me' }}
         run: |
-          cat > .env <<'EOF'
+          cat > .env <<EOF
           POSTGRES_DB=taskflow
           POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
+          POSTGRES_PASSWORD=${PG_PASS}
+          DATABASE_URL=postgresql://taskflow_user:${PG_PASS}@postgres:5432/taskflow
           REDIS_URL=redis://redis:6379
           JWT_SECRET=replace_with_a_long_random_secret
           PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_USERNAME=${DH_USER}
           EOF
 
       - name: Validate image-based deployment Compose
