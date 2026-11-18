@@ -420,3 +420,90 @@ Include the following declaration at the end of the PDF:
 10. Be prepared to explain your Dockerfiles, networking, volumes, environment variables, image publishing and CI/CD workflow during the viva.
 
 **Final Submission:** Your examination submission is considered complete only when your Docker implementation is pushed to your GitHub fork, the required CD stages have passed, and the final Pull Request has been created successfully.
+---
+
+## Docker implementation and local deployment
+
+### Prerequisites
+
+- Docker Engine/Desktop with the Docker Compose v2 plugin
+- A Docker Hub account for image publishing
+
+### Configure environment variables
+
+Copy `.env.example` to `.env` and set strong, private values for `POSTGRES_PASSWORD` and `JWT_SECRET`.
+For Docker Hub image deployment, also set `DOCKERHUB_USERNAME` to your Docker Hub username.
+Do not commit `.env` or publish its contents.
+
+```bash
+cp .env.example .env
+```
+
+Use a strong alphanumeric PostgreSQL password for this practical so it can be embedded safely in the connection URL. Keep the same password when recreating the stack with its existing database volume.
+
+### Build and start all four services
+
+```bash
+docker compose up -d --build
+docker compose ps
+```
+
+- Frontend: http://localhost:8080
+- Backend health: http://localhost:3000/health
+- PostgreSQL and Redis are reachable by the backend through the Compose service names `postgres` and `redis`.
+
+The PostgreSQL data is stored in the named volume `postgres-data`. The initialization script at `backend/db/init.sql` is mounted read-only into the official PostgreSQL initialization directory.
+
+### Publish images to Docker Hub
+
+Create two Docker Hub repositories named `frontend` and `backend`, then run:
+
+```bash
+docker login
+docker build -t YOUR_DOCKERHUB_USERNAME/backend:latest ./backend
+docker build -t YOUR_DOCKERHUB_USERNAME/frontend:latest ./frontend
+docker push YOUR_DOCKERHUB_USERNAME/backend:latest
+docker push YOUR_DOCKERHUB_USERNAME/frontend:latest
+```
+
+The CD workflow publishes these `latest` images and a commit-SHA tag automatically when changes are pushed to `main`.
+
+### Deploy using only the published images
+
+Set `DOCKERHUB_USERNAME`, `POSTGRES_PASSWORD`, and `JWT_SECRET` in `.env`, then run:
+
+```bash
+docker compose -f docker-compose.deploy.yml pull
+docker compose -f docker-compose.deploy.yml up -d
+docker compose -f docker-compose.deploy.yml ps
+```
+
+This deployment file intentionally has no `build:` directives. It pulls the frontend and backend images from Docker Hub and uses official PostgreSQL and Redis images.
+
+### GitHub Actions secrets
+
+Add these repository Actions secrets before pushing to `main`:
+
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN` (a Docker Hub access token, not your account password)
+- `POSTGRES_PASSWORD`
+
+The CD workflow validates all three secrets and generates an ephemeral JWT secret for its deployment job. The CI workflow runs on pull requests and validates the Dockerfiles, Compose configuration, application endpoints, API behavior, Redis caching, and PostgreSQL persistence.
+
+### Useful verification commands
+
+```bash
+docker compose ps
+docker compose logs --follow backend
+docker compose logs --follow frontend
+curl http://localhost:3000/health
+curl -I http://localhost:8080/
+```
+
+To stop the stack without deleting persistent database data:
+
+```bash
+docker compose down
+```
+
+Only use `docker compose down -v` when you intentionally want to delete the named database and Redis volumes.
