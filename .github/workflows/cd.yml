@@ -1,3 +1,4 @@
+
 name: Docker Practical - Publish and Verify
 
 on:
@@ -17,17 +18,25 @@ jobs:
     name: Publish student's images to Docker Hub
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
       - name: Checkout student's repository
         uses: actions/checkout@v4
 
-      - name: Validate required Docker Hub secrets
+      - name: Validate Docker Hub secrets
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
         run: |
-          test -n "$DOCKERHUB_USERNAME" || (echo "Missing DOCKERHUB_USERNAME secret" && exit 1)
-          test -n "$DOCKERHUB_TOKEN" || (echo "Missing DOCKERHUB_TOKEN secret" && exit 1)
+          test -n "$DOCKERHUB_USERNAME" || {
+            echo "Missing DOCKERHUB_USERNAME"
+            exit 1
+          }
+
+          test -n "$DOCKERHUB_TOKEN" || {
+            echo "Missing DOCKERHUB_TOKEN"
+            exit 1
+          }
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -57,49 +66,173 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
 
       - name: Create deployment environment file
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
-          PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          EOF
+          DB_PASSWORD=$(openssl rand -hex 24)
+          JWT_SECRET=$(openssl rand -hex 32)
+
+          {
+            echo "POSTGRES_DB=taskflow"
+            echo "POSTGRES_USER=taskflow_user"
+            echo "POSTGRES_PASSWORD=$DB_PASSWORD"
+            echo "DATABASE_URL=postgresql://taskflow_user:${DB_PASSWORD}@postgres:5432/taskflow"
+            echo "REDIS_URL=redis://redis:6379"
+            echo "JWT_SECRET=$JWT_SECRET"
+            echo "PORT=3000"
+            echo "DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME"
+          } > .env
 
       - name: Validate image-based deployment Compose
         run: |
-          grep -q 'image:' docker-compose.deploy.yml
           if grep -Eq '^[[:space:]]+build:' docker-compose.deploy.yml; then
-            echo "Deployment Compose must use published images, not build:"
+            echo "Deployment Compose must use published images, not build."
             exit 1
           fi
+
           docker compose -f docker-compose.deploy.yml config --quiet
 
       - name: Pull published images
-        run: docker compose -f docker-compose.deploy.yml pull
+        run: |
+          docker compose -f docker-compose.deploy.yml pull
 
       - name: Deploy using Docker Hub images
-        run: docker compose -f docker-compose.deploy.yml up -d
+        run: |
+          docker compose -f docker-compose.deploy.yml up -d
 
       - name: Verify deployment
+        shell: bash
         run: |
+          set -Eeuo pipefail
+
+          COMPOSE="docker compose -f docker-compose.deploy.yml"
+
+          diagnostics() {
+            echo "========== COMPOSE STATUS =========="
+            $COMPOSE ps || true
+
+            echo "========== BACKEND LOGS =========="
+            $COMPOSE logs --no-color --tail=100 backend || true
+
+            echo "========== FRONTEND LOGS =========="
+            $COMPOSE logs --no-color --tail=100 frontend || true
+
+            echo "========== FRONTEND INSPECT =========="
+            docker inspect taskflow-frontend-deploy \
+              --format='Status={{.State.Status}} ExitCode={{.State.ExitCode}} Health={{if .State.Health}}{{.State.Health.Status}}{{else}}none{{end}}' || true
+
+            echo "========== FRONTEND HEALTH CHECK DETAILS =========="
+            docker inspect taskflow-frontend-deploy \
+              --format='{{json .State.Health.Log}}' || true
+
+            echo "========== FRONTEND IMAGE HEALTHCHECK =========="
+            docker inspect taskflow-frontend-deploy \
+              --format='{{json .Config.Healthcheck}}' || true
+
+            echo "========== FRONTEND NETWORK =========="
+            docker inspect taskflow-frontend-deploy \
+              --format='{{json .NetworkSettings.Networks}}' || true
+
+            echo "========== FRONTEND INTERNAL HTTP TEST =========="
+            docker exec taskflow-frontend-deploy \
+              wget -S -O /dev/null http://127.0.0.1:8080/ || true
+          }
+
+          echo "Waiting for backend container..."
+
+          backend_ok=false
+
           for attempt in $(seq 1 40); do
-            if curl --fail --silent http://localhost:3000/health; then
-              echo
-              echo "Deployment backend is healthy"
+            status=$(docker inspect taskflow-backend-deploy \
+              --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' \
+              2>/dev/null || true)
+
+            echo "Backend status: $status ($attempt/40)"
+
+            if [ "$status" = "healthy" ]; then
+              backend_ok=true
               break
             fi
-            if [ "$attempt" -eq 40 ]; then
-              docker compose -f docker-compose.deploy.yml ps
-              docker compose -f docker-compose.deploy.yml logs --no-color
-              exit 1
-            fi
+
             sleep 3
           done
-          curl --fail --silent http://localhost:8080/ > /dev/null
+
+          if [ "$backend_ok" != "true" ]; then
+            echo "Backend container did not become healthy."
+            diagnostics
+            exit 1
+          fi
+
+          echo "Backend container is healthy."
+
+          if ! curl --connect-timeout 5 --max-time 20 \
+            --retry 5 --retry-all-errors --retry-delay 2 \
+            --fail --silent --show-error \
+            http://localhost:3000/health; then
+            echo "Backend HTTP health check failed."
+            diagnostics
+            exit 1
+          fi
+
+          echo
+          echo "Backend HTTP check passed."
+
+          echo "Waiting for frontend container..."
+
+          frontend_ok=false
+
+          for attempt in $(seq 1 40); do
+            status=$(docker inspect taskflow-frontend-deploy \
+              --format='{{if .State.Health}}{{.State.Health.Status}}{{else}}{{.State.Status}}{{end}}' \
+              2>/dev/null || true)
+
+            echo "Frontend status: $status ($attempt/40)"
+
+            if [ "$status" = "healthy" ]; then
+              frontend_ok=true
+              break
+            fi
+
+            if [ "$status" = "unhealthy" ]; then
+              echo "Frontend has become unhealthy."
+              break
+            fi
+
+            sleep 3
+          done
+
+          if [ "$frontend_ok" != "true" ]; then
+            echo "Frontend container did not become healthy."
+            diagnostics
+            exit 1
+          fi
+
+          echo "Frontend container is healthy."
+
+          echo "Testing Nginx from inside the frontend container..."
+
+          if ! docker exec taskflow-frontend-deploy \
+            wget -q -O /dev/null http://127.0.0.1:8080/; then
+            echo "Internal frontend Nginx check failed."
+            diagnostics
+            exit 1
+          fi
+
+          echo "Internal frontend check passed."
+
+          echo "Testing frontend from GitHub Actions runner..."
+
+          if ! curl --http1.1 --connect-timeout 5 --max-time 20 \
+            --retry 5 --retry-all-errors --retry-delay 2 \
+            --fail --silent --show-error \
+            http://127.0.0.1:8080/ -o /dev/null; then
+            echo "Frontend host HTTP check failed."
+            diagnostics
+            exit 1
+          fi
+
+          echo "Frontend host HTTP check passed."
+          echo "Full deployment verification successful."
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
@@ -122,4 +255,5 @@ jobs:
 
       - name: Cleanup deployment
         if: always()
-        run: docker compose -f docker-compose.deploy.yml down -v --remove-orphans || true
+        run: |
+          docker compose -f docker-compose.deploy.yml down -v --remove-orphans || true
