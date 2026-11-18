@@ -21,13 +21,15 @@ jobs:
       - name: Checkout student's repository
         uses: actions/checkout@v4
 
-      - name: Validate required Docker Hub secrets
+      - name: Validate required deployment secrets
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
           test -n "$DOCKERHUB_USERNAME" || (echo "Missing DOCKERHUB_USERNAME secret" && exit 1)
           test -n "$DOCKERHUB_TOKEN" || (echo "Missing DOCKERHUB_TOKEN secret" && exit 1)
+          test -n "$POSTGRES_PASSWORD" || (echo "Missing POSTGRES_PASSWORD secret" && exit 1)
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -44,8 +46,8 @@ jobs:
           context: ./backend
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ github.sha }}
 
       - name: Build and push frontend
         uses: docker/build-push-action@v6
@@ -53,21 +55,36 @@ jobs:
           context: ./frontend
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
 
       - name: Create deployment environment file
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
-          PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          EOF
+          node --input-type=module <<'NODE'
+          import { randomBytes } from 'node:crypto';
+          import { appendFileSync, writeFileSync } from 'node:fs';
+
+          const { DOCKERHUB_USERNAME, GITHUB_ENV, GITHUB_SHA, POSTGRES_PASSWORD } = process.env;
+          const encodedPassword = encodeURIComponent(POSTGRES_PASSWORD);
+          const jwtSecret = randomBytes(32).toString('hex');
+          const delimiter = `PASSWORD_${randomBytes(16).toString('hex')}`;
+          console.log(`::add-mask::${encodedPassword}`);
+          console.log(`::add-mask::${jwtSecret}`);
+          appendFileSync(GITHUB_ENV, `POSTGRES_PASSWORD<<${delimiter}\n${POSTGRES_PASSWORD}\n${delimiter}\n`);
+          writeFileSync('.env', [
+            'POSTGRES_DB=taskflow',
+            'POSTGRES_USER=taskflow_user',
+            `DATABASE_URL=postgresql://taskflow_user:${encodedPassword}@postgres:5432/taskflow`,
+            'REDIS_URL=redis://redis:6379',
+            `JWT_SECRET=${jwtSecret}`,
+            `DOCKERHUB_USERNAME=${DOCKERHUB_USERNAME}`,
+            `IMAGE_TAG=${GITHUB_SHA}`,
+            '',
+          ].join('\n'), { mode: 0o600 });
+          NODE
 
       - name: Validate image-based deployment Compose
         run: |
@@ -100,6 +117,7 @@ jobs:
             sleep 3
           done
           curl --fail --silent http://localhost:8080/ > /dev/null
+          echo "Deployment frontend is accessible"
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
@@ -115,8 +133,8 @@ jobs:
           {
             echo "## Docker Hub publication"
             echo ""
-            echo "- Backend: \`${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest\`"
-            echo "- Frontend: \`${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest\`"
+            echo "- Backend: \`${{ secrets.DOCKERHUB_USERNAME }}/backend:${GITHUB_SHA}\`"
+            echo "- Frontend: \`${{ secrets.DOCKERHUB_USERNAME }}/frontend:${GITHUB_SHA}\`"
             echo "- Commit: \`${GITHUB_SHA}\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
