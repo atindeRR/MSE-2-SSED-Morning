@@ -46,6 +46,7 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
 
       - name: Build and push frontend
         uses: docker/build-push-action@v6
@@ -55,14 +56,17 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
 
       - name: Create deployment environment file
+        env:
+          PG_PASS: ${{ secrets.POSTGRES_PASSWORD || 'deployment_change_me' }}
         run: |
-          cat > .env <<'EOF'
+          cat > .env <<EOF
           POSTGRES_DB=taskflow
           POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
+          POSTGRES_PASSWORD=${PG_PASS}
+          DATABASE_URL=postgresql://taskflow_user:${PG_PASS}@postgres:5432/taskflow
           REDIS_URL=redis://redis:6379
           JWT_SECRET=replace_with_a_long_random_secret
           PORT=3000
