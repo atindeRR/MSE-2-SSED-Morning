@@ -17,6 +17,7 @@ jobs:
     name: Publish student's images to Docker Hub
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
       - name: Checkout student's repository
         uses: actions/checkout@v4
@@ -58,13 +59,16 @@ jobs:
 
       - name: Create deployment environment file
         run: |
-          cat > .env <<'EOF'
+          POSTGRES_PASSWORD="$(openssl rand -hex 24)"
+          JWT_SECRET="$(openssl rand -hex 32)"
+
+          cat > .env <<EOF
           POSTGRES_DB=taskflow
           POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
+          POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+          DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow
           REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
+          JWT_SECRET=${JWT_SECRET}
           PORT=3000
           DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
           EOF
@@ -92,14 +96,27 @@ jobs:
               echo "Deployment backend is healthy"
               break
             fi
+
             if [ "$attempt" -eq 40 ]; then
               docker compose -f docker-compose.deploy.yml ps
               docker compose -f docker-compose.deploy.yml logs --no-color
               exit 1
             fi
+
             sleep 3
           done
-          curl --fail --silent http://localhost:8080/ > /dev/null
+
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://localhost:8082/ > /dev/null; then
+              echo "Deployment frontend is responding"
+              exit 0
+            fi
+
+            sleep 3
+          done
+
+          docker compose -f docker-compose.deploy.yml logs frontend
+          exit 1
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
