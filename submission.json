@@ -1,0 +1,12 @@
+{
+  "student_name": "Aditya Mishra",
+  "roll_number": "2400291520017",
+  "section": "A",
+  "branch": "CSEAI",
+  "github_username": "aditya-mishra-007",
+  "dockerhub_username": "adityamishra1612",
+  "repository": "https://github.com/aditya-mishra-007/MSE-2-SSED-Morning",
+  "frontend_image": "adityamishra1612/frontend:latest",
+  "backend_image": "adityamishra1612/backend:latest",
+  "pull_request": "https://github.com/atindeRR/MSE-2-SSED-Morning/pull/124"
+}
