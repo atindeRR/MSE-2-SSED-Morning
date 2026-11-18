@@ -57,17 +57,32 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
 
       - name: Create deployment environment file
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
-          PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          EOF
+          test -n "$POSTGRES_PASSWORD" || (echo "Missing POSTGRES_PASSWORD secret" && exit 1)
+          umask 077
+          python3 - <<'PY'
+          import os
+          import secrets
+          from pathlib import Path
+          from urllib.parse import quote
+          password = os.environ['POSTGRES_PASSWORD']
+          values = {
+              'POSTGRES_DB': 'taskflow',
+              'POSTGRES_USER': 'taskflow_user',
+              'POSTGRES_PASSWORD': password,
+              'DATABASE_URL': f'postgresql://taskflow_user:{quote(password, safe="")}@postgres:5432/taskflow',
+              'REDIS_URL': 'redis://redis:6379',
+              'JWT_SECRET': secrets.token_hex(32),
+              'PORT': '3000',
+              'DOCKERHUB_USERNAME': os.environ['DOCKERHUB_USERNAME'],
+          }
+          def dotenv(value):
+              return "'" + value.replace("\\", "\\\\").replace("'", "\\'") + "'"
+          Path('.env').write_text(''.join(f'{key}={dotenv(value)}\n' for key, value in values.items()))
+          PY
 
       - name: Validate image-based deployment Compose
         run: |
