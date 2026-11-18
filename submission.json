@@ -1,0 +1,10 @@
+{
+  "name": "Abhishek Tripathi",
+  "rollNumber": "202401100300010",
+  "universityRollNumber": "2400291520010",
+  "section": "CSE AI - A",
+  "githubUsername": "AbhishekTripathi2005",
+  "dockerHubUsername": "abhishektri2005",
+  "backendImage": "abhishektri2005/taskflow-backend:latest",
+  "frontendImage": "abhishektri2005/taskflow-frontend:latest"
+}
