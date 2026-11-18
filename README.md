@@ -2,6 +2,31 @@
 # Software Engineering and DevOps (AI310B)
 ---
 
+## Container implementation notes
+
+The local Compose build and CD workflow use the frontend image `YOUR_DOCKERHUB_USERNAME/frontend` and backend image `YOUR_DOCKERHUB_USERNAME/backend`. The CD workflow publishes `latest` and commit SHA tags. Set `DOCKERHUB_USERNAME` in `.env` to your Docker Hub username; the image-based deployment uses the `latest` tags.
+
+For local development, copy `.env.example` to `.env`, replace the placeholder password and JWT secret, and keep `DATABASE_URL` synchronized with `POSTGRES_PASSWORD` (URL-encode reserved password characters), then run:
+
+```bash
+docker compose up -d --build
+```
+
+Open the frontend at `http://localhost:8080`; the backend health endpoint is `http://localhost:3000/health`. PostgreSQL creates its tables from `backend/db/init.sql` when its named data volume is first initialized.
+
+For deployment from published images, set `DOCKERHUB_USERNAME`, `POSTGRES_PASSWORD`, `DATABASE_URL`, and a strong `JWT_SECRET` in `.env`. Keep the password in `DATABASE_URL` synchronized with `POSTGRES_PASSWORD` and URL-encode any reserved characters, then run:
+
+```bash
+docker compose -f docker-compose.deploy.yml pull
+docker compose -f docker-compose.deploy.yml up -d
+```
+
+The GitHub CD workflow requires repository secrets `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, and `POSTGRES_PASSWORD`; it generates a per-run JWT secret.
+
+The `Docker Practical - CI Evaluation` workflow selects the instructor evaluation repository from the pull request's base repository. For a manual `workflow_dispatch`, provide the required `evaluation_repository` input as the instructor repository's exact `owner/repository`; the workflow checks that its required evaluation scripts and tests exist before running them. The workflow's `submission.json` message is a non-fatal warning; the assignment text in this repository does not define a schema, so no manifest is created without an authoritative specification.
+
+---
+
 ## 1. Problem Statement
 
 You are provided with a fully functional full-stack web application.

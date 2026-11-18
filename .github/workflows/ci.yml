@@ -29,9 +29,30 @@ jobs:
       - name: Checkout instructor-controlled evaluation files
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
+          repository: ${{ github.event.pull_request.base.repo.full_name || github.repository }}
           ref: main
           path: instructor-evaluation
+
+      - name: Verify instructor evaluation files
+        shell: bash
+        run: |
+          required_files=(
+            instructor-evaluation/scripts/check-required-files.sh
+            instructor-evaluation/scripts/persistence-test.sh
+            instructor-evaluation/tests/package.json
+          )
+          missing=0
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "::error::Required instructor evaluation file is missing: $file"
+              missing=$((missing + 1))
+            fi
+          done
+          if [[ "$missing" -gt 0 ]]; then
+            echo "::error::$missing evaluation file(s) missing. Ensure the workflow runs via a pull request to the instructor repository, or that the evaluation scripts exist in the base repository."
+            exit 1
+          fi
+          echo "All instructor evaluation files verified."
 
       - name: Show submission identity
         run: |
@@ -99,6 +120,7 @@ jobs:
               echo "Frontend is responding"
               exit 0
             fi
+            echo "Waiting for frontend ($attempt/20)..."
             sleep 3
           done
           docker compose logs frontend
