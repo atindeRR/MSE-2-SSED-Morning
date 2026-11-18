@@ -1,0 +1,10 @@
+{
+  "name": "Rishabh Singh",
+  "rollNumber": "2400291520200",
+  "section": "C",
+  "branch": "CSE-AI",
+  "githubUsername": "Rishabhsingh26",
+  "dockerHubUsername": "rishabh26104",
+  "frontendImage": "rishabh26104/taskflow-frontend:latest",
+  "backendImage": "rishabh26104/taskflow-backend:latest"
+}
