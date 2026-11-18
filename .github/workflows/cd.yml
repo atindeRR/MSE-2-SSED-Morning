@@ -1,3 +1,4 @@
+
 name: Docker Practical - Publish and Verify
 
 on:
@@ -17,17 +18,20 @@ jobs:
     name: Publish student's images to Docker Hub
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
     steps:
       - name: Checkout student's repository
         uses: actions/checkout@v4
 
-      - name: Validate required Docker Hub secrets
+      - name: Validate required secrets
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
           test -n "$DOCKERHUB_USERNAME" || (echo "Missing DOCKERHUB_USERNAME secret" && exit 1)
           test -n "$DOCKERHUB_TOKEN" || (echo "Missing DOCKERHUB_TOKEN secret" && exit 1)
+          test -n "$POSTGRES_PASSWORD" || (echo "Missing POSTGRES_PASSWORD secret" && exit 1)
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -56,27 +60,47 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
 
-      - name: Create deployment environment file
+      - name: Create deployment environment
+        env:
+          DB_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
-          PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          EOF
+          python3 - <<'PY'
+          import os
+          from urllib.parse import quote
+
+          password = os.environ["DB_PASSWORD"]
+          database_url = (
+              "postgresql://taskflow_user:"
+              + quote(password, safe="")
+              + "@postgres:5432/taskflow"
+          )
+
+          with open(os.environ["GITHUB_ENV"], "a") as env_file:
+              env_file.write(f"POSTGRES_PASSWORD={password}\n")
+              env_file.write(f"DATABASE_URL={database_url}\n")
+          PY
+
+          {
+            echo "POSTGRES_DB=taskflow"
+            echo "POSTGRES_USER=taskflow_user"
+            echo "REDIS_URL=redis://redis:6379"
+            echo "JWT_SECRET=$(openssl rand -hex 32)"
+            echo "PORT=3000"
+            echo "DOCKERHUB_USERNAME=$DOCKERHUB_USERNAME"
+          } > .env
 
       - name: Validate image-based deployment Compose
         run: |
           grep -q 'image:' docker-compose.deploy.yml
+
           if grep -Eq '^[[:space:]]+build:' docker-compose.deploy.yml; then
             echo "Deployment Compose must use published images, not build:"
             exit 1
           fi
+
           docker compose -f docker-compose.deploy.yml config --quiet
+          echo "Deployment Compose configuration is valid"
 
       - name: Pull published images
         run: docker compose -f docker-compose.deploy.yml pull
@@ -84,22 +108,62 @@ jobs:
       - name: Deploy using Docker Hub images
         run: docker compose -f docker-compose.deploy.yml up -d
 
-      - name: Verify deployment
+      - name: Verify backend health
         run: |
+          healthy=false
+
           for attempt in $(seq 1 40); do
             if curl --fail --silent http://localhost:3000/health; then
               echo
-              echo "Deployment backend is healthy"
+              echo "Backend is healthy"
+              healthy=true
               break
             fi
-            if [ "$attempt" -eq 40 ]; then
-              docker compose -f docker-compose.deploy.yml ps
-              docker compose -f docker-compose.deploy.yml logs --no-color
-              exit 1
-            fi
+
+            echo "Waiting for backend health ($attempt/40)..."
             sleep 3
           done
-          curl --fail --silent http://localhost:8080/ > /dev/null
+
+          if [ "$healthy" != "true" ]; then
+            echo "Backend failed health verification"
+
+            echo "=== Container Status ==="
+            docker compose -f docker-compose.deploy.yml ps -a
+
+            echo "=== Backend Logs ==="
+            docker compose -f docker-compose.deploy.yml logs --no-color backend
+
+            echo "=== PostgreSQL Logs ==="
+            docker compose -f docker-compose.deploy.yml logs --no-color postgres
+
+            echo "=== Redis Logs ==="
+            docker compose -f docker-compose.deploy.yml logs --no-color redis
+
+            echo "=== Backend Health Details ==="
+            container_id=$(docker compose -f docker-compose.deploy.yml ps -q backend)
+
+            if [ -n "$container_id" ]; then
+              docker inspect "$container_id" --format '{{json .State.Health}}' || true
+            fi
+
+            exit 1
+          fi
+
+      - name: Verify frontend accessibility
+        run: |
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent http://localhost:8080/ > /dev/null; then
+              echo "Frontend is responding"
+              exit 0
+            fi
+
+            echo "Waiting for frontend ($attempt/20)..."
+            sleep 3
+          done
+
+          echo "Frontend verification failed"
+          docker compose -f docker-compose.deploy.yml logs --no-color frontend
+          exit 1
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
@@ -122,4 +186,5 @@ jobs:
 
       - name: Cleanup deployment
         if: always()
-        run: docker compose -f docker-compose.deploy.yml down -v --remove-orphans || true
+        run: |
+          docker compose -f docker-compose.deploy.yml down -v --remove-orphans || true
