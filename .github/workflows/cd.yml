@@ -99,7 +99,7 @@ jobs:
             fi
             sleep 3
           done
-          curl --fail --silent http://localhost:8080/ > /dev/null
+          curl --fail --silent http://localhost:8082/ > /dev/null
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
