@@ -1,7 +1,10 @@
 services:
   postgres:
     image: postgres:15-alpine
-    env_file: .env
+    environment:
+      - POSTGRES_DB=taskflow
+      - POSTGRES_USER=taskflow_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
@@ -27,7 +30,11 @@ services:
       context: ./backend
     ports:
       - "3000:3000"
-    env_file: .env
+    environment:
+      - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow
+      - REDIS_URL=redis://redis:6379
+      - PORT=3000
+      - JWT_SECRET=super_secret_github_actions_key
     depends_on:
       postgres:
         condition: service_healthy
