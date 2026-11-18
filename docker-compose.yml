@@ -1,0 +1,72 @@
+# Local development stack - builds the images from source.
+#   docker compose up -d --build
+# All values come from .env (see .env.example) - nothing secret is written here.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data                       # data survives container removal
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro # creates the tables on first start
+    networks: [app-network]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    networks: [app-network]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    image: ${DOCKERHUB_USERNAME:-local}/taskflow-backend:latest
+    environment:
+      PORT: ${PORT}
+      DATABASE_URL: ${DATABASE_URL}   # host is "postgres" (service name), not localhost
+      REDIS_URL: ${REDIS_URL}         # host is "redis" (service name), not localhost
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - "3000:3000"
+    networks: [app-network]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 15s
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    image: ${DOCKERHUB_USERNAME:-local}/taskflow-frontend:latest
+    ports:
+      - "8080:80"                     # host 8080 -> nginx 80 (nginx proxies /api to backend)
+    networks: [app-network]
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+networks:
+  app-network:
+
+volumes:
+  postgres_data:
