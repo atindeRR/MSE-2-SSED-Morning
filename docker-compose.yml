@@ -4,6 +4,7 @@ services:
     env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
+      - ./backend/db:/docker-entrypoint-initdb.d
     networks:
       - backend_net
     healthcheck:
