@@ -1,0 +1,13 @@
+{
+  "name": "Dhairya Goel",
+  "rollNumber": "202401100300099",
+  "section": "b",
+  "branch": "CSE (AI)",
+  "githubUsername": "dhairyagoel-git",
+  "dockerHubUsername": "dhairyagoel",
+  "repository": "https://github.com/dhairyagoel-git/MSE-2-SSED-Morning",
+  "images": {
+    "frontend": "dhairyagoel/taskflow-frontend:latest",
+    "backend": "dhairyagoel/taskflow-backend:latest"
+  }
+}

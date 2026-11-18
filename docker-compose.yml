@@ -1,0 +1,111 @@
+# ---------------------------------------------------------------
+# TaskFlow - local development / evaluation stack (builds from source)
+#
+#   docker compose up -d --build
+#
+# Reads its variables from a ".env" file next to this file
+# (copy .env.example to .env). No secrets are written in this file.
+# ---------------------------------------------------------------
+
+services:
+  # ---------- PostgreSQL (official image) ----------
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB is not set in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is not set in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set in .env}
+    volumes:
+      # Named volume -> database files survive container removal
+      - postgres_data:/var/lib/postgresql/data
+      # Creates the users/tasks tables on the very first start (empty volume)
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
+    healthcheck:
+      # $$ = evaluated inside the container, using the container's own env
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - backend_net
+
+  # ---------- Redis (official image) ----------
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    networks:
+      - backend_net
+
+  # ---------- Backend API (Node.js / Express) ----------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-3000}
+      # Hostnames "postgres" and "redis" are the Compose service names
+      # (resolved by Docker's internal DNS) - never localhost.
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL is not set in .env}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is not set in .env}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      # host:container  (CI checks http://localhost:3000/health)
+      - "${BACKEND_HOST_PORT:-3000}:${PORT:-3000}"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:$${PORT}/health > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
+    networks:
+      - frontend_net
+      - backend_net
+
+  # ---------- Frontend (React build served by Nginx) ----------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    depends_on:
+      # nginx.conf proxies to http://backend:3000, so the backend must be up first
+      backend:
+        condition: service_healthy
+    ports:
+      # host:container  (CI checks http://localhost:8080/)
+      - "${FRONTEND_HOST_PORT:-8080}:80"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:80/ > /dev/null || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - frontend_net
+
+# Database files persist here across `docker compose down` / `up`
+volumes:
+  postgres_data:
+
+# frontend_net : frontend <-> backend
+# backend_net  : backend  <-> postgres, redis   (DB and cache are not reachable from the frontend)
+networks:
+  frontend_net:
+    driver: bridge
+  backend_net:
+    driver: bridge
