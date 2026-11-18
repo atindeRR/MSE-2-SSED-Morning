@@ -21,13 +21,15 @@ jobs:
       - name: Checkout student's repository
         uses: actions/checkout@v4
 
-      - name: Validate required Docker Hub secrets
+      - name: Validate required secrets
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
           test -n "$DOCKERHUB_USERNAME" || (echo "Missing DOCKERHUB_USERNAME secret" && exit 1)
           test -n "$DOCKERHUB_TOKEN" || (echo "Missing DOCKERHUB_TOKEN secret" && exit 1)
+          test -n "$POSTGRES_PASSWORD" || (echo "Missing POSTGRES_PASSWORD secret" && exit 1)
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -47,6 +49,7 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:${{ github.sha }}
 
+
       - name: Build and push frontend
         uses: docker/build-push-action@v6
         with:
@@ -57,17 +60,35 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
 
       - name: Create deployment environment file
+        env:
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
-          PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          EOF
+          python3 - <<'PY'
+          import os
+          from urllib.parse import quote
+
+          password = os.environ["POSTGRES_PASSWORD"]
+          encoded_password = quote(password, safe="")
+          jwt_secret = os.urandom(32).hex()
+
+          with open(".env", "w") as f:
+              f.write("POSTGRES_DB=taskflow\n")
+              f.write("POSTGRES_USER=taskflow_user\n")
+              f.write(f"POSTGRES_PASSWORD={password}\n")
+              f.write(
+                  "DATABASE_URL="
+                  f"postgresql://taskflow_user:{encoded_password}"
+                  "@postgres:5432/taskflow\n"
+              )
+              f.write("REDIS_URL=redis://redis:6379\n")
+              f.write(f"JWT_SECRET={jwt_secret}\n")
+              f.write("PORT=3000\n")
+              f.write(
+                  f"DOCKERHUB_USERNAME={os.environ['DOCKERHUB_USERNAME']}\n"
+              )
+          PY
+
 
       - name: Validate image-based deployment Compose
         run: |
