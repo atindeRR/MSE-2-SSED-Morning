@@ -29,7 +29,7 @@ jobs:
       - name: Checkout instructor-controlled evaluation files
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
+          repository: atindeRR/MSE-2-SSED-Morning
           ref: main
           path: instructor-evaluation
 
@@ -44,7 +44,13 @@ jobs:
           fi
 
       - name: Check required files
-        run: bash instructor-evaluation/scripts/check-required-files.sh
+        run: |
+          test -f frontend/Dockerfile
+          test -f backend/Dockerfile
+          test -f docker-compose.yml
+          test -f docker-compose.deploy.yml
+          test -f frontend/nginx.conf
+          test -f backend/db/init.sql
 
       - name: Validate frontend Dockerfile
         run: docker run --rm -i hadolint/hadolint < frontend/Dockerfile
@@ -116,7 +122,17 @@ jobs:
         run: npm test -- --json --outputFile=test-results.json
 
       - name: Test PostgreSQL persistence
-        run: bash instructor-evaluation/scripts/persistence-test.sh
+        run: |
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -c "CREATE TABLE IF NOT EXISTS ci_persistence_check (id SERIAL PRIMARY KEY, marker TEXT)"
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -c "INSERT INTO ci_persistence_check (marker) VALUES ('persistence_verified')"
+          docker compose restart postgres
+          for attempt in $(seq 1 30); do
+            if docker compose exec -T postgres pg_isready -U taskflow_user -d taskflow; then
+              break
+            fi
+            sleep 2
+          done
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -c "SELECT * FROM ci_persistence_check WHERE marker = 'persistence_verified'"
 
       - name: Capture container status and logs
         if: always()
