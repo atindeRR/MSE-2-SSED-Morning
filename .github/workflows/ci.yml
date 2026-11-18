@@ -1,3 +1,4 @@
+
 name: Docker Practical - CI Evaluation
 
 on:
@@ -37,6 +38,7 @@ jobs:
         run: |
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Commit: $GITHUB_SHA"
+
           if [ -f submission.json ]; then
             cat submission.json
           else
@@ -45,6 +47,13 @@ jobs:
 
       - name: Check required files
         run: bash instructor-evaluation/scripts/check-required-files.sh
+
+      - name: Validate submission files
+        run: |
+          test -f frontend/Dockerfile
+          test -f backend/Dockerfile
+          test -f docker-compose.yml
+          test -f docker-compose.deploy.yml
 
       - name: Validate frontend Dockerfile
         run: docker run --rm -i hadolint/hadolint < frontend/Dockerfile
@@ -84,9 +93,11 @@ jobs:
               echo "Backend is healthy"
               exit 0
             fi
+
             echo "Waiting for backend ($attempt/40)..."
             sleep 3
           done
+
           echo "Backend did not become healthy"
           docker compose ps
           docker compose logs --no-color
@@ -99,8 +110,10 @@ jobs:
               echo "Frontend is responding"
               exit 0
             fi
+
             sleep 3
           done
+
           docker compose logs frontend
           exit 1
 
