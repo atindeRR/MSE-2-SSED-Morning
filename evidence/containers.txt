@@ -1,0 +1,5 @@
+NAME                       IMAGE                    COMMAND                  SERVICE    CREATED         STATUS                   PORTS
+morning-shift-backend-1    morning-shift-backend    "docker-entrypoint.s…"   backend    2 minutes ago   Up 2 minutes (healthy)   127.0.0.1:3000->3000/tcp
+morning-shift-frontend-1   morning-shift-frontend   "/docker-entrypoint.…"   frontend   2 minutes ago   Up 2 minutes (healthy)   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+morning-shift-postgres-1   postgres:16-alpine       "docker-entrypoint.s…"   postgres   2 minutes ago   Up 2 minutes (healthy)   5432/tcp
+morning-shift-redis-1      redis:7.4-alpine         "docker-entrypoint.s…"   redis      2 minutes ago   Up 2 minutes (healthy)   6379/tcp

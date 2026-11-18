@@ -1,0 +1,15 @@
+{
+  "student": "Manu Garg",
+  "roll_number": "2400291520149",
+  "local_build": "passed",
+  "healthy_services": 4,
+  "supplied_api_tests_passed": 12,
+  "supplied_api_tests_total": 12,
+  "dockerfile_lint": "passed",
+  "postgres_persistence": "passed",
+  "redis_cache": "passed",
+  "dockerhub_publication": "pending token setup",
+  "cd_pipeline": "not run yet",
+  "instructor_ci": "upstream evaluation scripts absent",
+  "submission_complete": false
+}

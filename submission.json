@@ -1,0 +1,11 @@
+{
+  "name": "Manu Garg",
+  "roll_number": "2400291520149",
+  "section": "CSE-AI-C",
+  "branch": "CSE (Artificial Intelligence)",
+  "github_username": "mg8273",
+  "dockerhub_username": "mg8273",
+  "repository": "https://github.com/mg8273/MSE-2-SSED-Morning",
+  "frontend_image": "docker.io/mg8273/frontend:latest",
+  "backend_image": "docker.io/mg8273/backend:latest"
+}
