@@ -2,7 +2,10 @@ import pg from 'pg';
 import { config } from './config.js';
 
 const { Pool } = pg;
-export const pool = new Pool({ connectionString: config.databaseUrl });
+
+export const pool = new Pool({
+  connectionString: config.databaseUrl
+});
 
 export async function waitForDatabase() {
   for (let attempt = 1; attempt <= 30; attempt++) {
