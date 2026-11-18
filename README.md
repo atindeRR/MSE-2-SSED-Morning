@@ -1,3 +1,5 @@
+> **Implementation and submission:** See [DOCKER_SETUP.md](DOCKER_SETUP.md) for run/deployment instructions and [SUBMISSION_CHECKLIST.md](SUBMISSION_CHECKLIST.md) for the mandatory PDF and screenshot requirements. The original question text follows.
+
 # MSE-2 Morning Shift
 # Software Engineering and DevOps (AI310B)
 ---
