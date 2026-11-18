@@ -1,0 +1,73 @@
+services:
+  frontend:
+    image: ${DOCKERHUB_USERNAME:-local}/frontend:latest
+    build:
+      context: ./frontend
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - taskflow
+    restart: unless-stopped
+
+  backend:
+    image: ${DOCKERHUB_USERNAME:-local}/backend:latest
+    build:
+      context: ./backend
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_db_password}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-taskflow_user}:${POSTGRES_PASSWORD:-change_this_db_password}@postgres:5432/${POSTGRES_DB:-taskflow}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-local_development_secret_change_before_deploy}
+    ports:
+      - "127.0.0.1:3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - taskflow
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17.7-alpine3.23
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_db_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    networks:
+      - taskflow
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.4.12-alpine3.22
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - taskflow
+    restart: unless-stopped
+
+networks:
+  taskflow:
+
+volumes:
+  postgres_data:

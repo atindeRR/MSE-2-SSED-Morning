@@ -43,6 +43,43 @@ cd MSE-2-SSED-Morning
 
 **Important:** Do not modify or remove the existing application functionality. Your task is to implement the containerization and deployment configurations.
 
+### Implemented Architecture and Local Run
+
+```text
+Browser :8080 -> frontend (Nginx) -> backend (Express :3000) -> PostgreSQL
+                                                        -> Redis
+```
+
+The API and database/cache use Compose service-name DNS (`backend`, `postgres`, and `redis`). PostgreSQL data lives in the named `postgres_data` volume. Only the frontend (8080) and API (3000) are published, bound to localhost; PostgreSQL and Redis remain private to the Compose network. The Nginx frontend proxies `/api/` and `/health` to the backend.
+
+For local development, create a private environment file and use a URL-safe database password (hex is suitable):
+
+```bash
+cp .env.example .env
+```
+
+Edit `.env` and set your Docker Hub username, `POSTGRES_PASSWORD`, and a long random `JWT_SECRET`. A random secret can be generated with `openssl rand -hex 32`. Do not commit `.env`; `.gitignore` excludes it. Then start and verify:
+
+```bash
+docker compose -f docker-compose.yml config
+docker compose -f docker-compose.yml up -d --build --wait
+docker compose -f docker-compose.yml ps
+curl -fsS http://localhost:3000/health
+curl -fsS http://localhost:8080/
+```
+
+Run the provided API integration suite from a shell with Node.js installed:
+
+```bash
+cd tests
+npm ci
+BASE_URL=http://localhost:3000 NODE_OPTIONS=--experimental-vm-modules npm test
+```
+
+It covers health, registration/login, task CRUD, and Redis cache behavior. To confirm the API container is non-root, run `docker compose -f docker-compose.yml exec backend id -u` (expected UID: `1000`). PostgreSQL data remains in `postgres_data` after `docker compose down` and a later `up`.
+
+To stop the stack while keeping PostgreSQL data, run `docker compose -f docker-compose.yml down` (do not add `-v` unless you intentionally want to erase the database volume).
+
 ---
 
 ## 3. Practical Tasks
