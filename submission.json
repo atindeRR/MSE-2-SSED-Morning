@@ -1,0 +1,8 @@
+{
+  "student_name": "Shikhar Maheshwari",
+  "github_username": "shikharma1",
+  "dockerhub_username": "shikhar147",
+  "repository": "https://github.com/shikharma1/MSE-2-SSED-Morning",
+  "frontend_image": "shikhar147/frontend:latest",
+  "backend_image": "shikhar147/backend:latest"
+}
