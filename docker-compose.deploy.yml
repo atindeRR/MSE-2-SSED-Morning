@@ -1,10 +1,7 @@
 services:
   postgres:
     image: postgres:15-alpine
-    environment:
-      POSTGRES_USER: taskflow_user
-      POSTGRES_PASSWORD: taskflow_password
-      POSTGRES_DB: taskflow
+    env_file: .env
     volumes:
       - pg_data:/var/lib/postgresql/data
     networks:
@@ -26,10 +23,10 @@ services:
       retries: 5
 
   backend:
-    # Notice we use 'image' instead of 'build' here
-    image: harshvardhanshukla/backend:latest
+    image: YOUR_DOCKERHUB_USERNAME/backend:latest
     ports:
       - "3000:3000"
+    env_file: .env
     environment:
       - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow
       - REDIS_URL=redis://redis:6379
@@ -45,8 +42,7 @@ services:
       - backend_net
 
   frontend:
-    # Notice we use 'image' instead of 'build' here
-    image: harshvardhanshukla/frontend:latest
+    image: YOUR_DOCKERHUB_USERNAME/frontend:latest
     ports:
       - "8080:80"
     depends_on:
