@@ -171,6 +171,7 @@ docker compose -f docker-compose.deploy.yml pull
 docker compose -f docker-compose.deploy.yml up -d
 ```
 
+
 Verify that the application is accessible and functioning correctly.
 
 ---
@@ -420,3 +421,22 @@ Include the following declaration at the end of the PDF:
 10. Be prepared to explain your Dockerfiles, networking, volumes, environment variables, image publishing and CI/CD workflow during the viva.
 
 **Final Submission:** Your examination submission is considered complete only when your Docker implementation is pushed to your GitHub fork, the required CD stages have passed, and the final Pull Request has been created successfully.
+
+## Local Container Setup
+
+Copy `.env.example` to `.env` and set a private `POSTGRES_PASSWORD` and a long random `JWT_SECRET`. Keep `.env` out of Git. The `DATABASE_URL` password must match `POSTGRES_PASSWORD`; URL-encode special characters in the URL if you use them in the database password.
+
+Start the application and its dependencies:
+
+```bash
+docker compose up -d --build
+```
+
+The frontend is available at `http://localhost:8080` and the backend health endpoint at `http://localhost:3000/health` by default. If those ports are already in use, change `FRONTEND_HOST_PORT` and `BACKEND_HOST_PORT` in `.env`. PostgreSQL data is kept in the named `postgres_data` volume. Use `docker compose down` to stop the stack without deleting data.
+
+To deploy the published images instead, set `DOCKERHUB_USERNAME` in `.env`, then run:
+
+```bash
+docker compose -f docker-compose.deploy.yml pull
+docker compose -f docker-compose.deploy.yml up -d
+```
