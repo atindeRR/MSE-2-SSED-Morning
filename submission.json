@@ -1,0 +1,11 @@
+{
+  "student_name": "Tushar Bhardwaj",
+  "roll_number": "230101",
+  "section": "AIML-B",
+  "branch": "AIML",
+  "github_username": "0Tusharbhardwaj",
+  "dockerhub_username": "tusharbhardwaj123",
+  "fork_url": "https://github.com/0Tusharbhardwaj/MSE-2-SSED-Tushar-Bhardwaj",
+  "frontend_image": "tusharbhardwaj123/taskflow-frontend:latest",
+  "backend_image": "tusharbhardwaj123/taskflow-backend:latest"
+}
