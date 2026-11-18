@@ -23,6 +23,17 @@ app.get('/health', async (_req, res) => {
   }
 });
 
+// Alias for /api/health to support frontend proxy
+app.get('/api/health', async (_req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    await redis.ping();
+    res.json({ status: 'ok', postgres: 'ok', redis: 'ok' });
+  } catch (error) {
+    res.status(503).json({ status: 'unavailable', error: error.message });
+  }
+});
+
 app.post('/api/auth/register', async (req, res, next) => {
   try {
     const { name, email, password } = req.body || {};
