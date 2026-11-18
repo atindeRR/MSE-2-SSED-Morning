@@ -1,0 +1,13 @@
+{
+  "name": "Taranjeet Singh Bagga",
+  "rollNumber": "202401100300263",
+  "section": "D",
+  "branch": "CSE-AI",
+  "githubUsername": "Taran790",
+  "forkUrl": "https://github.com/Taran790/MSE-2-SSED",
+  "dockerhubUsername": "tarrrrannnnnn",
+  "images": {
+    "frontend": "tarrrrannnnnn/taskflow-frontend:latest",
+    "backend": "tarrrrannnnnn/taskflow-backend:latest"
+  }
+}
