@@ -1,7 +1,7 @@
 services:
   # 1. Frontend
   frontend:
-    image: YOUR_DOCKERHUB_USERNAME/frontend:latest
+    image: ${DOCKERHUB_USERNAME}/taskflow-frontend:latest
     container_name: frontend-deploy
     ports:
       - "8080:80"
@@ -13,14 +13,15 @@ services:
 
   # 2. Backend
   backend:
-    image: YOUR_DOCKERHUB_USERNAME/backend:latest
+    image: ${DOCKERHUB_USERNAME}/taskflow-backend:latest
     container_name: backend-deploy
     ports:
-      - "5000:5000"
+      - "3000:3000"
     environment:
-      PORT: 5000
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/mydatabase
-      REDIS_URL: redis://redis:6379
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-taskflow_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-taskflow}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:-replace_with_a_long_random_secret}
     depends_on:
       postgres:
         condition: service_healthy
@@ -35,15 +36,16 @@ services:
     image: postgres:16
     container_name: postgres-deploy
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: mydatabase
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
     ports:
       - "5432:5432"
     volumes:
       - postgres-data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow_user}"]
       interval: 10s
       timeout: 5s
       retries: 5
