@@ -1,0 +1,16 @@
+{
+  "name": "Ansh Tandon",
+  "rollNumber": "2400291520053",
+  "studentId": "202401100300053",
+  "section": "CSE-AI(A)",
+  "branch": "CSE-AI",
+  "program": "Bachelor of Technology",
+  "courseCode": "AI316B",
+  "courseName": "Software System Engineering and DevOps",
+  "githubUsername": "Ansh366239",
+  "dockerHubUsername": "ansh240905",
+  "frontendImage": "ansh240905/frontend",
+  "backendImage": "ansh240905/backend",
+  "applicationUrl": "http://localhost:8080",
+  "backendHealthUrl": "http://localhost:3000/health"
+}
