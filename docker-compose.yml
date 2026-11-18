@@ -56,7 +56,7 @@ services:
     image: taskflow-frontend:local
     restart: unless-stopped
     ports:
-      - "8082:80"
+      - "8080:80"
     depends_on:
       backend:
         condition: service_healthy
