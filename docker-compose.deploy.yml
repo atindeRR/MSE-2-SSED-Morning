@@ -1,0 +1,64 @@
+﻿services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: mse_postgres_deploy
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-deployment_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow_user} -d ${POSTGRES_DB:-taskflow}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: mse_redis_deploy
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    image: ${DOCKERHUB_USERNAME:-shubhammishra108}/taskflow-backend:latest
+    container_name: mse_backend_deploy
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: ${PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:-replace_with_a_long_random_secret}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME:-shubhammishra108}/taskflow-frontend:latest
+    container_name: mse_frontend_deploy
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+volumes:
+  postgres_data:
+
+networks:
+  app-network:
+    driver: bridge
