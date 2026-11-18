@@ -1,0 +1,18 @@
+{
+  "studentName": "Prateek Rai",
+  "rollNumber": "2400291520178",
+  "section": "C",
+  "branch": "CSE AI",
+  "githubUsername": "Prat260104",
+  "dockerHubUsername": "prateeek123418",
+  "repositoryUrl": "https://github.com/Prat260104/MSE-2-SSED-Morning",
+  "pullRequestUrl": "https://github.com/atindeRR/MSE-2-SSED-Morning/pull/42",
+  "frontendImage": "prateeek123418/taskflow-frontend:latest",
+  "backendImage": "prateeek123418/taskflow-backend:latest",
+  "submissionDate": "2024-11-18",
+  "cicdPassed": true,
+  "dockerfilesImplemented": true,
+  "dockerComposeImplemented": true,
+  "imagesPublished": true,
+  "deploymentVerified": true
+}
