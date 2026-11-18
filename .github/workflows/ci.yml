@@ -1,3 +1,4 @@
+
 name: Docker Practical - CI Evaluation
 
 on:
@@ -29,7 +30,7 @@ jobs:
       - name: Checkout instructor-controlled evaluation files
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
+          repository: atindeRR/MSE-2-SSED-Morning
           ref: main
           path: instructor-evaluation
 
@@ -84,9 +85,11 @@ jobs:
               echo "Backend is healthy"
               exit 0
             fi
+
             echo "Waiting for backend ($attempt/40)..."
             sleep 3
           done
+
           echo "Backend did not become healthy"
           docker compose ps
           docker compose logs --no-color
@@ -99,8 +102,10 @@ jobs:
               echo "Frontend is responding"
               exit 0
             fi
+
             sleep 3
           done
+
           docker compose logs frontend
           exit 1
 
