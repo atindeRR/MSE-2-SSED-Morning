@@ -23,6 +23,8 @@ docker compose -f docker-compose.deploy.yml up -d
 
 The GitHub CD workflow requires repository secrets `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN`, and `POSTGRES_PASSWORD`; it generates a per-run JWT secret.
 
+The `Docker Practical - CI Evaluation` workflow selects the instructor evaluation repository from the pull request's base repository. For a manual `workflow_dispatch`, provide the required `evaluation_repository` input as the instructor repository's exact `owner/repository`; the workflow checks that its required evaluation scripts and tests exist before running them. The workflow's `submission.json` message is a non-fatal warning; the assignment text in this repository does not define a schema, so no manifest is created without an authoritative specification.
+
 ---
 
 ## 1. Problem Statement

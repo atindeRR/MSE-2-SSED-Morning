@@ -5,6 +5,11 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
     branches: [main]
   workflow_dispatch:
+    inputs:
+      evaluation_repository:
+        description: Instructor repository containing the evaluation scripts (owner/repository)
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -29,9 +34,24 @@ jobs:
       - name: Checkout instructor-controlled evaluation files
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
+          repository: ${{ github.event_name == 'workflow_dispatch' && inputs.evaluation_repository || github.event.pull_request.base.repo.full_name }}
           ref: main
           path: instructor-evaluation
+
+      - name: Verify instructor evaluation files
+        shell: bash
+        run: |
+          required_files=(
+            instructor-evaluation/scripts/check-required-files.sh
+            instructor-evaluation/scripts/persistence-test.sh
+            instructor-evaluation/tests/package.json
+          )
+          for file in "${required_files[@]}"; do
+            if [[ ! -f "$file" ]]; then
+              echo "::error::Required instructor evaluation file is missing: $file"
+              exit 1
+            fi
+          done
 
       - name: Show submission identity
         run: |
@@ -99,6 +119,7 @@ jobs:
               echo "Frontend is responding"
               exit 0
             fi
+            echo "Waiting for frontend ($attempt/20)..."
             sleep 3
           done
           docker compose logs frontend
