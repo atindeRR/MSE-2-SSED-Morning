@@ -1,0 +1,10 @@
+{
+  "name": "Shivani Yadav",
+  "rollNumber": "202401100300235",
+  "section": "D",
+  "branch": "CSE-AI",
+  "githubUsername": "shivaniyadav-codes",
+  "dockerHubUsername": "shivanicodes",
+  "frontendImage": "shivanicodes/taskflow-frontend",
+  "backendImage": "shivanicodes/taskflow-backend"
+}
