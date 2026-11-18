@@ -87,7 +87,7 @@ jobs:
       - name: Verify deployment
         run: |
           for attempt in $(seq 1 40); do
-            if curl --fail --silent http://localhost:3000/health; then
+            if curl --fail --silent http://localhost:3001/health; then
               echo
               echo "Deployment backend is healthy"
               break
@@ -99,12 +99,12 @@ jobs:
             fi
             sleep 3
           done
-          curl --fail --silent http://localhost:8080/ > /dev/null
+          curl --fail --silent http://localhost:3000/ > /dev/null
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
         env:
-          BASE_URL: http://localhost:3000
+          BASE_URL: http://localhost:3001
           NODE_OPTIONS: --experimental-vm-modules
         run: |
           npm install
