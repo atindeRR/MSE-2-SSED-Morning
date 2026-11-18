@@ -57,17 +57,37 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
 
       - name: Create deployment environment file
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=replace_with_a_long_random_secret
-          PORT=3000
-          DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}
-          EOF
+          python3 - <<'PY'
+          import os
+          import secrets
+          from pathlib import Path
+          from urllib.parse import quote
+
+          password = os.environ["POSTGRES_PASSWORD"]
+          if not password or "\n" in password or "\r" in password:
+              raise SystemExit("POSTGRES_PASSWORD must be a nonempty single-line secret")
+
+          values = {
+              "POSTGRES_DB": "taskflow",
+              "POSTGRES_USER": "taskflow_user",
+              "POSTGRES_PASSWORD": password,
+              "DATABASE_URL": f"postgresql://taskflow_user:{quote(password, safe='')}@postgres:5432/taskflow",
+              "REDIS_URL": "redis://redis:6379",
+              "JWT_SECRET": secrets.token_hex(32),
+              "PORT": "3000",
+              "DOCKERHUB_USERNAME": os.environ["DOCKERHUB_USERNAME"],
+              "IMAGE_TAG": os.environ["GITHUB_SHA"],
+          }
+          dotenv_lines = []
+          for key, value in values.items():
+              escaped = value.replace("\\", "\\\\").replace('"', '\\"').replace("$", "$$")
+              dotenv_lines.append(f'{key}="{escaped}"\n')
+          Path(".env").write_text("".join(dotenv_lines), encoding="utf-8")
+          PY
 
       - name: Validate image-based deployment Compose
         run: |
@@ -82,7 +102,7 @@ jobs:
         run: docker compose -f docker-compose.deploy.yml pull
 
       - name: Deploy using Docker Hub images
-        run: docker compose -f docker-compose.deploy.yml up -d
+        run: docker compose -f docker-compose.deploy.yml up -d --wait --wait-timeout 180
 
       - name: Verify deployment
         run: |
