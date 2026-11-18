@@ -1,0 +1,65 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./backend/db:/docker-entrypoint-initdb.d
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskflow_user -d taskflow"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:alpine
+    networks:
+      - backend_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    env_file: .env
+    environment:
+      - POSTGRES_DB=taskflow
+      - POSTGRES_USER=taskflow_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow
+      - REDIS_URL=redis://redis:6379
+      - JWT_SECRET=super_secret_github_actions_key
+      - PORT=3000
+      - NODE_ENV=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - frontend_net
+      - backend_net
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - frontend_net
+
+networks:
+  frontend_net:
+  backend_net:
+
+volumes:
+  pg_data:
