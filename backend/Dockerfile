@@ -15,6 +15,6 @@ COPY db/ ./db/
 
 EXPOSE 3000
 
-USER node
+USER 1000:1000
 
 CMD ["npm", "start"]
