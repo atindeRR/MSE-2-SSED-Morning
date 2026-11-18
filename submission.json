@@ -1,0 +1,10 @@
+{
+  "name": "Shreya Tyagi",
+  "roll_number": "202401100300241",
+  "section": "AIML-D",
+  "branch": "B.Tech CSE (AI)",
+  "github_username": "shreya436",
+  "dockerhub_username": "shreyatyagi25",
+  "frontend_image": "shreyatyagi25/taskflow-frontend:latest",
+  "backend_image": "shreyatyagi25/taskflow-backend:latest"
+}

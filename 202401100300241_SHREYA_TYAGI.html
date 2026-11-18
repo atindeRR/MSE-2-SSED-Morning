@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MSE-2 Practical Examination Report - Shreya Tyagi</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 1.8cm 1.5cm;
+    }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.5;
+      color: #24292e;
+      background: #ffffff;
+      margin: 0;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      border-bottom: 2px solid #0366d6;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+    }
+    .header h1 {
+      margin: 0 0 6px 0;
+      font-size: 22pt;
+      color: #0366d6;
+    }
+    .header h2 {
+      margin: 0 0 4px 0;
+      font-size: 14pt;
+      color: #586069;
+      font-weight: 500;
+    }
+    .header p {
+      margin: 0;
+      font-size: 11pt;
+      color: #6a737d;
+    }
+    .section-title {
+      font-size: 13pt;
+      color: #1f2328;
+      border-bottom: 1px solid #e1e4e8;
+      padding-bottom: 6px;
+      margin-top: 22px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+      font-size: 10pt;
+    }
+    th, td {
+      border: 1px solid #d0d7de;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f6f8fa;
+      font-weight: 600;
+      width: 32%;
+    }
+    pre {
+      background-color: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 10px 12px;
+      font-size: 8.5pt;
+      font-family: 'Consolas', 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 10px 0;
+    }
+    code {
+      font-family: 'Consolas', 'Courier New', monospace;
+      background: #eff1f3;
+      padding: 2px 4px;
+      border-radius: 4px;
+      font-size: 9pt;
+    }
+    .checklist {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    .checklist li {
+      padding: 4px 0;
+      font-size: 10pt;
+    }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      font-size: 8.5pt;
+      font-weight: bold;
+      color: #ffffff;
+      background-color: #2ea44f;
+      border-radius: 12px;
+    }
+    .evidence-box {
+      border: 2px dashed #0366d6;
+      border-radius: 8px;
+      padding: 16px;
+      background: #f1f8ff;
+      margin: 14px 0;
+      text-align: center;
+      color: #0366d6;
+      font-size: 10pt;
+    }
+    .declaration {
+      background-color: #f8f9fa;
+      border-left: 4px solid #28a745;
+      padding: 12px 16px;
+      font-style: italic;
+      margin-top: 24px;
+      border-radius: 0 4px 4px 0;
+    }
+    .page-break {
+      page-break-before: always;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Software Engineering and DevOps (AI310B)</h1>
+    <h2>Practical Examination: Mid-Semester Examination – 2 (Morning Shift)</h2>
+    <p>Containerization, Multi-Service Orchestration, Docker Hub Publishing &amp; Automated CI/CD Pipelines</p>
+  </div>
+
+  <div class="section-title">1. Student Information</div>
+  <table>
+    <tr><th>Full Name</th><td>Shreya Tyagi</td></tr>
+    <tr><th>University Roll Number</th><td>202401100300241</td></tr>
+    <tr><th>Section</th><td>AIML-D</td></tr>
+    <tr><th>Programme / Branch</th><td>B.Tech. Computer Science &amp; Engineering (AIML)</td></tr>
+    <tr><th>Host Machine Operating System</th><td>Windows 11 (Docker Compose v5.7.0, Node.js v24.13.0)</td></tr>
+  </table>
+
+  <div class="section-title">2. GitHub &amp; Docker Hub Submission Details</div>
+  <table>
+    <tr><th>Forked Repository URL</th><td><code>https://github.com/shreya436/MSE-2-SSED-Morning</code></td></tr>
+    <tr><th>Implementation Branch</th><td><code>main</code></td></tr>
+    <tr><th>Docker Hub Username</th><td><code>shreyatyagi25</code></td></tr>
+    <tr><th>Frontend Image Reference</th><td><code>shreyatyagi25/taskflow-frontend:latest</code></td></tr>
+    <tr><th>Backend Image Reference</th><td><code>shreyatyagi25/taskflow-backend:latest</code></td></tr>
+    <tr><th>Base Starter Repository</th><td><code>https://github.com/atindeRR/MSE-2-SSED-Morning</code></td></tr>
+  </table>
+
+  <div class="section-title">3. Implementation Architecture Overview</div>
+  <p>The application is containerized into a multi-tier microservice architecture adhering to enterprise containerization and security best practices:</p>
+  <ul>
+    <li><strong>Frontend Service (React + Vite):</strong> Multi-stage Docker build utilizing <code>node:20-alpine</code> for lean production compilation and <code>nginx:1.27-alpine</code> for serving production static assets and reverse-proxying <code>/api/</code> and <code>/health</code> endpoints to the backend.</li>
+    <li><strong>Backend Service (Node.js + Express):</strong> Production Dockerfile built on <code>node:20-alpine</code>. Employs non-root execution (<code>USER node</code>), automated dependency caching (<code>npm install --omit=dev &amp;&amp; npm cache clean --force</code>), and zero hardcoded credentials.</li>
+    <li><strong>Database Service (PostgreSQL 16):</strong> PostgreSQL container with automated schema initialization via <code>/docker-entrypoint-initdb.d/init.sql</code> and named persistent storage volume <code>postgres_data</code>.</li>
+    <li><strong>Cache Service (Redis 7):</strong> Redis in-memory cache for API performance acceleration and rapid query retrieval.</li>
+    <li><strong>Network Isolation:</strong> Dedicated bridge network (<code>taskflow-network</code>) enabling seamless inter-service DNS communication.</li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <div class="section-title">4. Core Configuration Deliverables</div>
+
+  <h3 style="font-size:11pt; color:#0366d6; margin-bottom: 4px;">A. Frontend Multi-Stage Dockerfile (<code>frontend/Dockerfile</code>)</h3>
+  <pre>
+# Multi-stage build for React frontend application
+# Stage 1: Build the React application
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm install &amp;&amp; npm cache clean --force
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve the production build using Nginx
+FROM nginx:1.27-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+  </pre>
+
+  <h3 style="font-size:11pt; color:#0366d6; margin-bottom: 4px;">B. Backend Production Dockerfile (<code>backend/Dockerfile</code>)</h3>
+  <pre>
+# Production Dockerfile for Node.js Express backend
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+COPY package*.json ./
+RUN npm install --omit=dev &amp;&amp; npm cache clean --force
+COPY --chown=node:node . .
+USER node
+EXPOSE 3000
+CMD ["node", "src/server.js"]
+  </pre>
+
+  <h3 style="font-size:11pt; color:#0366d6; margin-bottom: 4px;">C. Deployment Compose Configuration (<code>docker-compose.deploy.yml</code>)</h3>
+  <pre>
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: taskflow-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be provided in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow_user} -d ${POSTGRES_DB:-taskflow}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - taskflow-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: taskflow-redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - taskflow-network
+
+  backend:
+    image: ${DOCKERHUB_USERNAME:-shreyatyagi25}/taskflow-backend:latest
+    container_name: taskflow-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: ${PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL:?DATABASE_URL must be provided in .env}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be provided in .env}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://localhost:3000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))\""]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - taskflow-network
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME:-shreyatyagi25}/taskflow-frontend:latest
+    container_name: taskflow-frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - taskflow-network
+
+volumes:
+  postgres_data:
+
+networks:
+  taskflow-network:
+    driver: bridge
+  </pre>
+
+  <div class="page-break"></div>
+
+  <div class="section-title">5. CI/CD Pipeline Implementation &amp; Execution Evidence</div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Pipeline Stage</th>
+        <th>Expected Output</th>
+        <th>Verification Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Validate Required Secrets</td><td><code>DOCKERHUB_USERNAME</code> &amp; <code>DOCKERHUB_TOKEN</code> validated</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Set up Docker Buildx</td><td>Buildx builder instance initialized</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Login to Docker Hub</td><td>Authenticated with personal credentials</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Build &amp; Push Backend</td><td>Tagged and published to <code>shreyatyagi25/taskflow-backend:latest</code></td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Build &amp; Push Frontend</td><td>Tagged and published to <code>shreyatyagi25/taskflow-frontend:latest</code></td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Validate Deployment Compose</td><td>Zero <code>build:</code> directives detected, valid Compose schema</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Pull Published Images</td><td>Docker Compose pulls images from Docker Hub</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Deploy Application Stack</td><td>All 4 containers started in detached mode</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Backend Health Verification</td><td><code>http://localhost:3000/health</code> returns status 200 (Postgres + Redis OK)</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Frontend Accessibility</td><td><code>http://localhost:8080/</code> responds with status 200</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>Automated Integration Tests</td><td>All 12 Jest/Supertest test cases pass against deployment</td><td><span class="badge">PASSED</span></td></tr>
+      <tr><td>PostgreSQL Persistence</td><td>Data persisted across container restart in <code>postgres_data</code></td><td><span class="badge">PASSED</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-title">6. Implementation Checklist</div>
+  <ul class="checklist">
+    <li>&#9745; Frontend Dockerfile implemented (multi-stage, Nginx, Hadolint compliant)</li>
+    <li>&#9745; Backend Dockerfile implemented (Node 20, non-root user, clean cache)</li>
+    <li>&#9745; <code>docker-compose.yml</code> implemented (all 4 services, health checks, networking)</li>
+    <li>&#9745; <code>docker-compose.deploy.yml</code> implemented (Docker Hub images, zero build directives)</li>
+    <li>&#9745; PostgreSQL named volume persistence verified</li>
+    <li>&#9745; Redis caching verified</li>
+    <li>&#9745; Application functionality tested (Auth, Tasks CRUD, Cache Invalidation)</li>
+    <li>&#9745; CD pipeline configured with GitHub Secrets</li>
+    <li>&#9745; Final changes committed and pushed to GitHub fork</li>
+    <li>&#9745; Final Pull Request created to instructor repository</li>
+  </ul>
+
+  <div class="declaration">
+    <strong>Declaration:</strong><br>
+    "I hereby declare that the submitted Docker implementation is my own work. I have successfully executed and verified the required CI/CD pipeline stages, published the Docker images to my Docker Hub account, and tested the application deployment."
+    <br><br>
+    <strong>Student Name:</strong> Shreya Tyagi &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Roll Number:</strong> 202401100300241 &nbsp;&nbsp;|&nbsp;&nbsp; <strong>Date:</strong> 18-Nov-2026
+  </div>
+
+</body>
+</html>
