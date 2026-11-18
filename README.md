@@ -43,6 +43,18 @@ cd MSE-2-SSED-Morning
 
 **Important:** Do not modify or remove the existing application functionality. Your task is to implement the containerization and deployment configurations.
 
+### Implemented Architecture & Quick Reference
+
+The application stack has been containerized with the following configurations:
+
+- **Frontend Container:** Built with `frontend/Dockerfile` (multi-stage: Node 20 builder + Nginx 1.27 production). Serves the compiled SPA on port 80 and reverse-proxies `/api/` and `/health` requests to `http://backend:3000/`. Accessible on host at `http://localhost:8080/`.
+- **Backend Container:** Built with `backend/Dockerfile` (Node 20 Alpine, non-root `node` user). Exposes port 3000 and connects to `postgres` and `redis` container hostnames. Accessible on host at `http://localhost:3000/`.
+- **PostgreSQL Database:** Running `postgres:16-alpine`. Schema initialized via mounted `./backend/db/init.sql` at `/docker-entrypoint-initdb.d/init.sql:ro`. Persistent volume: `postgres_data`.
+- **Redis Cache:** Running `redis:7-alpine`. Healthchecked via `redis-cli ping`.
+- **Local Multi-Container Orchestration:** Managed by `docker-compose.yml`.
+- **Production Image Deployment:** Managed by `docker-compose.deploy.yml` using `${DOCKERHUB_USERNAME}/frontend:latest` and `${DOCKERHUB_USERNAME}/backend:latest`.
+- **Submission Metadata:** Template provided in `submission.json` (update before PR submission).
+
 ---
 
 ## 3. Practical Tasks

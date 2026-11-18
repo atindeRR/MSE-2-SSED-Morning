@@ -1,0 +1,11 @@
+{
+  "student_name": "AASTHA",
+  "roll_number": "202401100300003",
+  "section": "A",
+  "branch": "CSEAI",
+  "github_username": "Aasthahcs05",
+  "dockerhub_username": "aastha685",
+  "frontend_image": "aastha685/frontend:latest",
+  "backend_image": "aastha685/backend:latest",
+  "assignment": "MSE-2 Software Engineering and DevOps (AI310B)"
+}
