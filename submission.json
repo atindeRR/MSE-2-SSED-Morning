@@ -1,0 +1,10 @@
+{
+  "name": "Mayank Chaudhary",
+  "roll_number": "202401100300152",
+  "section": "C",
+  "branch": "CSE-AI",
+  "github_username": "Mayankchaudhary2004",
+  "dockerhub_username": "chaudharymayank2544",
+  "frontend_image": "chaudharymayank2544/taskflow-frontend:latest",
+  "backend_image": "chaudharymayank2544/taskflow-backend:latest"
+}
