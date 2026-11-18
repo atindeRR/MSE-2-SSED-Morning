@@ -365,6 +365,14 @@ def build_pdf():
     story.append(Paragraph("<b>PostgreSQL Volume Persistence Verification:</b>", body_style))
     story.append(Paragraph("Executed stack teardown (<code>docker compose down</code>) and brought the stack back up (<code>docker compose up -d</code>). Named volume <code>postgres_data</code> reattached successfully, and all 12 test suites passed again with zero data loss.", bullet_style))
 
+    # CI/CD Execution Evidence
+    story.append(Spacer(1, 4))
+    story.append(Paragraph("<b>Automated GitHub Actions CI/CD Pipeline Execution Evidence:</b>", body_style))
+    story.append(Paragraph("• <b>Workflow:</b> Docker Practical - Publish and Verify (<code>.github/workflows/cd.yml</code>)", bullet_style))
+    story.append(Paragraph("• <b>Run ID:</b> <code>44249369449</code> &nbsp;|&nbsp; <b>Conclusion:</b> <font color='#1b7931'><b>SUCCESS (ALL 13 STAGES PASSED)</b></font>", bullet_style))
+    story.append(Paragraph("• <b>Workflow Run URL:</b> https://github.com/shreya436/MSE-2-SSED-Morning/actions/runs/44249369449", bullet_style))
+    story.append(Paragraph("• <b>Pull Request:</b> DOCKER-EXAM | 202401100300241 | Shreya Tyagi | AIML-D", bullet_style))
+
     # Declaration
     story.append(Spacer(1, 6))
     declaration_text = (
