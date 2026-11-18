@@ -1,0 +1,108 @@
+# MSE-2 | TaskFlow: build from source and run all four services
+#   Start:  docker compose up -d --build
+#   Stop:   docker compose down        (keeps database data)
+#   Reset:  docker compose down -v     (also deletes the database volume)
+#
+# Values like ${POSTGRES_PASSWORD} are read from the .env file next to this file
+# (copy .env.example to .env). No passwords or secrets are written in this file.
+
+services:
+  # ---------- PostgreSQL: main database ----------
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER must be set in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+    volumes:
+      # Named volume: data survives container removal and re-creation
+      - postgres_data:/var/lib/postgresql/data
+      # Schema script: runs automatically, but only the first time the volume is empty
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    ports:
+      # Bound to 127.0.0.1 only: reachable from this machine for debugging, not from the network
+      - "127.0.0.1:5432:5432"
+    healthcheck:
+      # $$ escapes $ so the variables are expanded inside the container, not by Compose
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - taskflow-net
+
+  # ---------- Redis: cache for the task list ----------
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - taskflow-net
+
+  # ---------- Backend: Node.js + Express API ----------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      # Service names ("postgres", "redis") are used as hostnames, never localhost.
+      # Inside a container, localhost would mean the backend container itself.
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in .env}
+    ports:
+      - "3000:3000"
+    depends_on:
+      # Start the backend only after the database and cache report healthy
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      # /health checks the API, PostgreSQL and Redis together
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - taskflow-net
+
+  # ---------- Frontend: React build served by Nginx ----------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      # Browser opens http://localhost:8080 -> Nginx on port 80 in the container
+      - "8080:80"
+    depends_on:
+      # Nginx proxies /api to backend:3000, so the backend must be up first
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - taskflow-net
+
+# User-defined bridge network: containers find each other by service name (Docker DNS)
+networks:
+  taskflow-net:
+    driver: bridge
+
+# Named volume managed by Docker for PostgreSQL data persistence
+volumes:
+  postgres_data:

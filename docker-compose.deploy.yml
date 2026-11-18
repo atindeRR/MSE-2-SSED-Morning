@@ -1,0 +1,91 @@
+# MSE-2 | TaskFlow: deployment using the images published on Docker Hub
+#   docker compose -f docker-compose.deploy.yml pull
+#   docker compose -f docker-compose.deploy.yml up -d
+#
+# Nothing is compiled on this machine: frontend and backend come from Docker Hub,
+# PostgreSQL and Redis come from their official images.
+# All values come from the .env file (DOCKERHUB_USERNAME, POSTGRES_*, JWT_SECRET).
+# The CD pipeline writes its own .env; on your machine copy .env.example to .env.
+
+# Separate Compose project, so this stack has its own containers and volume
+name: taskflow-deploy
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB must be set in .env}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER must be set in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD must be set in .env}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    # No host port: the database is reachable only from inside the Docker network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - taskflow-net
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - taskflow-net
+
+  backend:
+    # Published image (pushed by the CD pipeline or manually). IMAGE_TAG defaults to latest;
+    # set IMAGE_TAG to a commit SHA to deploy or roll back to an exact version.
+    image: ${DOCKERHUB_USERNAME:?DOCKERHUB_USERNAME must be set in .env}/taskflow-backend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:?JWT_SECRET must be set in .env}
+    ports:
+      - "3000:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+    networks:
+      - taskflow-net
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME:?DOCKERHUB_USERNAME must be set in .env}/taskflow-frontend:${IMAGE_TAG:-latest}
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - taskflow-net
+
+networks:
+  taskflow-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
