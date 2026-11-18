@@ -10,12 +10,15 @@
   "redis_cache": "passed",
   "dockerhub_publication": "passed; both images public, AMD64 + ARM64",
   "cd_pipeline": "passed",
-  "instructor_ci": "not yet run; upstream evaluation scripts absent",
+  "instructor_ci": "awaiting approval from instructor repository maintainer",
   "submission_complete": false,
   "published_image_deployment_on_apple_silicon": "passed",
   "cd_workflow_url": "https://github.com/mg8273/MSE-2-SSED-Morning/actions/runs/44240555155",
   "fork_ci": "passed",
   "fork_ci_workflow_url": "https://github.com/mg8273/MSE-2-SSED-Morning/actions/runs/44240512562",
   "technical_verification_complete": true,
-  "moodle_upload": "student action required"
+  "moodle_upload": "student action required",
+  "pull_request_url": "https://github.com/atindeRR/MSE-2-SSED-Morning/pull/6",
+  "instructor_ci_url": "https://github.com/atindeRR/MSE-2-SSED-Morning/actions/runs/44241273241",
+  "pdf_linked_in_pull_request": true
 }

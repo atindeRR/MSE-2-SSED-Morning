@@ -37,6 +37,7 @@
 - Final Workflow Status: success
 - Fork CI: https://github.com/mg8273/MSE-2-SSED-Morning/actions/runs/44240512562 (success)
 - Local API evaluation: 12/12 supplied tests passed.
+- Instructor CI: awaiting approval from a maintainer ([run](https://github.com/atindeRR/MSE-2-SSED-Morning/actions/runs/44241273241)).
 - Instructor-controlled CI references two scripts absent from the instructor's
   current main branch; the supplied CI workflow is preserved unchanged.
 

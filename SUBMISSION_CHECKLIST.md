@@ -28,7 +28,7 @@
 - [x] Published images can be pulled and deployed without local builds.
 - [x] Latest main-branch CD run passes all required stages.
 - [x] Latest implementation is committed and pushed to the personal fork.
-- [ ] Final pull request is created against the instructor's actual repository.
+- [x] Final pull request is created against the instructor's actual repository: https://github.com/atindeRR/MSE-2-SSED-Morning/pull/6
 - [ ] PDF is attached/linked in the PR and uploaded to Moodle.
 
 ## Mandatory PDF
@@ -75,3 +75,9 @@ is `atindeRR/MSE-2-SSED-Morning`, main.
 
 The paper requires Moodle submission. This workspace has no Moodle connection;
 the final PDF must also be uploaded there by you.
+
+## Current remaining student/instructor actions
+
+The final PDF is linked from PR #6. Review the PDF and declaration, then upload
+`evidence/2400291520149_Manu_Garg.pdf` to Moodle. The instructor must approve
+the fork PR workflow before instructor-controlled evaluation can execute.
