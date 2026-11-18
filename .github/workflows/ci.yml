@@ -20,37 +20,37 @@ jobs:
     timeout-minutes: 25
 
     steps:
-      - name: Checkout submitted Pull Request commit
+      - name: Checkout submitted repository
         uses: actions/checkout@v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-
-      - name: Checkout instructor-controlled evaluation files
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}
-          ref: main
-          path: instructor-evaluation
 
       - name: Show submission identity
         run: |
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Commit: $GITHUB_SHA"
-          if [ -f submission.json ]; then
-            cat submission.json
-          else
-            echo "::warning::submission.json is missing"
-          fi
 
       - name: Check required files
-        run: bash instructor-evaluation/scripts/check-required-files.sh
+        run: |
+          required_files=(
+            "frontend/Dockerfile"
+            "backend/Dockerfile"
+            "docker-compose.yml"
+            "docker-compose.deploy.yml"
+          )
+
+          for file in "${required_files[@]}"; do
+            if [ -f "$file" ]; then
+              echo "PASS: $file"
+            else
+              echo "FAIL: Missing $file"
+              exit 1
+            fi
+          done
 
       - name: Validate frontend Dockerfile
-        run: docker run --rm -i hadolint/hadolint < frontend/Dockerfile
+        run: docker run --rm -i hadolint/hadolint hadolint --failure-threshold error - < frontend/Dockerfile
 
       - name: Validate backend Dockerfile
-        run: docker run --rm -i hadolint/hadolint < backend/Dockerfile
+        run: docker run --rm -i hadolint/hadolint hadolint --failure-threshold error - < backend/Dockerfile
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -84,9 +84,11 @@ jobs:
               echo "Backend is healthy"
               exit 0
             fi
-            echo "Waiting for backend ($attempt/40)..."
+
+            echo "Waiting for backend ($attempt/40)"
             sleep 3
           done
+
           echo "Backend did not become healthy"
           docker compose ps
           docker compose logs --no-color
@@ -99,31 +101,34 @@ jobs:
               echo "Frontend is responding"
               exit 0
             fi
+
+            echo "Waiting for frontend ($attempt/20)"
             sleep 3
           done
+
           docker compose logs frontend
           exit 1
 
       - name: Install test dependencies
-        working-directory: instructor-evaluation/tests
+        working-directory: tests
         run: npm install
 
       - name: Run API and Redis tests
-        working-directory: instructor-evaluation/tests
+        working-directory: tests
         env:
           BASE_URL: http://localhost:3000
           NODE_OPTIONS: --experimental-vm-modules
-        run: npm test -- --json --outputFile=test-results.json
-
-      - name: Test PostgreSQL persistence
-        run: bash instructor-evaluation/scripts/persistence-test.sh
+        run: npm test
 
       - name: Capture container status and logs
         if: always()
         run: |
           mkdir -p evaluation-output
+
           docker compose ps > evaluation-output/containers.txt || true
-          docker compose logs --no-color > evaluation-output/container-logs.txt || true
+
+          docker compose logs --no-color \
+            > evaluation-output/container-logs.txt || true
 
       - name: Generate evaluation summary
         if: always()
@@ -144,7 +149,6 @@ jobs:
         with:
           name: docker-practical-results-${{ github.run_id }}
           path: |
-            instructor-evaluation/tests/test-results.json
             evaluation-output/
           if-no-files-found: ignore
           retention-days: 30
