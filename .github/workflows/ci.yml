@@ -1,3 +1,4 @@
+
 name: Docker Practical - CI Evaluation
 
 on:
@@ -20,31 +21,39 @@ jobs:
     timeout-minutes: 25
 
     steps:
-      - name: Checkout submitted Pull Request commit
+      - name: Checkout submitted repository
         uses: actions/checkout@v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
-
-      - name: Checkout instructor-controlled evaluation files
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.repository }}
-          ref: main
-          path: instructor-evaluation
 
       - name: Show submission identity
         run: |
           echo "Repository: $GITHUB_REPOSITORY"
           echo "Commit: $GITHUB_SHA"
-          if [ -f submission.json ]; then
-            cat submission.json
-          else
-            echo "::warning::submission.json is missing"
-          fi
 
       - name: Check required files
-        run: bash instructor-evaluation/scripts/check-required-files.sh
+        run: |
+          set -e
+          files=(
+            backend/Dockerfile
+            backend/package.json
+            backend/db/init.sql
+            backend/src/server.js
+            frontend/Dockerfile
+            frontend/package.json
+            frontend/nginx.conf
+            docker-compose.yml
+            docker-compose.deploy.yml
+            tests/package.json
+            tests/package-lock.json
+            tests/api.test.js
+          )
+
+          for file in "${files[@]}"; do
+            if [ ! -s "$file" ]; then
+              echo "Missing or empty required file: $file"
+              exit 1
+            fi
+            echo "Verified: $file"
+          done
 
       - name: Validate frontend Dockerfile
         run: docker run --rm -i hadolint/hadolint < frontend/Dockerfile
@@ -57,18 +66,20 @@ jobs:
 
       - name: Create CI environment file
         run: |
-          cat > .env <<'EOF'
-          POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=ci_test_password_123
-          DATABASE_URL=postgresql://taskflow_user:ci_test_password_123@postgres:5432/taskflow
-          REDIS_URL=redis://redis:6379
-          JWT_SECRET=ci_only_secret_change_for_real_deployment
-          PORT=3000
-          EOF
+          {
+            echo "POSTGRES_DB=taskflow"
+            echo "POSTGRES_USER=taskflow_user"
+            echo "POSTGRES_PASSWORD=ci_test_password_123"
+            echo "DATABASE_URL=postgresql://taskflow_user:ci_test_password_123@postgres:5432/taskflow"
+            echo "REDIS_URL=redis://redis:6379"
+            echo "JWT_SECRET=ci_only_secret_change_for_real_deployment"
+            echo "PORT=3000"
+          } > .env
 
       - name: Validate Docker Compose configuration
-        run: docker compose config --quiet
+        run: |
+          docker compose config --quiet
+          docker compose -f docker-compose.deploy.yml config --quiet
 
       - name: Build frontend and backend images
         run: docker compose build
@@ -87,7 +98,7 @@ jobs:
             echo "Waiting for backend ($attempt/40)..."
             sleep 3
           done
-          echo "Backend did not become healthy"
+
           docker compose ps
           docker compose logs --no-color
           exit 1
@@ -101,22 +112,51 @@ jobs:
             fi
             sleep 3
           done
+
           docker compose logs frontend
           exit 1
 
-      - name: Install test dependencies
-        working-directory: instructor-evaluation/tests
-        run: npm install
+      - name: Install API test dependencies
+        working-directory: tests
+        run: npm ci
 
       - name: Run API and Redis tests
-        working-directory: instructor-evaluation/tests
+        working-directory: tests
         env:
           BASE_URL: http://localhost:3000
           NODE_OPTIONS: --experimental-vm-modules
         run: npm test -- --json --outputFile=test-results.json
 
       - name: Test PostgreSQL persistence
-        run: bash instructor-evaluation/scripts/persistence-test.sh
+        run: |
+          before=$(docker compose exec -T postgres psql \
+            -U taskflow_user -d taskflow -tAc "SELECT COUNT(*) FROM users")
+
+          echo "Users before restart: $before"
+
+          docker compose down
+          docker compose up -d
+
+          for attempt in $(seq 1 40); do
+            if curl --fail --silent http://localhost:3000/health > /dev/null; then
+              break
+            fi
+            sleep 3
+          done
+
+          curl --fail --silent http://localhost:3000/health > /dev/null
+
+          after=$(docker compose exec -T postgres psql \
+            -U taskflow_user -d taskflow -tAc "SELECT COUNT(*) FROM users")
+
+          echo "Users after restart: $after"
+
+          if [ "$before" != "$after" ]; then
+            echo "PostgreSQL persistence verification failed"
+            exit 1
+          fi
+
+          echo "PostgreSQL persistence verified"
 
       - name: Capture container status and logs
         if: always()
@@ -133,9 +173,7 @@ jobs:
             echo ""
             echo "- Repository: \`$GITHUB_REPOSITORY\`"
             echo "- Commit: \`$GITHUB_SHA\`"
-            echo "- Pull request: \`${{ github.event.pull_request.html_url || 'Manual run' }}\`"
-            echo ""
-            echo "Review the workflow jobs and uploaded artifacts for detailed results."
+            echo "- Result: Review workflow steps"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload evaluation artifacts
@@ -144,7 +182,7 @@ jobs:
         with:
           name: docker-practical-results-${{ github.run_id }}
           path: |
-            instructor-evaluation/tests/test-results.json
+            tests/test-results.json
             evaluation-output/
           if-no-files-found: ignore
           retention-days: 30
