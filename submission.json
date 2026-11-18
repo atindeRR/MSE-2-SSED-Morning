@@ -1,0 +1,9 @@
+{
+  "name": "Ishika Sharma",
+  "rollNumber": "202401100300129",
+  "section": "B",
+  "githubUsername": "Ishika555",
+  "dockerHubUsername": "ishika555",
+  "frontendImage": "ishika555/taskflow-frontend:latest",
+  "backendImage": "ishika555/taskflow-backend:latest"
+}
