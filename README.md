@@ -1,4 +1,4 @@
-# MSE-2 Morning Shift
+# MSE-2 
 # Software Engineering and DevOps (AI310B)
 ---
 
