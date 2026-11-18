@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MSE-2 Docker Practical Documentation - Aditya Shukla</title>
+<style>
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #24292e;
+    line-height: 1.45;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+  }
+  .header {
+    border-bottom: 2px solid #0366d6;
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .header h1 {
+    font-size: 20px;
+    margin: 0 0 4px 0;
+    color: #1a1f2c;
+  }
+  .header p {
+    margin: 0;
+    color: #586069;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  h2 {
+    font-size: 15px;
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 5px;
+    margin-top: 18px;
+    margin-bottom: 10px;
+    color: #0366d6;
+  }
+  h3 {
+    font-size: 13px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+    color: #24292e;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 12px;
+  }
+  th, td {
+    padding: 6px 10px;
+    border: 1px solid #e1e4e8;
+    text-align: left;
+    font-size: 11.5px;
+  }
+  th {
+    background-color: #f6f8fa;
+    font-weight: 600;
+    width: 32%;
+  }
+  .badge-success {
+    background-color: #2ea44f;
+    color: white;
+    padding: 2px 6px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    display: inline-block;
+  }
+  pre {
+    background-color: #f6f8fa;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 8px;
+    font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 10px;
+    overflow-x: auto;
+    margin: 6px 0 10px 0;
+  }
+  .screenshot-card {
+    border: 1px solid #d1d5da;
+    border-radius: 6px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    page-break-inside: avoid;
+  }
+  .screenshot-card .caption {
+    background: #f6f8fa;
+    padding: 6px 10px;
+    font-weight: 600;
+    font-size: 11.5px;
+    border-bottom: 1px solid #d1d5da;
+    color: #24292e;
+  }
+  .screenshot-card img {
+    width: 100%;
+    display: block;
+    max-height: 380px;
+    object-fit: contain;
+    background: #111;
+  }
+  .declaration-box {
+    background-color: #f1f8ff;
+    border: 1px solid #c8e1ff;
+    border-radius: 6px;
+    padding: 12px;
+    margin-top: 16px;
+    font-style: italic;
+    font-size: 12px;
+  }
+  .signature {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>MSE-2 Practical Examination Report</h1>
+    <p>Software Engineering and DevOps (AI310B) &bull; Docker Containerization & CI/CD Pipeline</p>
+  </div>
+</div>
+
+<h2>1. Student Information</h2>
+<table>
+  <tr>
+    <th>Full Name</th>
+    <td><strong>Aditya Shukla</strong></td>
+  </tr>
+  <tr>
+    <th>University Roll Number</th>
+    <td><strong>202401100300019</strong></td>
+  </tr>
+  <tr>
+    <th>Section</th>
+    <td>CSEAI-A</td>
+  </tr>
+  <tr>
+    <th>Branch</th>
+    <td>Computer Science & Engineering (Artificial Intelligence)</td>
+  </tr>
+  <tr>
+    <th>GitHub Username</th>
+    <td>adityashukla200</td>
+  </tr>
+</table>
+
+<h2>2. GitHub Submission Details</h2>
+<table>
+  <tr>
+    <th>GitHub Repository URL (Personal Fork)</th>
+    <td><a href="https://github.com/adityashukla200/MSE-2-SSED-Morning">https://github.com/adityashukla200/MSE-2-SSED-Morning</a></td>
+  </tr>
+  <tr>
+    <th>GitHub Branch Used</th>
+    <td>main</td>
+  </tr>
+  <tr>
+    <th>Pull Request Target</th>
+    <td><code>atindeRR/MSE-2-SSED-Morning:main</code></td>
+  </tr>
+  <tr>
+    <th>Latest Commit</th>
+    <td><code>Final Docker practical submission</code></td>
+  </tr>
+</table>
+
+<h2>3. Docker Hub Details</h2>
+<table>
+  <tr>
+    <th>Docker Hub Username</th>
+    <td><strong>adityashukla139</strong></td>
+  </tr>
+  <tr>
+    <th>Frontend Docker Image URL</th>
+    <td><a href="https://hub.docker.com/r/adityashukla139/taskflow-frontend">https://hub.docker.com/r/adityashukla139/taskflow-frontend</a></td>
+  </tr>
+  <tr>
+    <th>Backend Docker Image URL</th>
+    <td><a href="https://hub.docker.com/r/adityashukla139/taskflow-backend">https://hub.docker.com/r/adityashukla139/taskflow-backend</a></td>
+  </tr>
+  <tr>
+    <th>Aliases Published</th>
+    <td><code>adityashukla139/frontend:latest</code> &bull; <code>adityashukla139/backend:latest</code></td>
+  </tr>
+</table>
+
+<h2>4. Implementation Architecture</h2>
+<table>
+  <tr>
+    <th>Frontend Service</th>
+    <td>React.js with Vite built via multi-stage Dockerfile (<code>node:20-alpine</code>), served via <code>nginx:1.27-alpine</code> on port 80 (mapped to host <code>8080:80</code>). Configured reverse proxy to backend <code>/api/</code> and <code>/health</code>.</td>
+  </tr>
+  <tr>
+    <th>Backend Service</th>
+    <td>Node.js & Express API running under non-root numeric user (<code>USER 1000</code>) on port 3000 (mapped to host <code>3000:3000</code>). Hadolint verified.</td>
+  </tr>
+  <tr>
+    <th>PostgreSQL Service</th>
+    <td><code>postgres:16-alpine</code> with persistent named volume <code>postgres_data</code> and initial table migrations mounted at <code>/docker-entrypoint-initdb.d/init.sql</code>.</td>
+  </tr>
+  <tr>
+    <th>Redis Caching</th>
+    <td><code>redis:7-alpine</code> caching task lists on port 6379, invalidating on task mutation.</td>
+  </tr>
+</table>
+
+<h2>5. CI/CD Pipeline Stages Verification</h2>
+<table>
+  <thead>
+    <tr>
+      <th style="width:38%;">Pipeline Stage</th>
+      <th style="width:18%;">Expected Result</th>
+      <th>Verification Evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Repository checkout</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td>Repository branch <code>main</code> checked out via <code>actions/checkout@v4</code></td>
+    </tr>
+    <tr>
+      <td>Docker Buildx setup</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td><code>docker/setup-buildx-action@v3</code> initialized successfully</td>
+    </tr>
+    <tr>
+      <td>Docker Hub authentication</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td>Authenticated via repository secrets <code>DOCKERHUB_USERNAME</code> & <code>DOCKERHUB_TOKEN</code></td>
+    </tr>
+    <tr>
+      <td>Backend image build & publish</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td>Built and pushed to <code>adityashukla139/taskflow-backend:latest</code></td>
+    </tr>
+    <tr>
+      <td>Frontend image build & publish</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td>Built and pushed to <code>adityashukla139/taskflow-frontend:latest</code></td>
+    </tr>
+    <tr>
+      <td>Docker Compose image pull</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td><code>docker compose -f docker-compose.deploy.yml pull</code> successfully pulls published images</td>
+    </tr>
+    <tr>
+      <td>Application deployment</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td><code>docker compose -f docker-compose.deploy.yml up -d</code> launches all 4 services</td>
+    </tr>
+    <tr>
+      <td>Backend health verification</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td><code>GET /health</code> returns HTTP 200 with <code>{"status":"ok","postgres":"ok","redis":"ok"}</code></td>
+    </tr>
+    <tr>
+      <td>Frontend accessibility verification</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td><code>GET http://localhost:8080/</code> returns HTTP 200 and renders React application</td>
+    </tr>
+    <tr>
+      <td>Final CI/CD status</td>
+      <td><span class="badge-success">Successful</span></td>
+      <td>All pipeline jobs and health checks passed without errors</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<h2>6. CI/CD & Containerization Evidence (Screenshots)</h2>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 1: Docker Desktop - All 4 Containers Running and Healthy (PostgreSQL, Redis, Backend, Frontend)</div>
+  <img src="screenshots/ss1_containers.jpg" alt="Docker Desktop Running Containers" />
+</div>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 2: Docker Desktop - Images Published to Docker Hub (adityashukla139/taskflow-backend & taskflow-frontend)</div>
+  <img src="screenshots/ss3_docker_images.jpg" alt="Docker Desktop Published Images" />
+</div>
+
+<div class="page-break"></div>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 3: Application Frontend Running on http://localhost:8080 (TaskFlow Login Page)</div>
+  <img src="screenshots/ss4_frontend_login.jpg" alt="TaskFlow Frontend Login Page" />
+</div>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 4: Authenticated User Session - Aditya Shukla (Last response source: postgres)</div>
+  <img src="screenshots/ss7_frontend_dashboard.png" alt="TaskFlow Authenticated Dashboard" />
+</div>
+
+<div class="page-break"></div>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 5: PostgreSQL Persistent Storage Volume (mse2_dockerkubernetes_postgres_data - Active 46.4 MB)</div>
+  <img src="screenshots/ss6_postgres_volume.jpg" alt="Docker Desktop Persistent Storage Volumes" />
+</div>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 6: Container Logs & Automated Healthcheck Polling Verification (HTTP 200 OK)</div>
+  <img src="screenshots/ss2_container_logs.jpg" alt="Docker Stack Logs & Health Verification" />
+</div>
+
+<div class="page-break"></div>
+
+<div class="screenshot-card">
+  <div class="caption">Evidence 7: Detailed Service Execution Logs & Worker Processes in Docker Desktop</div>
+  <img src="screenshots/ss5_logs_view.jpg" alt="Docker Desktop Service Execution Logs" />
+</div>
+
+<h3>Automated API & Integration Test Results (12 / 12 Test Cases Passed)</h3>
+<pre>
+PASS ./api.test.js
+  TaskFlow deployed API
+    ✓ TC01: health endpoint confirms API, PostgreSQL and Redis (33 ms)
+    ✓ TC02: register a user (106 ms)
+    ✓ TC03: reject duplicate email (78 ms)
+    ✓ TC04: login and receive token (96 ms)
+    ✓ TC05: reject unauthenticated task request (3 ms)
+    ✓ TC06: create a task (17 ms)
+    ✓ TC07: list tasks and populate cache (12 ms)
+    ✓ TC08: subsequent list can be served from Redis (5 ms)
+    ✓ TC09: update task status and invalidate cache (11 ms)
+    ✓ TC10: reject invalid task status (4 ms)
+    ✓ TC11: delete task (9 ms)
+    ✓ TC12: deleted task is no longer in list (6 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        22.107 s
+Ran all test suites.
+</pre>
+
+<h2>7. Declaration</h2>
+<div class="declaration-box">
+  "I hereby declare that the submitted Docker implementation is my own work. I have successfully executed and verified the required CI/CD pipeline stages, published the Docker images to my Docker Hub account, and tested the application deployment."
+</div>
+
+<div class="signature">
+  <div>
+    <p><strong>Student Name:</strong> Aditya Shukla</p>
+    <p><strong>University Roll Number:</strong> 202401100300019</p>
+    <p><strong>Section / Branch:</strong> CSEAI-A / CSE-AI</p>
+  </div>
+  <div style="text-align: right;">
+    <p><strong>Date:</strong> 18 November 2026</p>
+    <p><strong>Evaluation Status:</strong> Complete & Verified</p>
+  </div>
+</div>
+
+</body>
+</html>
