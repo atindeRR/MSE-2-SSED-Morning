@@ -28,10 +28,13 @@ services:
       - "3000:3000"
     env_file: .env
     environment:
-      - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow
+      - POSTGRES_DB=taskflow
+      - POSTGRES_USER=taskflow_user
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432
       - REDIS_URL=redis://redis:6379
-      - PORT=3000
       - JWT_SECRET=super_secret_github_actions_key
+      - PORT=3000
     depends_on:
       postgres:
         condition: service_healthy
