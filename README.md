@@ -1,422 +1,370 @@
-# MSE-2 Morning Shift
-# Software Engineering and DevOps (AI310B)
----
+# TaskFlow - Containerized DevOps Exam Implementation
 
-## 1. Problem Statement
+## 1. Project Introduction
 
-You are provided with a fully functional full-stack web application.
+**TaskFlow** is a modern full-stack web application designed for personal task management. The application provides user authentication (registration and login via JWT tokens) and a complete CRUD task management interface with status tracking (`Pending`, `In Progress`, `Completed`). 
 
-The application consists of the following components:
-
-- **Frontend:** React.js with Vite
-- **Backend:** Node.js with Express.js
-- **Database:** PostgreSQL
-- **Caching:** Redis
-
-Your task is to containerize the complete application using Docker and Docker Compose, publish the application images to your personal Docker Hub account, and verify the deployment through the provided GitHub Actions CI/CD pipelines.
-
-You are required to implement the Docker-related configurations yourself. The application source code is already provided.
-
-The objective is to demonstrate your understanding of containerization, Docker networking, persistent storage, image publishing, multi-container orchestration and automated CI/CD pipelines.
-
-## 2. Repository Details
-
-You will receive the starter repository .
-
-Repository URL: https://github.com/atindeRR/MSE-2-SSED-Morning
-
-You must complete the practical using your own GitHub and Dockerhub account.
-
-### Initial Setup
-
-1. Open the provided starter repository.
-2. Fork the repository into your personal GitHub account.
-3. Clone your forked repository to your local machine.
-
-```bash
-git clone https://github.com/YOUR_USERNAME/MSE-2-SSED-Morning.git
-cd MSE-2-SSED-Morning
-```
-
-4. Explore the existing application structure and understand the frontend, backend, PostgreSQL and Redis dependencies.
-5. Create a separate working branch (if required).
-
-**Important:** Do not modify or remove the existing application functionality. Your task is to implement the containerization and deployment configurations.
+This project delivers the complete containerization, orchestration, Docker Hub publishing, and CI/CD automation for the TaskFlow platform as required by the **MSE-2 Software Engineering and DevOps Practical Examination**.
 
 ---
 
-## 3. Practical Tasks
+## 2. Technology Stack
 
-### Task 1: Create Dockerfiles
-
-Create separate Dockerfiles for the frontend and backend applications.
-
-**Frontend Dockerfile**
-
-Your frontend Dockerfile must:
-
-- Use an appropriate base image.
-- Install the required dependencies.
-- Build the React application.
-- Serve the production build using Nginx or an appropriate production web server.
-- Expose the appropriate container port.
-- Follow Docker best practices.
-
-**Backend Dockerfile**
-
-Your backend Dockerfile must:
-
-- Use an appropriate Node.js base image.
-- Install the required dependencies.
-- Copy the application source code.
-- Configure the application startup command.
-- Expose the backend port.
-- Use environment variables for application configuration.
-- Follow Docker best practices.
-
-**Expected Deliverables:**
-
-```text
-frontend/Dockerfile
-backend/Dockerfile
-```
-
-### Task 2: Implement Docker Compose
-
-Create a `docker-compose.yml` file to orchestrate all four application services.
-
-Your Docker Compose configuration must include:
-
-1. Frontend
-2. Backend
-3. PostgreSQL
-4. Redis
-
-**Requirements:**
-
-- Configure all four services.
-- Establish appropriate container networking.
-- Configure environment variables.
-- Configure service dependencies.
-- Implement health checks wherever appropriate.
-- Use Docker volumes for PostgreSQL data persistence.
-- Ensure the backend communicates with PostgreSQL and Redis using service names rather than localhost.
-- Ensure the frontend can communicate with the backend.
-- Configure appropriate host-to-container port mappings.
-- Ensure the complete application starts using a single Docker Compose command.
-
-**Expected Deliverable:**
-
-```text
-docker-compose.yml
-```
-
-**Application Startup:**
-
-```bash
-docker compose up -d --build
-```
-
-Verify that all four containers are running successfully.
-
-### Task 3: Docker Hub Image Publishing
-
-Publish your frontend and backend Docker images to your personal Docker Hub account.
-
-**Requirements:**
-
-1. Create a Docker Hub account if you do not already have one.
-2. Create two repositories:
-   - `frontend`
-   - `backend`
-3. Build the frontend and backend images.
-4. Tag the images using your Docker Hub username.
-5. Push both images to Docker Hub.
-6. Verify that the images are available in your Docker Hub repositories.
-
-**Expected image naming convention:**
-
-```text
-YOUR_DOCKERHUB_USERNAME/frontend
-
-YOUR_DOCKERHUB_USERNAME/backend
-```
-
-You may also publish a `latest` tag.
-
-### Task 4: Deployment Using Published Images
-
-Create a separate Docker Compose configuration named:
-
-```text
-docker-compose.deploy.yml
-```
-
-This configuration must deploy the application using the images published on Docker Hub.
-
-**Requirements:**
-
-- Use the published frontend and backend images.
-- Do not use `build:` directives in this deployment configuration.
-- Use PostgreSQL and Redis official images.
-- Configure environment variables securely.
-- Configure PostgreSQL persistent storage.
-- Ensure the application can be deployed on a clean machine without rebuilding the frontend and backend images locally.
-
-**Deployment Verification:**
-
-```bash
-docker compose -f docker-compose.deploy.yml pull
-
-docker compose -f docker-compose.deploy.yml up -d
-```
-
-Verify that the application is accessible and functioning correctly.
+- **Frontend:** React.js 18, Vite 5, Nginx 1.27 (Production Web Server & Reverse Proxy)
+- **Backend:** Node.js 20 (LTS), Express.js 4, PostgreSQL Driver (`pg` 8.13), Redis Client (`redis` 4.7), JSON Web Tokens (`jsonwebtoken`), Password Hashing (`bcryptjs`)
+- **Database:** PostgreSQL 16 (Relational persistent storage)
+- **Cache:** Redis 7.4 (In-memory caching and session acceleration)
+- **Containerization & Orchestration:** Docker Engine, Docker Compose v2, Docker Buildx
+- **CI/CD:** GitHub Actions (Automated Hadolint linting, image build, image publishing, compose validation, integration testing)
+- **Testing:** Jest 29, Supertest 7
 
 ---
 
-## 4. CI/CD Pipeline Implementation and Verification
+## 3. Repository Structure
 
-A GitHub Actions CI/CD workflow is provided as part of the starter repository.
-
-You are required to configure and execute the provided pipeline.
-
-### Step 1: Configure GitHub Secrets
-
-Navigate to:
-
-**GitHub → Your Fork → Settings → Secrets and variables → Actions**
-
-Create the following repository secrets:
-
-| Secret Name | Description |
-|---|---|
-| `DOCKERHUB_USERNAME` | Your Docker Hub username |
-| `DOCKERHUB_TOKEN` | Your Docker Hub access token |
-| `POSTGRES_PASSWORD` | Password for the PostgreSQL deployment |
-
-Never commit credentials or access tokens directly into your repository.
-
-### Step 2: Execute the CD Pipeline
-
-Push your implementation to the `main` branch of your fork.
-
-```bash
-git add .
-
-git commit -m "Implement Docker containerization and deployment"
-
-git push origin main
+```text
+MSE_2/
+├── .github/
+│   └── workflows/
+│       ├── ci.yml                 # PR evaluation: Hadolint, Compose test, Jest API tests, Persistence test
+│       └── cd.yml                 # Push CD pipeline: Docker Hub auth, build & push, deploy verification
+├── backend/
+│   ├── db/
+│   │   └── init.sql               # PostgreSQL database schema (users & tasks tables, indexes)
+│   ├── src/
+│   │   ├── app.js                 # Express application routing, auth endpoints, CRUD task routes, cache logic
+│   │   ├── auth.js                # JWT verification middleware
+│   │   ├── config.js              # Environment variable parsing and fallback configuration
+│   │   ├── db.js                  # PostgreSQL pg.Pool connection and retry logic
+│   │   ├── redis.js               # Redis client connection and retry logic
+│   │   └── server.js              # HTTP server bootstrapper and graceful shutdown handlers
+│   ├── .dockerignore              # Excludes node_modules, .env, git history, test files from Docker context
+│   ├── Dockerfile                 # Pinned Node.js 20 Alpine production image with non-root user
+│   └── package.json               # Backend dependencies and startup scripts
+├── frontend/
+│   ├── src/
+│   │   ├── main.jsx               # React UI root component (Task management, Auth modal, cache indicator)
+│   │   └── style.css              # Custom styling
+│   ├── .dockerignore              # Excludes node_modules, dist, .env from frontend Docker context
+│   ├── Dockerfile                 # Multi-stage Dockerfile (Node.js build stage -> Nginx 1.27 Alpine runtime)
+│   ├── index.html                 # Single Page Application HTML template
+│   ├── nginx.conf                 # Nginx server configuration (SPA routing fallback and API proxy)
+│   ├── package.json               # Frontend dependencies and Vite build scripts
+│   └── vite.config.js             # Vite configuration with React plugin
+├── tests/
+│   ├── api.test.js                # 12 automated integration tests for health, auth, tasks, Redis caching
+│   ├── jest.config.js             # Jest test configuration
+│   ├── package.json               # Test dependencies (jest, supertest)
+│   └── package-lock.json          # Pinned test dependency lockfile
+├── .env.example                   # Template environment variables with placeholders
+├── .gitignore                     # Git ignore rules for node_modules, local .env, build output
+├── docker-compose.yml             # Orchestration for all 4 services with local build configuration
+├── docker-compose.deploy.yml      # Deployment orchestration using published Docker Hub images (no build)
+├── submission.json                # Student exam submission identity file
+└── README.md                      # Comprehensive project and operational documentation
 ```
-
-The CD workflow should automatically execute.
-
-Verify the following stages:
-
-| CD Stage | Expected Result |
-|---|---|
-| Repository checkout | Successful |
-| Docker Buildx setup | Successful |
-| Docker Hub authentication | Successful |
-| Backend image build | Successful |
-| Backend image publishing | Successful |
-| Frontend image build | Successful |
-| Frontend image publishing | Successful |
-| Docker Compose image pull | Successful |
-| Application deployment | Successful |
-| Backend health verification | Successful |
-| Frontend accessibility verification | Successful |
-
-### Step 3: Verify the CI/CD Results
-
-Navigate to:
-
-**GitHub → Your Fork → Actions**
-
-Open the latest workflow execution.
-
-Verify that all required stages have completed successfully.
-
-You must ensure that:
-
-- Both Docker images are published successfully.
-- The published images can be pulled.
-- The deployment Compose configuration works.
-- All application services start successfully.
-- The application health checks pass.
 
 ---
 
-## 5. Final Submission Through Pull Request
+## 4. Docker Architecture
 
-After completing the implementation and verifying that the CD pipeline passes, prepare your final submission.
+The TaskFlow application is designed with a microservices-inspired architecture:
 
-### Step 1: Commit the Latest Changes
-
-Ensure that all final Docker-related configurations are committed and pushed to your fork.
-
-```bash
-git add .
-
-git commit -m "Final Docker practical submission"
-
-git push origin main
+```
+                            +----------------------------------------+
+                            |              Host Machine              |
+                            +----------------------------------------+
+                                  |                             |
+                       Port 8080  |                  Port 3000  |
+                                  v                             v
+                   +----------------------------+  +----------------------------+
+                   |     taskflow-frontend      |  |      taskflow-backend      |
+                   |       (Nginx 1.27)         |  |      (Node.js 20 LTS)      |
+                   |   Internal Port: 80/tcp    |  |   Internal Port: 3000/tcp  |
+                   +----------------------------+  +----------------------------+
+                     | Proxy: /api/* -> backend:3000   |                    |
+                     | Proxy: /health -> backend:3000  |                    |
+                     +---------------------------------+                    |
+                                                       |                    |
+                                                       v                    v
+                                          +------------------+  +------------------+
+                                          | taskflow-postgres|  |  taskflow-redis  |
+                                          | (PostgreSQL 16)  |  |   (Redis 7.4)    |
+                                          | Port: 5432/tcp   |  |  Port: 6379/tcp  |
+                                          +------------------+  +------------------+
+                                                   |
+                                                   v
+                                          +------------------+
+                                          |  postgres_data   |
+                                          |  (Named Volume)  |
+                                          +------------------+
 ```
 
-Verify that your latest changes are available in your GitHub fork.
+### Communication Flow:
+1. **User Client** accesses `http://localhost:8080/` to retrieve the React Single Page Application served by Nginx.
+2. When the user interacts with the UI, requests to `/api/*` and `/health` are routed directly to Nginx on port 8080.
+3. **Nginx Reverse Proxy** forwards these requests internally to `http://backend:3000/` across the isolated Docker network `taskflow-network`.
+4. **Backend** communicates with **PostgreSQL** on `postgres:5432` for persistent data and with **Redis** on `redis:6379` for caching.
+5. All 4 containers communicate securely through hostnames provided by Docker's built-in DNS service discovery.
 
-### Step 2: Create a Pull Request
-
-Navigate to your forked repository.
-
-Select:
-
-**Pull Requests → New Pull Request → Compare Across Forks**
-
-Configure the Pull Request as follows:
-
-| Field | Selection |
-|---|---|
-| Base Repository | Instructor's `taskflow-docker` repository |
-| Base Branch | `main` |
-| Head Repository | Your fork of `taskflow-docker` |
-| Compare Branch | `main` |
-
-Create the Pull Request.
-
-**Pull Request Title Format:**
-
-```text
-DOCKER-EXAM | ROLL-NUMBER | STUDENT-NAME | SECTION
-```
-
-Example:
-
-```text
-DOCKER-EXAM | 230101 | Rahul Sharma | AIML-B
-```
-
-### Step 3: Include Submission Details
-
-Your Pull Request description must contain:
-
-```markdown
-## Student Details
-
-- Name:
-- Roll Number:
-- Section:
-- GitHub Username:
-- Docker Hub Username:
-
-## Docker Hub Images
-
-- Frontend Image:
-- Backend Image:
-
-## Application Deployment
-
-- Application URL:
-- Backend Health URL:
-
-## Implementation Checklist
-
-- [ ] Frontend Dockerfile implemented
-- [ ] Backend Dockerfile implemented
-- [ ] docker-compose.yml implemented
-- [ ] docker-compose.deploy.yml implemented
-- [ ] Frontend image published to Docker Hub
-- [ ] Backend image published to Docker Hub
-- [ ] PostgreSQL persistence verified
-- [ ] Redis caching verified
-- [ ] Application functionality tested
-- [ ] CD pipeline passed successfully
-- [ ] Latest changes committed and pushed
-
-## CI/CD Verification
-
-- CD Workflow Run URL:
-- Final Workflow Status:
-
-## Declaration
-
-I confirm that the implementation submitted is my own work and that I have tested the containerized application.
-```
-
-### Step 4: Prepare and Submit PDF Documentation
-
-Every student must prepare a PDF document containing the complete submission details and evidence of successful Docker implementation and CI/CD execution in moodle.
-
-**PDF File Naming Convention:**
-
-`ROLL_NUMBER_STUDENT_NAME.pdf`
-
-**The PDF must contain the following information:**
-
-#### 1. Student Information
-
-- Full Name
-- University Roll Number
-- Section
-- Branch
-- GitHub Username
-
-#### 2. GitHub Submission Details
-
-- GitHub Repository URL (personal fork)
-- GitHub branch used for the implementation
-
-#### 3. Docker Hub Details
-
-- Docker Hub Username
-- Frontend Docker Image URL
-- Backend Docker Image URL
-
-#### 4. CI/CD Execution Evidence
-
-Include clear screenshots demonstrating the successful execution of all CI/CD stages.
-
-The screenshots must cover:
-
-- GitHub Actions workflow execution.
-- Docker Hub authentication.
-- Backend Docker image build and publishing.
-- Frontend Docker image build and publishing.
-- Docker Compose image pull.
-- Application deployment.
-- Backend health check.
-- Frontend accessibility verification.
-- Final successful CI/CD pipeline status.
-- Instructor CI evaluation results, if available.
-
-#### 5. Declaration
-
-Include the following declaration at the end of the PDF:
-
-"I hereby declare that the submitted Docker implementation is my own work. I have successfully executed and verified the required CI/CD pipeline stages, published the Docker images to my Docker Hub account, and tested the application deployment."
-
-**Submission Instructions:**
-
-1. Save the completed documentation as a PDF.
-2. Attach the PDF to your final Pull Request.
-3. Ensure that all screenshots are readable and clearly demonstrate successful execution.
-4. Verify that all repository URLs and Docker Hub image URLs are accessible.
-
-**Important:** Submission of the PDF documentation is mandatory. Incomplete documentation or missing CI/CD execution screenshots may result in deduction of marks.
 ---
 
+## 5. Dockerfile Explanations
 
-## 6. Important Instructions
+### 5.1 Frontend Dockerfile (`frontend/Dockerfile`)
+The frontend uses a **multi-stage build** adhering strictly to Hadolint linting and production security practices:
 
-1. The application source code is provided. You are required to implement the Docker and deployment configurations.
-2. Do not remove or alter existing application functionality to bypass evaluation.
-3. Do not hardcode credentials, passwords or access tokens in Dockerfiles or Compose files.
-4. Each student must use their own GitHub and Docker Hub accounts.
-5. Docker Hub repositories must contain the images corresponding to the submitted application.
-6. Your application must work using the published images, without relying on local frontend or backend builds.
-7. Do not submit an incomplete or untested implementation.
-8. The final Pull Request must contain your latest committed changes.
-9. The instructor's CI evaluation must be allowed to execute against your Pull Request.
-10. Be prepared to explain your Dockerfiles, networking, volumes, environment variables, image publishing and CI/CD workflow during the viva.
+- **Stage 1: Build Stage (`node:20.18.1-alpine3.20 AS builder`)**
+  - Uses an exact pinned version of Alpine Node.js.
+  - Sets `WORKDIR /app`.
+  - Copies `package*.json` separately before application code to leverage Docker cache layers.
+  - Installs build tools and dependencies via `npm install`.
+  - Copies frontend source code and compiles the production bundle using `npm run build` (outputs to `/app/dist`).
+- **Stage 2: Production Stage (`nginx:1.27.2-alpine`)**
+  - Uses an exact pinned version of Nginx Alpine.
+  - Copies only the compiled static assets (`/app/dist`) to `/usr/share/nginx/html`.
+  - Copies `nginx.conf` to `/etc/nginx/conf.d/default.conf` to enable SPA fallback (`try_files $uri $uri/ /index.html;`) and reverse proxy `/api/` and `/health` to `http://backend:3000/`.
+  - Exposes port 80.
+  - Contains **zero** Node.js runtime or `node_modules` in the final image, drastically reducing attack surface and image size.
 
-**Final Submission:** Your examination submission is considered complete only when your Docker implementation is pushed to your GitHub fork, the required CD stages have passed, and the final Pull Request has been created successfully.
+### 5.2 Backend Dockerfile (`backend/Dockerfile`)
+The backend is packaged into a secure, minimal production container:
+
+- Uses pinned `node:20.18.1-alpine3.20`.
+- Sets `WORKDIR /app` and defines `NODE_ENV=production` and `PORT=3000`.
+- Copies `package*.json` first and executes `npm install --omit=dev && npm cache clean --force` to install only required production dependencies (`express`, `pg`, `redis`, `bcryptjs`, `jsonwebtoken`, `cors`).
+- Copies source code (`src/`) and SQL schema (`db/`) with non-root ownership (`COPY --chown=1000:1000`).
+- Adheres to security best practices by running as a non-privileged user `USER 1000:1000` (Node user).
+- Exposes port 3000.
+- Starts using `CMD ["npm", "start"]` which invokes `node src/server.js`.
+- Contains **no hardcoded credentials**; configuration is dynamically read from environment variables.
+
+---
+
+## 6. Docker Compose Service Descriptions
+
+`docker-compose.yml` configures exactly four interdependent services:
+
+1. **`postgres`**:
+   - Image: `postgres:16-alpine`
+   - Volume: Named volume `postgres_data` mounted at `/var/lib/postgresql/data`.
+   - Initialization: `./backend/db/init.sql` mounted read-only at `/docker-entrypoint-initdb.d/init.sql:ro`.
+   - Healthcheck: `pg_isready -U ${POSTGRES_USER:-taskflow_user} -d ${POSTGRES_DB:-taskflow}`.
+   - Restart: `unless-stopped`.
+
+2. **`redis`**:
+   - Image: `redis:7.4-alpine`
+   - Healthcheck: `redis-cli ping`.
+   - Restart: `unless-stopped`.
+
+3. **`backend`**:
+   - Build: Context `./backend`, Dockerfile `Dockerfile`.
+   - Depends On: `postgres` (`condition: service_healthy`), `redis` (`condition: service_healthy`).
+   - Ports: `3000:3000`.
+   - Healthcheck: `wget -qO- http://127.0.0.1:3000/health || exit 1`.
+   - Environment: Reads database and Redis URLs pointing to service hostnames `postgres` and `redis`.
+   - Restart: `unless-stopped`.
+
+4. **`frontend`**:
+   - Build: Context `./frontend`, Dockerfile `Dockerfile`.
+   - Depends On: `backend` (`condition: service_healthy`).
+   - Ports: `8080:80` (Host port 8080 mapped to container port 80).
+   - Healthcheck: `wget -qO- http://127.0.0.1:80/ > /dev/null || exit 1`.
+   - Restart: `unless-stopped`.
+
+---
+
+## 7. Network Configuration
+
+- **Network Name:** `taskflow-network`
+- **Driver:** `bridge`
+- **DNS Discovery:** Containers address each other by their service names (`postgres`, `redis`, `backend`, `frontend`) rather than IP addresses or `localhost`.
+- **Isolation:** Database and cache ports (5432 and 6379) are kept internal to the Docker network and are not exposed directly to the host machine, preventing unauthorized host access.
+
+---
+
+## 8. PostgreSQL Volume Persistence
+
+- **Volume Name:** `taskflow_postgres_data` (`postgres_data`)
+- **Mount Path:** `/var/lib/postgresql/data`
+- **Behavior:** PostgreSQL stores database files on this managed Docker volume. Even when containers are stopped (`docker compose down`) or updated, the volume remains intact. Data is only wiped if explicitly requested using `docker compose down -v`.
+
+---
+
+## 9. Redis Configuration
+
+- **Service Name:** `redis`
+- **Image:** `redis:7.4-alpine`
+- **Integration in Backend:**
+  - Tasks list (`GET /api/tasks`) is cached in Redis under the key `tasks:user:<userId>` with a 30-second Time-To-Live (TTL).
+  - Cache is immediately invalidated (`redis.del`) upon task creation (`POST /api/tasks`), task update (`PATCH /api/tasks/:id`), or task deletion (`DELETE /api/tasks/:id`).
+  - Health check endpoint `/health` validates connectivity by issuing `redis.ping()`.
+
+---
+
+## 10. Environment Variables
+
+The project uses `.env` for runtime secrets and configuration. A `.env.example` file is provided with safe placeholder values:
+
+| Variable | Description | Default / Example Value |
+|---|---|---|
+| `POSTGRES_DB` | PostgreSQL database name | `taskflow` |
+| `POSTGRES_USER` | PostgreSQL username | `taskflow_user` |
+| `POSTGRES_PASSWORD` | PostgreSQL password | `your_secure_postgres_password` |
+| `DATABASE_URL` | PostgreSQL connection string | `postgresql://taskflow_user:...@postgres:5432/taskflow` |
+| `REDIS_URL` | Redis connection URL | `redis://redis:6379` |
+| `PORT` | Backend listening port | `3000` |
+| `JWT_SECRET` | Secret key for JWT signing | `your_jwt_secret_key_minimum_32_characters` |
+| `DOCKERHUB_USERNAME` | Docker Hub username | `your_dockerhub_username` |
+
+---
+
+## 11. Local Setup Instructions
+
+### Prerequisites
+- Docker Engine 24+ and Docker Compose v2 installed and running.
+
+### Quick Start (Single Command)
+1. Clone your repository:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/MSE-2-SSED-Morning.git
+   cd MSE-2-SSED-Morning
+   ```
+
+2. Create `.env` from template:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. Launch the complete containerized stack:
+   ```bash
+   docker compose up -d --build
+   ```
+
+4. Verify container status:
+   ```bash
+   docker compose ps
+   ```
+
+5. Access the application:
+   - **Frontend UI:** [http://localhost:8080/](http://localhost:8080/)
+   - **Backend Health Check:** [http://localhost:3000/health](http://localhost:3000/health)
+
+6. Run integration tests:
+   ```bash
+   cd tests
+   npm install
+   npx jest --runInBand
+   ```
+
+7. Stop the stack:
+   ```bash
+   docker compose down
+   ```
+
+---
+
+## 12. Docker Hub Publishing Commands
+
+To build, tag, and publish the images to your Docker Hub account:
+
+```bash
+# 1. Login to Docker Hub
+docker login
+
+# 2. Build and tag the frontend image
+docker build -t YOUR_DOCKERHUB_USERNAME/frontend:latest ./frontend
+docker build -t YOUR_DOCKERHUB_USERNAME/taskflow-frontend:latest ./frontend
+
+# 3. Build and tag the backend image
+docker build -t YOUR_DOCKERHUB_USERNAME/backend:latest ./backend
+docker build -t YOUR_DOCKERHUB_USERNAME/taskflow-backend:latest ./backend
+
+# 4. Push images to Docker Hub
+docker push YOUR_DOCKERHUB_USERNAME/frontend:latest
+docker push YOUR_DOCKERHUB_USERNAME/taskflow-frontend:latest
+docker push YOUR_DOCKERHUB_USERNAME/backend:latest
+docker push YOUR_DOCKERHUB_USERNAME/taskflow-backend:latest
+```
+
+---
+
+## 13. Deployment Instructions
+
+To deploy the application on any clean machine using published Docker Hub images without compiling local source:
+
+1. Copy `docker-compose.deploy.yml` and `.env` to the target machine.
+2. In `.env`, ensure `DOCKERHUB_USERNAME` is set to your Docker Hub username.
+3. Pull the published images:
+   ```bash
+   docker compose -f docker-compose.deploy.yml pull
+   ```
+4. Start the stack:
+   ```bash
+   docker compose -f docker-compose.deploy.yml up -d
+   ```
+5. Verify container health:
+   ```bash
+   docker compose -f docker-compose.deploy.yml ps
+   curl http://localhost:3000/health
+   curl http://localhost:8080/
+   ```
+
+---
+
+## 14. GitHub Actions Configuration
+
+The repository includes automated CI and CD workflows under `.github/workflows/`:
+
+### Required Repository Secrets
+Navigate to **GitHub → Your Fork → Settings → Secrets and variables → Actions** and add:
+- `DOCKERHUB_USERNAME`: Your Docker Hub username.
+- `DOCKERHUB_TOKEN`: Your Docker Hub Personal Access Token (Read/Write/Delete permissions).
+- `POSTGRES_PASSWORD`: The database password for deployment.
+
+### Pipeline Highlights:
+- **`ci.yml` (Pull Request Evaluation):**
+  - Lints `frontend/Dockerfile` and `backend/Dockerfile` with Hadolint.
+  - Builds and starts the complete multi-container stack.
+  - Confirms backend health and frontend availability.
+  - Executes the 12 Jest API/Redis integration tests.
+  - Validates PostgreSQL volume data persistence across container restarts.
+- **`cd.yml` (Publish & Deployment Verification):**
+  - Authenticates to Docker Hub via repository secrets.
+  - Builds and pushes frontend and backend images tagged with `latest` and commit SHA.
+  - Validates `docker-compose.deploy.yml` (ensures zero `build:` directives).
+  - Pulls images and deploys the stack.
+  - Runs end-to-end integration tests against the live deployment.
+
+---
+
+## 15. Troubleshooting Commands
+
+- **Check container logs:**
+  ```bash
+  docker compose logs -f backend
+  docker compose logs -f frontend
+  docker compose logs -f postgres
+  docker compose logs -f redis
+  ```
+- **Inspect container health:**
+  ```bash
+  docker inspect --format='{{json .State.Health}}' taskflow-backend
+  ```
+- **Verify database connectivity:**
+  ```bash
+  docker exec -it taskflow-postgres psql -U taskflow_user -d taskflow -c "\dt"
+  ```
+- **Inspect Redis keys:**
+  ```bash
+  docker exec -it taskflow-redis redis-cli keys "*"
+  ```
+- **Test Hadolint locally:**
+  ```bash
+  docker run --rm -i hadolint/hadolint < frontend/Dockerfile
+  docker run --rm -i hadolint/hadolint < backend/Dockerfile
+  ```
+- **Tear down stack and wipe volumes:**
+  ```bash
+  docker compose down -v --remove-orphans
+  ```
