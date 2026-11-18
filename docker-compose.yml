@@ -1,0 +1,87 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: taskflow_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_db_password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow_user} -d ${POSTGRES_DB:-taskflow}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - taskflow-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: taskflow_redis
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 5s
+    networks:
+      - taskflow-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: taskflow-backend:latest
+    container_name: taskflow_backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: ${PORT:-3000}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://taskflow_user:change_this_db_password@postgres:5432/taskflow}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      JWT_SECRET: ${JWT_SECRET:-replace_with_a_long_random_secret}
+    env_file:
+      - path: .env
+        required: false
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+    networks:
+      - taskflow-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: taskflow-frontend:latest
+    container_name: taskflow_frontend
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    networks:
+      - taskflow-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  taskflow-network:
+    driver: bridge
