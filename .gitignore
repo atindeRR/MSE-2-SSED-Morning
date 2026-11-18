@@ -3,3 +3,10 @@ node_modules
 .DS_Store
 coverage
 dist
+*.log
+npm-debug.log*
+evaluation-output/
+*.pdf
+screenshots/
+__pycache__/
+*.pyc
