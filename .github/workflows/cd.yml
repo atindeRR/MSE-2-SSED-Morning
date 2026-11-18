@@ -99,30 +99,25 @@ jobs:
         run: docker compose -f docker-compose.deploy.yml pull
 
       - name: Deploy using Docker Hub images
-        run: docker compose -f docker-compose.deploy.yml up -d
+        run: |
+          if ! docker compose -f docker-compose.deploy.yml up -d --wait --wait-timeout 120; then
+            docker compose -f docker-compose.deploy.yml ps
+            docker compose -f docker-compose.deploy.yml logs --no-color
+            exit 1
+          fi
 
       - name: Verify deployment
         run: |
-          for attempt in $(seq 1 40); do
-            if curl --fail --silent http://localhost:3000/health; then
-              echo
-              echo "Deployment backend is healthy"
-              break
-            fi
-            if [ "$attempt" -eq 40 ]; then
-              docker compose -f docker-compose.deploy.yml ps
-              docker compose -f docker-compose.deploy.yml logs --no-color
-              exit 1
-            fi
-            sleep 3
-          done
-          curl --fail --silent http://localhost:8080/ > /dev/null
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 2 --max-time 8 http://127.0.0.1:3000/health
+          echo
+          echo "Deployment backend is healthy"
+          curl --fail --silent --show-error --retry 5 --retry-all-errors --retry-delay 2 --max-time 8 http://127.0.0.1:8080/ > /dev/null
           echo "Deployment frontend is accessible"
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
         env:
-          BASE_URL: http://localhost:3000
+          BASE_URL: http://127.0.0.1:3000
           NODE_OPTIONS: --experimental-vm-modules
         run: |
           npm install
