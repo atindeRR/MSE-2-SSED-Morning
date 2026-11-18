@@ -7,6 +7,6 @@ RUN npm ci --omit=dev --no-audit --no-fund && npm cache clean --force
 
 COPY --chown=node:node src ./src
 COPY --chown=node:node db ./db
-USER node
+USER 1000:1000
 EXPOSE 3000
 CMD ["npm", "start"]
