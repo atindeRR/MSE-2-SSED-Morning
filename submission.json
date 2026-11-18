@@ -1,0 +1,11 @@
+{
+  "name": "Nikhil Kumar Singh",
+  "rollNumber": "202401100300161",
+  "section": "AI-C",
+  "branch": "AI",
+  "githubUsername": "Nikhil030306",
+  "dockerhubUsername": "nikhil03032006",
+  "repositoryUrl": "https://github.com/Nikhil030306/MSE-2-SSED-Morning",
+  "frontendImage": "nikhil03032006/taskflow-frontend:latest",
+  "backendImage": "nikhil03032006/taskflow-backend:latest"
+}
