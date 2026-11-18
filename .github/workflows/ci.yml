@@ -1,16 +1,16 @@
+
 name: Docker Practical - CI Evaluation
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
-  group: docker-practical-ci-${{ github.event.pull_request.number || github.ref }}
+  group: docker-practical-ci-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
@@ -23,8 +23,8 @@ jobs:
       - name: Checkout submitted Pull Request commit
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name || github.repository }}
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Checkout instructor-controlled evaluation files
         uses: actions/checkout@v4
@@ -133,7 +133,7 @@ jobs:
             echo ""
             echo "- Repository: \`$GITHUB_REPOSITORY\`"
             echo "- Commit: \`$GITHUB_SHA\`"
-            echo "- Pull request: \`${{ github.event.pull_request.html_url || 'Manual run' }}\`"
+            echo "- Pull request: \`${{ github.event.pull_request.html_url }}\`"
             echo ""
             echo "Review the workflow jobs and uploaded artifacts for detailed results."
           } >> "$GITHUB_STEP_SUMMARY"
