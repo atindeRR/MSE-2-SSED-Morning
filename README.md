@@ -420,3 +420,27 @@ Include the following declaration at the end of the PDF:
 10. Be prepared to explain your Dockerfiles, networking, volumes, environment variables, image publishing and CI/CD workflow during the viva.
 
 **Final Submission:** Your examination submission is considered complete only when your Docker implementation is pushed to your GitHub fork, the required CD stages have passed, and the final Pull Request has been created successfully.
+
+---
+
+## 7. Running the containers
+
+Copy `.env.example` to `.env` and put real values in it before starting the stack.
+
+```bash
+cp .env.example .env
+docker compose up -d --build
+```
+
+The frontend runs on port 8080 and the API on port 3000. The `/health` endpoint checks PostgreSQL and Redis. Database data is kept in the `postgres_data` volume, and the tables are created from `backend/db/init.sql` on the first run. Redis uses the `redis_data` volume.
+
+To deploy the images that the CD workflow pushes to Docker Hub, add `DOCKERHUB_USERNAME` to `.env` and run:
+
+```bash
+docker compose -f docker-compose.deploy.yml pull
+docker compose -f docker-compose.deploy.yml up -d
+```
+
+That file pulls `haarrsshh/taskflow-backend:latest` and `haarrsshh/taskflow-frontend:latest`; it does not build images locally.
+
+The GitHub Actions secrets needed are `DOCKERHUB_USERNAME`, `DOCKERHUB_TOKEN` and `POSTGRES_PASSWORD`. Pushing to `main` runs the publish workflow, and opening a pull request runs the instructor evaluation.
