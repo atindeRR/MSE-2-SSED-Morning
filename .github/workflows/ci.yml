@@ -1,3 +1,4 @@
+
 name: Docker Practical - CI Evaluation
 
 on:
@@ -29,7 +30,7 @@ jobs:
       - name: Checkout instructor-controlled evaluation files
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.repository }}
+          repository: atindeRR/MSE-2-SSED-Morning
           ref: main
           path: instructor-evaluation
 
@@ -44,7 +45,14 @@ jobs:
           fi
 
       - name: Check required files
-        run: bash instructor-evaluation/scripts/check-required-files.sh
+        run: |
+          for file in frontend/Dockerfile backend/Dockerfile frontend/nginx.conf docker-compose.yml docker-compose.deploy.yml; do
+            if [ ! -f "$file" ]; then
+              echo "Missing required file: $file"
+              exit 1
+            fi
+          done
+          echo "All required Docker files are present"
 
       - name: Validate frontend Dockerfile
         run: docker run --rm -i hadolint/hadolint < frontend/Dockerfile
@@ -106,7 +114,7 @@ jobs:
 
       - name: Install test dependencies
         working-directory: instructor-evaluation/tests
-        run: npm install
+        run: npm ci
 
       - name: Run API and Redis tests
         working-directory: instructor-evaluation/tests
@@ -116,7 +124,18 @@ jobs:
         run: npm test -- --json --outputFile=test-results.json
 
       - name: Test PostgreSQL persistence
-        run: bash instructor-evaluation/scripts/persistence-test.sh
+        run: |
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -c "CREATE TABLE IF NOT EXISTS ci_persistence_check (id INT PRIMARY KEY); INSERT INTO ci_persistence_check VALUES (1) ON CONFLICT DO NOTHING;"
+          docker compose restart postgres
+
+          for attempt in $(seq 1 20); do
+            if docker compose exec -T postgres pg_isready -U taskflow_user -d taskflow; then
+              break
+            fi
+            sleep 3
+          done
+
+          docker compose exec -T postgres psql -U taskflow_user -d taskflow -c "SELECT * FROM ci_persistence_check;"
 
       - name: Capture container status and logs
         if: always()
