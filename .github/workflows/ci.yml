@@ -59,9 +59,9 @@ jobs:
         run: |
           cat > .env <<'EOF'
           POSTGRES_DB=taskflow
-          POSTGRES_USER=taskflow_user
+          POSTGRES_USER=postgres
           POSTGRES_PASSWORD=ci_test_password_123
-          DATABASE_URL=postgresql://taskflow_user:ci_test_password_123@postgres:5432/taskflow
+          DATABASE_URL=postgresql://postgres:ci_test_password_123@postgres:5432/taskflow
           REDIS_URL=redis://redis:6379
           JWT_SECRET=ci_only_secret_change_for_real_deployment
           PORT=3000
@@ -95,7 +95,7 @@ jobs:
       - name: Check frontend response
         run: |
           for attempt in $(seq 1 20); do
-            if curl --fail --silent http://localhost:8080/ > /dev/null; then
+            if curl --fail --silent http://localhost:5173/ > /dev/null; then
               echo "Frontend is responding"
               exit 0
             fi
