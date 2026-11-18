@@ -1,5 +1,20 @@
-node_modules
+# Local credentials; commit only placeholder templates.
 .env
+.env.*
+!.env.example
+!**/.env.example
+
+# Generated dependencies, assets, test output, and logs.
+node_modules
 .DS_Store
 coverage
 dist
+playwright-report
+test-results
+*.log
+
+# Keep original screenshot evidence local; attach the assembled PDF to the PR.
+evidence/screenshots/*
+!evidence/screenshots/.gitkeep
+prd.md
+

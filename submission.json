@@ -1,0 +1,11 @@
+{
+  "name": "Devansh Rai",
+  "roll_number": "2400291520097",
+  "section": "B",
+  "github_username": "adidev001",
+  "dockerhub_username": "adidev001",
+  "frontend_image": "adidev001/frontend:latest",
+  "backend_image": "adidev001/backend:latest",
+  "repository": "https://github.com/adidev001/MSE-2-SSED-Morning",
+  "instructor_repository": "atindeRR/MSE-2-SSED-Morning"
+}
