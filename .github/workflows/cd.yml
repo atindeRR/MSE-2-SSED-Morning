@@ -46,6 +46,8 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/backend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/backend:${{ github.sha }}
 
       - name: Build and push frontend
         uses: docker/build-push-action@v6
@@ -55,14 +57,17 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/frontend:${{ github.sha }}
 
       - name: Create deployment environment file
         run: |
-          cat > .env <<'EOF'
+          PASSWORD="${{ secrets.POSTGRES_PASSWORD || 'deployment_change_me' }}"
+          cat > .env <<EOF
           POSTGRES_DB=taskflow
           POSTGRES_USER=taskflow_user
-          POSTGRES_PASSWORD=deployment_change_me
-          DATABASE_URL=postgresql://taskflow_user:deployment_change_me@postgres:5432/taskflow
+          POSTGRES_PASSWORD=${PASSWORD}
+          DATABASE_URL=postgresql://taskflow_user:${PASSWORD}@postgres:5432/taskflow
           REDIS_URL=redis://redis:6379
           JWT_SECRET=replace_with_a_long_random_secret
           PORT=3000
@@ -115,8 +120,8 @@ jobs:
           {
             echo "## Docker Hub publication"
             echo ""
-            echo "- Backend: \`${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest\`"
-            echo "- Frontend: \`${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest\`"
+            echo "- Backend: \`${{ secrets.DOCKERHUB_USERNAME }}/taskflow-backend:latest\` (\`${{ secrets.DOCKERHUB_USERNAME }}/backend:latest\`)"
+            echo "- Frontend: \`${{ secrets.DOCKERHUB_USERNAME }}/taskflow-frontend:latest\` (\`${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest\`)"
             echo "- Commit: \`${GITHUB_SHA}\`"
           } >> "$GITHUB_STEP_SUMMARY"
 

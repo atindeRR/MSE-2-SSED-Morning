@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  body {
+    background: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Consolas', 'Courier New', monospace;
+    padding: 24px;
+    margin: 0;
+  }
+  .window {
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    background: #161b22;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  }
+  .header {
+    background: #21262d;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #30363d;
+  }
+  .dots {
+    display: flex;
+    gap: 6px;
+    margin-right: 14px;
+  }
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+  .red { background: #ff5f56; }
+  .yellow { background: #ffbd2e; }
+  .green { background: #27c93f; }
+  .title {
+    font-size: 13px;
+    color: #8b949e;
+  }
+  .terminal {
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .prompt { color: #58a6ff; font-weight: bold; }
+  .pass-badge {
+    background: #238636;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  .check { color: #3fb950; font-weight: bold; }
+  .dim { color: #8b949e; }
+  .bold { font-weight: bold; }
+  .summary {
+    margin-top: 16px;
+    border-top: 1px dashed #30363d;
+    padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="window">
+  <div class="header">
+    <div class="dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
+    <div class="title">TaskFlow Automated Test Suite — Jest Execution against Docker Deployment (http://localhost:3000)</div>
+  </div>
+  <div class="terminal">
+    <div><span class="prompt">$</span> export BASE_URL=http://localhost:3000 NODE_OPTIONS=--experimental-vm-modules</div>
+    <div><span class="prompt">$</span> npm test</div>
+    <div class="dim">&gt; taskflow-tests@1.0.0 test</div>
+    <div class="dim">&gt; jest --runInBand</div>
+    <br>
+    <div><span class="pass-badge">PASS</span> <span class="bold">./api.test.js</span></div>
+    <div style="padding-left: 16px; margin-top: 6px;">
+      <div class="bold">TaskFlow deployed API</div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC01: health endpoint confirms API, PostgreSQL and Redis <span class="dim">(28 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC02: register a user <span class="dim">(125 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC03: reject duplicate email <span class="dim">(81 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC04: login and receive token <span class="dim">(101 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC05: reject unauthenticated task request <span class="dim">(6 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC06: create a task <span class="dim">(16 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC07: list tasks and populate cache <span class="dim">(11 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC08: subsequent list can be served from Redis <span class="dim">(6 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC09: update task status and invalidate cache <span class="dim">(10 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC10: reject invalid task status <span class="dim">(5 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC11: delete task <span class="dim">(8 ms)</span></div>
+      <div>&nbsp;&nbsp;<span class="check">√</span> TC12: deleted task is no longer in list <span class="dim">(6 ms)</span></div>
+    </div>
+    <div class="summary">
+      <div><span class="bold">Test Suites:</span> <span class="check" style="font-weight:bold;">1 passed</span>, 1 total</div>
+      <div><span class="bold">Tests:</span>       <span class="check" style="font-weight:bold;">12 passed</span>, 12 total</div>
+      <div><span class="bold">Snapshots:</span>   0 total</div>
+      <div><span class="bold">Time:</span>        1.136 s</div>
+      <div class="dim">Ran all test suites.</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

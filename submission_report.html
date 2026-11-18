@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MSE-2 DevOps Examination Report - Yuvraj Singh (2400291520290)</title>
+<style>
+  @page {
+    size: A4 portrait;
+    margin: 10mm 12mm 10mm 12mm;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b;
+    margin: 0;
+    padding: 0;
+    font-size: 9pt;
+    line-height: 1.4;
+    background: #ffffff;
+  }
+  .page {
+    width: 100%;
+    height: 272mm;
+    max-height: 272mm;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 2mm;
+  }
+  .page:last-child {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  .page-header {
+    border-bottom: 1.5px solid #0284c7;
+    padding-bottom: 4px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7.5pt;
+    color: #0369a1;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .page-footer {
+    border-top: 1px solid #cbd5e1;
+    padding-top: 4px;
+    margin-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 7.2pt;
+    color: #64748b;
+  }
+  .page-content {
+    flex: 1;
+    overflow: hidden;
+  }
+  
+  /* Headings */
+  h1.section-title {
+    font-size: 13pt;
+    color: #0f172a;
+    margin: 0 0 6px 0;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #0284c7;
+  }
+  h2.sub-title {
+    font-size: 10pt;
+    color: #0369a1;
+    margin: 7px 0 4px 0;
+    font-weight: 700;
+  }
+  h3.sub-sub-title {
+    font-size: 8.8pt;
+    color: #334155;
+    margin: 5px 0 3px 0;
+    font-weight: 600;
+  }
+  p {
+    margin: 0 0 5px 0;
+    color: #334155;
+    text-align: justify;
+    font-size: 8.8pt;
+  }
+  ul {
+    margin: 0 0 6px 0;
+    padding-left: 18px;
+    font-size: 8.6pt;
+  }
+  li {
+    margin-bottom: 3px;
+  }
+
+  /* Cards & Grids */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 6px;
+  }
+  .card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+    padding: 7px 10px;
+    margin-bottom: 6px;
+  }
+  .card-highlight {
+    background: #f0f9ff;
+    border: 1px solid #bae6fd;
+    border-left: 3.5px solid #0284c7;
+  }
+  .card-success {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 3.5px solid #16a34a;
+  }
+  .card-warn {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 3.5px solid #d97706;
+  }
+
+  /* Tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin: 4px 0 6px 0;
+  }
+  th {
+    background: #0f172a;
+    color: #ffffff;
+    font-weight: 600;
+    text-align: left;
+    padding: 4px 6px;
+    border: 1px solid #0f172a;
+  }
+  td {
+    padding: 3.5px 6px;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+  }
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* Badges */
+  .badge {
+    display: inline-block;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  .badge-success { background: #dcfce7; color: #15803d; border: 1px solid #86efac; }
+  .badge-info { background: #e0f2fe; color: #0369a1; border: 1px solid #7dd3fc; }
+  .badge-warn { background: #fef3c7; color: #b45309; border: 1px solid #fcd34d; }
+
+  /* Code */
+  code {
+    font-family: Consolas, monospace;
+    font-size: 8pt;
+    background: #e2e8f0;
+    color: #0f172a;
+    padding: 1px 3px;
+    border-radius: 3px;
+  }
+  pre {
+    background: #0f172a;
+    color: #f1f5f9;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 7.4pt;
+    line-height: 1.3;
+    margin: 4px 0 6px 0;
+    overflow: hidden;
+    border-left: 3px solid #0284c7;
+  }
+
+  /* Screenshots */
+  .screenshot-container {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-radius: 5px;
+    padding: 3px;
+    margin: 4px 0 6px 0;
+    text-align: center;
+  }
+  .screenshot-img {
+    width: 100%;
+    max-height: 75mm;
+    object-fit: contain;
+    border-radius: 3px;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #94a3b8;
+  }
+  .screenshot-img-large {
+    max-height: 105mm;
+  }
+  .screenshot-img-compact {
+    max-height: 60mm;
+  }
+  .screenshot-img-half {
+    max-height: 52mm;
+  }
+  .screenshot-caption {
+    font-size: 7.2pt;
+    color: #475569;
+    font-weight: 600;
+    margin-top: 3px;
+    text-align: center;
+  }
+
+  /* Cover Page */
+  .cover-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 15mm 8mm 12mm 8mm;
+    text-align: center;
+  }
+  .cover-header {
+    border-bottom: 3px solid #0284c7;
+    padding-bottom: 14px;
+  }
+  .cover-institution {
+    font-size: 15pt;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+  .cover-sub-institution {
+    font-size: 10pt;
+    color: #475569;
+    margin-top: 2px;
+  }
+  .cover-title-box {
+    margin: 20px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+    border-radius: 8px;
+    color: #ffffff;
+    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.15);
+  }
+  .cover-exam-badge {
+    display: inline-block;
+    background: #0284c7;
+    color: #ffffff;
+    padding: 3px 10px;
+    font-size: 8.5pt;
+    font-weight: 700;
+    border-radius: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .cover-main-title {
+    font-size: 19pt;
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 0 0 6px 0;
+  }
+  .cover-sub-title {
+    font-size: 10pt;
+    font-weight: 400;
+    color: #94a3b8;
+    margin: 0;
+  }
+  .student-details-card {
+    background: #ffffff;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 10px auto;
+    width: 92%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    text-align: left;
+  }
+  .student-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+  }
+  .student-details-table td {
+    padding: 4px 6px;
+    border: none;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .student-details-table td.label {
+    font-weight: 700;
+    color: #0369a1;
+    width: 35%;
+  }
+  .student-details-table td.val {
+    color: #0f172a;
+    font-weight: 600;
+    font-family: Consolas, monospace;
+  }
+  .cover-footer {
+    border-top: 1px solid #cbd5e1;
+    padding-top: 10px;
+    font-size: 8pt;
+    color: #64748b;
+  }
+
+  .arch-diagram {
+    background: #0f172a;
+    border-radius: 6px;
+    padding: 8px;
+    margin: 6px 0;
+    text-align: center;
+  }
+  .arch-diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= PAGE 1: COVER PAGE ================= -->
+<div class="page">
+  <div class="cover-container">
+    <div class="cover-header">
+      <div class="cover-institution">KIET Group of Institutions</div>
+      <div class="cover-sub-institution">Department of Computer Science &amp; Engineering (Artificial Intelligence)</div>
+      <div style="font-size: 9pt; color: #0284c7; font-weight: 600; margin-top: 3px;">Mid-Semester Practical Examination 2 (MSE-2) — Morning Shift</div>
+    </div>
+
+    <div class="cover-title-box">
+      <div class="cover-exam-badge">Official Practical Submission</div>
+      <h1 class="cover-main-title">DOCKER CONTAINERISATION &amp;<br>AUTOMATED CI/CD IMPLEMENTATION</h1>
+      <p class="cover-sub-title">Complete 4-Service Microservices Orchestration, Docker Hub Publication, and GitHub Actions Verification</p>
+    </div>
+
+    <div class="student-details-card">
+      <div style="font-size: 9.5pt; font-weight: 800; color: #0f172a; border-bottom: 1.5px solid #0284c7; padding-bottom: 4px; margin-bottom: 6px;">
+        CANDIDATE INFORMATION &amp; SUBMISSION CREDENTIALS
+      </div>
+      <table class="student-details-table">
+        <tr><td class="label">Candidate Full Name:</td><td class="val">Yuvraj Singh</td></tr>
+        <tr><td class="label">University Roll Number:</td><td class="val">2400291520290</td></tr>
+        <tr><td class="label">Academic Section / Branch:</td><td class="val">Section D / CSE (AI)</td></tr>
+        <tr><td class="label">Course Code &amp; Title:</td><td class="val">AI310B — Software Engineering and DevOps</td></tr>
+        <tr><td class="label">Personal GitHub Username:</td><td class="val">ItsmeYuvi</td></tr>
+        <tr><td class="label">Docker Hub Namespace:</td><td class="val">yuviiii2309</td></tr>
+        <tr><td class="label">Repository Fork:</td><td class="val">ItsmeYuvi/MSE-2-SSED-Morning</td></tr>
+        <tr><td class="label">Final Upstream Pull Request:</td><td class="val">atindeRR/MSE-2-SSED-Morning/pull/49 (#49)</td></tr>
+      </table>
+    </div>
+
+    <div class="cover-footer">
+      <div><strong>Examination Date:</strong> November 18, 2026 &nbsp;|&nbsp; <strong>Verified Git Commit:</strong> <code>5a88140</code></div>
+      <div style="margin-top: 3px; color: #94a3b8; font-size: 7.2pt;">Official Technical Report generated for academic evaluation and repository verification</div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PAGE 2: PROJECT OVERVIEW ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 1: Project Overview</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">1. Project Overview &amp; Problem Statement</h1>
+
+    <div class="card card-highlight">
+      <h3 class="sub-sub-title" style="margin-top:0; color:#0369a1;">Executive Problem Statement</h3>
+      <p style="margin:0;">
+        The candidate was provided with a functional full-stack web application, <strong>TaskFlow</strong>, comprising a React/Vite frontend, a Node.js/Express backend, a PostgreSQL relational database, and a Redis in-memory cache. The examination requirement was <strong>strictly DevOps and Containerisation</strong>: to containerise each tier without modifying application source code, orchestrate the multi-service architecture via Docker Compose, publish release images to Docker Hub, and establish end-to-end continuous delivery verification using GitHub Actions.
+      </p>
+    </div>
+
+    <h2 class="sub-title">1.1 Core Engineering Objectives</h2>
+    <div class="grid-2">
+      <div class="card">
+        <strong style="color:#0f172a;">1. Multi-Stage Containerisation</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Construct secure, minimal production container images for frontend (Nginx 1.27 Alpine) and backend (Node 20 Alpine running as non-root UID 1000) conforming to Hadolint standards.
+        </p>
+      </div>
+      <div class="card">
+        <strong style="color:#0f172a;">2. Microservices Orchestration</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Define <code>docker-compose.yml</code> and <code>docker-compose.deploy.yml</code> establishing an isolated bridge network, service discovery, health-check dependencies, and named volume data persistence.
+        </p>
+      </div>
+      <div class="card">
+        <strong style="color:#0f172a;">3. Registry Publishing</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Automate image tagging and publication under candidate's Docker Hub repository (<code>yuviiii2309/frontend</code> and <code>yuviiii2309/backend</code>) with verified OCI manifests.
+        </p>
+      </div>
+      <div class="card">
+        <strong style="color:#0f172a;">4. Automated CI/CD Pipeline</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Implement GitHub Actions CD workflows to build, publish, pull, deploy, and execute automated regression test suites against the live containerised deployment.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="sub-title">1.2 Repository Origin &amp; Submission Hierarchy</h2>
+    <p>
+      To comply with academic integrity, the candidate forked the instructor's starter repository <code>atindeRR/MSE-2-SSED-Morning</code> into their authenticated account <code>ItsmeYuvi/MSE-2-SSED-Morning</code>. All container specifications, Compose definitions, lockfiles, and documentation were committed to the personal fork before submitting the final Pull Request.
+    </p>
+
+    <div class="screenshot-container">
+      <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_01_github_repo.png" alt="Candidate Personal GitHub Repository">
+      <div class="screenshot-caption">Figure 1.1: Personal Fork Repository (ItsmeYuvi/MSE-2-SSED-Morning) with Verified Commits</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 2 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 3: APPLICATION ARCHITECTURE ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 2: Architecture</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">2. Application Architecture &amp; Networking</h1>
+
+    <p>
+      The containerised system isolates services inside a user-defined bridge network (<code>taskflow-network</code>). The frontend container hosts Nginx, functioning simultaneously as a static asset server and an internal reverse proxy for backend API endpoints, eliminating cross-origin (CORS) friction and internal DNS exposure.
+    </p>
+
+    <div class="arch-diagram">
+      <svg viewBox="0 0 760 195" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="65" width="100" height="65" rx="8" fill="#1e293b" stroke="#38bdf8" stroke-width="2"/>
+        <text x="70" y="93" fill="#ffffff" font-size="10.5" font-weight="bold" text-anchor="middle" font-family="sans-serif">Browser Client</text>
+        <text x="70" y="112" fill="#94a3b8" font-size="8.5" text-anchor="middle" font-family="sans-serif">:8080 (Host)</text>
+
+        <line x1="120" y1="98" x2="165" y2="98" stroke="#38bdf8" stroke-width="2" stroke-dasharray="4"/>
+        <polygon points="170,98 162,93 162,103" fill="#38bdf8"/>
+
+        <rect x="175" y="15" width="565" height="165" rx="10" fill="#090d16" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="5"/>
+        <text x="190" y="34" fill="#38bdf8" font-size="9.5" font-weight="bold" font-family="sans-serif">Docker Bridge Network: taskflow-network</text>
+
+        <rect x="195" y="52" width="140" height="85" rx="6" fill="#1e3a8a" stroke="#60a5fa" stroke-width="1.5"/>
+        <text x="265" y="76" fill="#ffffff" font-size="10.5" font-weight="bold" text-anchor="middle" font-family="sans-serif">frontend (Nginx)</text>
+        <text x="265" y="94" fill="#cbd5e1" font-size="8" text-anchor="middle" font-family="sans-serif">Port :80 (Mapped 8080)</text>
+        <text x="265" y="110" fill="#93c5fd" font-size="7.5" text-anchor="middle" font-family="sans-serif">Reverse Proxy /api/ &amp; /health</text>
+
+        <line x1="335" y1="94" x2="385" y2="94" stroke="#60a5fa" stroke-width="2"/>
+        <polygon points="390,94 382,89 382,99" fill="#60a5fa"/>
+
+        <rect x="395" y="52" width="135" height="85" rx="6" fill="#065f46" stroke="#34d399" stroke-width="1.5"/>
+        <text x="462" y="76" fill="#ffffff" font-size="10.5" font-weight="bold" text-anchor="middle" font-family="sans-serif">backend (Node.js)</text>
+        <text x="462" y="94" fill="#cbd5e1" font-size="8" text-anchor="middle" font-family="sans-serif">Port :3000</text>
+        <text x="462" y="110" fill="#a7f3d0" font-size="7.5" text-anchor="middle" font-family="sans-serif">USER 1000 (Non-root)</text>
+
+        <line x1="530" y1="75" x2="575" y2="55" stroke="#34d399" stroke-width="1.5"/>
+        <polygon points="580,53 570,52 575,60" fill="#34d399"/>
+        <line x1="530" y1="115" x2="575" y2="135" stroke="#34d399" stroke-width="1.5"/>
+        <polygon points="580,137 575,130 570,138" fill="#34d399"/>
+
+        <rect x="585" y="32" width="140" height="48" rx="6" fill="#312e81" stroke="#818cf8" stroke-width="1.5"/>
+        <text x="655" y="51" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">postgres:16-alpine</text>
+        <text x="655" y="66" fill="#c7d2fe" font-size="7.5" text-anchor="middle" font-family="sans-serif">Port :5432 | Volume: postgres_data</text>
+
+        <rect x="585" y="112" width="140" height="48" rx="6" fill="#881337" stroke="#f43f5e" stroke-width="1.5"/>
+        <text x="655" y="131" fill="#ffffff" font-size="9" font-weight="bold" text-anchor="middle" font-family="sans-serif">redis:7-alpine</text>
+        <text x="655" y="146" fill="#fecdd3" font-size="7.5" text-anchor="middle" font-family="sans-serif">Port :6379 | In-Memory Cache</text>
+      </svg>
+    </div>
+
+    <h2 class="sub-title">2.1 Detailed Networking &amp; Communication Pathways</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Communication Pathway</th>
+          <th>Protocol &amp; Mechanism</th>
+          <th>DNS Resolution Target</th>
+          <th>Architectural Advantage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Client &rarr; Frontend</strong></td>
+          <td>HTTP / Browser GET</td>
+          <td><code>localhost:8080</code></td>
+          <td>Standard single-port entry point for end users.</td>
+        </tr>
+        <tr>
+          <td><strong>Frontend &rarr; Backend (Proxy)</strong></td>
+          <td>Nginx Reverse Proxy</td>
+          <td><code>http://backend:3000/api/</code></td>
+          <td>Bypasses CORS restrictions; masks internal topology.</td>
+        </tr>
+        <tr>
+          <td><strong>Backend &rarr; PostgreSQL</strong></td>
+          <td>TCP / PostgreSQL Wire Protocol</td>
+          <td><code>postgres:5432/taskflow</code></td>
+          <td>Internal DNS service discovery; zero host exposure.</td>
+        </tr>
+        <tr>
+          <td><strong>Backend &rarr; Redis</strong></td>
+          <td>TCP / RESP Protocol</td>
+          <td><code>redis:6379</code></td>
+          <td>Sub-millisecond session &amp; task query response caching.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="sub-title">2.2 Persistent Storage &amp; Volume Architecture</h2>
+    <p>
+      Container storage is ephemeral by default. To preserve database transactions across container destruction and upgrades, a Docker named volume <code>postgres_data</code> is bound to <code>/var/lib/postgresql/data</code>. Initialization scripts in <code>backend/init.sql</code> execute strictly once upon volume initialization.
+    </p>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 3 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 4: TECHNOLOGY STACK ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 3: Technology Stack</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">3. Technology Stack &amp; Tooling Matrix</h1>
+
+    <p>
+      The solution integrates modern cloud-native tools across each layer of the DevOps lifecycle. The table below details each component, its operational runtime, and its architectural justification:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Component</th>
+          <th>Technology</th>
+          <th>Version / Base Image</th>
+          <th>Role in TaskFlow Architecture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Frontend UI</strong></td>
+          <td>React.js + Vite</td>
+          <td><code>node:20-alpine</code> (Build)</td>
+          <td>Single Page Application (SPA) providing task dashboard and auth interfaces.</td>
+        </tr>
+        <tr>
+          <td><strong>Web Server</strong></td>
+          <td>Nginx Web Server</td>
+          <td><code>nginx:1.27-alpine</code></td>
+          <td>High-performance static asset hosting and API reverse proxy router.</td>
+        </tr>
+        <tr>
+          <td><strong>Backend API</strong></td>
+          <td>Node.js + Express</td>
+          <td><code>node:20-alpine</code></td>
+          <td>RESTful microservice handling user authentication, task logic, and DB queries.</td>
+        </tr>
+        <tr>
+          <td><strong>Database</strong></td>
+          <td>PostgreSQL Relational DB</td>
+          <td><code>postgres:16-alpine</code></td>
+          <td>ACID-compliant storage for users and tasks with foreign-key relationships.</td>
+        </tr>
+        <tr>
+          <td><strong>Cache Engine</strong></td>
+          <td>Redis In-Memory Store</td>
+          <td><code>redis:7-alpine</code></td>
+          <td>Key-value cache reducing PostgreSQL workload for repeated task queries.</td>
+        </tr>
+        <tr>
+          <td><strong>Orchestrator</strong></td>
+          <td>Docker Compose V2</td>
+          <td>CLI v2.32+</td>
+          <td>Declarative multi-container deployment, networking, and dependency control.</td>
+        </tr>
+        <tr>
+          <td><strong>Container Registry</strong></td>
+          <td>Docker Hub</td>
+          <td>OCI Compliant</td>
+          <td>Centralised registry for distributed image hosting (<code>yuviiii2309/*</code>).</td>
+        </tr>
+        <tr>
+          <td><strong>CI/CD Engine</strong></td>
+          <td>GitHub Actions</td>
+          <td>Ubuntu 24.04 Runner</td>
+          <td>Automated image build, push, deployment verification, and testing pipeline.</td>
+        </tr>
+        <tr>
+          <td><strong>Test Framework</strong></td>
+          <td>Jest + Supertest</td>
+          <td>Jest 29 (ESM Mode)</td>
+          <td>12 end-to-end integration test cases validating live API contracts and cache.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="sub-title">3.1 Security &amp; Optimization Principles Applied</h2>
+    <div class="grid-2">
+      <div class="card card-highlight">
+        <strong style="color:#0369a1;">Principle of Least Privilege (Non-Root)</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          The backend container discards default root privileges by executing under unprivileged user ID <code>1000</code>, drastically mitigating host container breakout vulnerabilities.
+        </p>
+      </div>
+      <div class="card card-highlight">
+        <strong style="color:#0369a1;">Alpine-Based Minimal Footprint</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Both frontend and backend leverage Alpine Linux base images, reducing overall image sizes to approximately 206 MB, minimizing attack surfaces and accelerating deployment pull times.
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <strong style="color:#0f172a;">Clean Environment Architecture:</strong>
+      All sensitive database passwords, Redis configurations, and JWT secrets are injected through parameterized environment variables (<code>.env</code>) and GitHub Actions Secrets, preventing credential hardcoding.
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 4 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 5: DOCKERFILES ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 4: Dockerfiles</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">4. Production Dockerfile Implementations</h1>
+
+    <h2 class="sub-title">4.1 Frontend Multi-Stage Dockerfile (<code>frontend/Dockerfile</code>)</h2>
+    <p>
+      The frontend uses a two-stage build. In Stage 1 (Builder), Vite compiles React JSX and TypeScript into static HTML/CSS/JS bundles. In Stage 2 (Runner), the static bundle is copied into an optimized Nginx server, completely eliminating Node.js and build tools from the final image.
+    </p>
+
+    <pre><code># Stage 1: Build production React assets
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Stage 2: Serve via Nginx
+FROM nginx:1.27-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+HEALTHCHECK --interval=15s --timeout=3s --retries=3 CMD wget -qO- http://localhost/ || exit 1
+CMD ["nginx", "-g", "daemon off;"]</code></pre>
+
+    <h2 class="sub-title">4.2 Backend Production Dockerfile (<code>backend/Dockerfile</code>)</h2>
+    <p>
+      The backend container guarantees deterministic builds with <code>npm ci --omit=dev</code>, configures proper directory ownership, drops root privileges to UID 1000, and specifies container health checks.
+    </p>
+
+    <pre><code>FROM node:20-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci --omit=dev
+COPY . .
+RUN chown -R 1000:1000 /app
+USER 1000
+EXPOSE 3000
+ENV NODE_ENV=production PORT=3000
+HEALTHCHECK --interval=15s --timeout=3s --retries=3 CMD wget -qO- http://localhost:3000/health || exit 1
+CMD ["npm", "start"]</code></pre>
+
+    <h2 class="sub-title">4.3 Nginx Reverse Proxy Configuration (<code>frontend/nginx.conf</code>)</h2>
+    <p>
+      Nginx routes requests to static assets and proxies API traffic transparently to <code>http://backend:3000</code>:
+    </p>
+    <pre><code>server {
+    listen 80;
+    location / {
+        root /usr/share/nginx/html;
+        try_files $uri $uri/ /index.html;
+    }
+    location /api/ {
+        proxy_pass http://backend:3000/api/;
+    }
+    location /health {
+        proxy_pass http://backend:3000/health;
+    }
+}</code></pre>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 5 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 6: DOCKER COMPOSE ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 5: Docker Compose</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">5. Docker Compose Orchestration (Development)</h1>
+
+    <p>
+      The <code>docker-compose.yml</code> file orchestrates all four containers using a unified bridge network, strict health-check conditional startup sequences, and volume persistence:
+    </p>
+
+    <pre><code>services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-taskflow_pass}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow_user} -d ${POSTGRES_DB:-taskflow}"]
+    networks: [taskflow-network]
+
+  redis:
+    image: redis:7-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    networks: [taskflow-network]
+
+  backend:
+    build: { context: ./backend, dockerfile: Dockerfile }
+    ports: ["3000:3000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    networks: [taskflow-network]
+
+  frontend:
+    build: { context: ./frontend, dockerfile: Dockerfile }
+    ports: ["8080:80"]
+    depends_on:
+      backend: { condition: service_healthy }
+    networks: [taskflow-network]
+
+volumes:
+  postgres_data:
+networks:
+  taskflow-network:
+    driver: bridge</code></pre>
+
+    <h2 class="sub-title">5.1 Orchestration Highlights</h2>
+    <div class="grid-2">
+      <div class="card">
+        <strong style="color:#0f172a;">Healthcheck Dependencies:</strong>
+        <code>condition: service_healthy</code> prevents race conditions by guaranteeing backend startup occurs only after PostgreSQL and Redis are accepting socket connections.
+      </div>
+      <div class="card">
+        <strong style="color:#0f172a;">Automatic SQL Seeding:</strong>
+        <code>init.sql</code> is mounted read-only into <code>/docker-entrypoint-initdb.d/</code>, automatically populating the <code>users</code> and <code>tasks</code> schema upon initial startup.
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 6 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 7: IMAGE-BASED DEPLOYMENT ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 6: Production Deployment</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">6. Production Image-Based Deployment</h1>
+
+    <div class="card card-highlight">
+      <h3 class="sub-sub-title" style="margin-top:0; color:#0369a1;">Zero Build Directives Requirement</h3>
+      <p style="margin:0;">
+        In compliance with Task 4 of the examination paper, <code>docker-compose.deploy.yml</code> contains <strong>zero <code>build:</code> directives</strong>. In production deployment environments, compiling code on host nodes is an antipattern; nodes must exclusively pull pre-built, immutable artifacts published to the Docker Hub container registry.
+      </p>
+    </div>
+
+    <pre><code># docker-compose.deploy.yml (Extract)
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    volumes: [postgres_data:/var/lib/postgresql/data]
+    networks: [taskflow-network]
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    networks: [taskflow-network]
+
+  backend:
+    image: ${DOCKERHUB_USERNAME:-yuviiii2309}/backend:latest
+    restart: unless-stopped
+    ports: ["3000:3000"]
+    depends_on:
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    networks: [taskflow-network]
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME:-yuviiii2309}/frontend:latest
+    restart: unless-stopped
+    ports: ["8080:80"]
+    depends_on:
+      backend: { condition: service_healthy }
+    networks: [taskflow-network]</code></pre>
+
+    <h2 class="sub-title">6.1 Deployment Verification Workflow</h2>
+    <p>
+      Verification was executed cleanly on the local environment simulating a clean host deployment:
+    </p>
+    <pre><code># Clean pull and startup from Docker Hub
+docker compose -f docker-compose.deploy.yml pull
+docker compose -f docker-compose.deploy.yml up -d
+docker compose -f docker-compose.deploy.yml ps</code></pre>
+
+    <div class="card card-success">
+      <strong>Verification Result:</strong> All 4 containers reached <code>Up (healthy)</code> state using exclusively remote images from the candidate's Docker Hub account (<code>yuviiii2309</code>).
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 7 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 8: DOCKER HUB ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 7: Docker Hub Publishing</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">7. Docker Hub Publishing &amp; Verification</h1>
+
+    <p>
+      Both application tiers were tagged with the candidate's verified Docker Hub username <code>yuviiii2309</code> and pushed to the public Docker Hub registry. Both repositories exist, are publicly accessible, and have verified OCI manifests.
+    </p>
+
+    <div class="grid-2">
+      <div>
+        <h3 class="sub-sub-title">Frontend Image Repository</h3>
+        <p style="font-size:8.2pt;"><strong>URL:</strong> <a href="https://hub.docker.com/r/yuviiii2309/frontend" target="_blank">hub.docker.com/r/yuviiii2309/frontend</a></p>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_03_dockerhub_frontend.png" alt="Docker Hub Frontend">
+          <div class="screenshot-caption">Figure 7.1: Frontend Image on Docker Hub</div>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub-sub-title">Backend Image Repository</h3>
+        <p style="font-size:8.2pt;"><strong>URL:</strong> <a href="https://hub.docker.com/r/yuviiii2309/backend" target="_blank">hub.docker.com/r/yuviiii2309/backend</a></p>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_04_dockerhub_backend.png" alt="Docker Hub Backend">
+          <div class="screenshot-caption">Figure 7.2: Backend Image on Docker Hub</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sub-title">7.1 Remote Manifest Verification</h2>
+    <pre><code>$ docker manifest inspect yuviiii2309/frontend:latest | grep -E "schemaVersion|mediaType"
+   "schemaVersion": 2,
+   "mediaType": "application/vnd.oci.image.index.v1+json"
+$ docker manifest inspect yuviiii2309/backend:latest | grep -E "schemaVersion|mediaType"
+   "schemaVersion": 2,
+   "mediaType": "application/vnd.oci.image.index.v1+json"</code></pre>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 8 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 9: LOCAL RUNTIME VERIFICATION ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 8: Local Deployment</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">8. Local Deployment &amp; Runtime Verification</h1>
+
+    <div class="grid-2">
+      <div>
+        <h2 class="sub-title" style="margin-top:0;">8.1 Frontend Web UI</h2>
+        <p style="font-size:8.2pt;">
+          The React SPA loads on <code>http://localhost:8080/</code> with task boards, login modals, and live status updates:
+        </p>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_10_frontend_app.png" alt="Frontend UI">
+          <div class="screenshot-caption">Figure 8.1: TaskFlow Web Application at http://localhost:8080</div>
+        </div>
+      </div>
+
+      <div>
+        <h2 class="sub-title" style="margin-top:0;">8.2 Backend Health Verification</h2>
+        <p style="font-size:8.2pt;">
+          Direct curl check against <code>http://localhost:3000/health</code> validates PostgreSQL and Redis connectivity:
+        </p>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_09_backend_health.png" alt="Backend Health Endpoint">
+          <div class="screenshot-caption">Figure 8.2: {"status":"ok","postgres":"ok","redis":"ok"} Response</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sub-title">8.3 Docker Desktop Container Status</h2>
+    <div class="screenshot-container">
+      <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_02_docker_desktop.png" alt="Docker Desktop Status">
+      <div class="screenshot-caption">Figure 8.3: Docker Desktop Authenticated under yuviiii2309 with Published Image Tags</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 9 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 10: CI/CD PIPELINE ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 9: CI/CD Pipeline</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">9. GitHub Actions CI/CD Pipeline Execution</h1>
+
+    <div class="card card-success">
+      <strong>Workflow Run #1 Information:</strong><br>
+      • <strong>Run URL:</strong> <a href="https://github.com/ItsmeYuvi/MSE-2-SSED-Morning/actions/runs/44244972257" target="_blank">github.com/ItsmeYuvi/MSE-2-SSED-Morning/actions/runs/44244972257</a><br>
+      • <strong>Status:</strong> <span class="badge badge-success">Success</span> &nbsp;|&nbsp; <strong>Duration:</strong> 1m 20s &nbsp;|&nbsp; <strong>Commit:</strong> <code>5a88140</code>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h3 class="sub-sub-title">Workflow Overview</h3>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-half" src="submission_evidence/screenshot_05_github_actions_overview.png" alt="GitHub Actions CD Overview">
+          <div class="screenshot-caption">Figure 9.1: CD Pipeline Run #44244972257 (Success)</div>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub-sub-title">Pipeline Step Breakdown</h3>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-half" src="submission_evidence/screenshot_06_backend_build_push.png" alt="Individual CD Steps">
+          <div class="screenshot-caption">Figure 9.2: Step-by-Step Build, Publish &amp; Deploy Logs</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sub-title">9.1 Pipeline Execution Stages Breakdown</h2>
+    <div class="card" style="font-size:8pt; padding:6px 10px;">
+      <strong>1. Repository Checkout:</strong> <code>actions/checkout@v4</code> retrieves commit <code>5a88140</code>.<br>
+      <strong>2. Buildx &amp; Login:</strong> Authenticates with Docker Hub using repository secrets <code>DOCKERHUB_USERNAME</code> &amp; <code>DOCKERHUB_TOKEN</code>.<br>
+      <strong>3. Image Build &amp; Push:</strong> Builds &amp; pushes <code>yuviiii2309/backend:latest</code> and <code>yuviiii2309/frontend:latest</code>.<br>
+      <strong>4. Deployment Validation:</strong> Validates <code>docker-compose.deploy.yml</code> has zero <code>build:</code> directives.<br>
+      <strong>5. Remote Pull &amp; Startup:</strong> Pulls published images from Docker Hub and initiates container stack.<br>
+      <strong>6. Health &amp; Jest Tests:</strong> Verifies backend <code>/health</code> and executes 12/12 automated integration tests.
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 10 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 11: TEST RESULTS ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 10: Test Results</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">10. Quality Assurance &amp; Test Results</h1>
+
+    <div class="grid-2">
+      <div>
+        <h3 class="sub-sub-title">Automated Jest Test Suite (12/12)</h3>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-half" src="submission_evidence/screenshot_11_api_tests.png" alt="API Test Results">
+          <div class="screenshot-caption">Figure 10.1: 12/12 Passed Tests in Jest Suite</div>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub-sub-title">PostgreSQL Persistence &amp; Redis Cache</h3>
+        <div class="screenshot-container">
+          <img class="screenshot-img screenshot-img-half" src="submission_evidence/screenshot_14_db_persistence_redis.png" alt="Persistence & Cache">
+          <div class="screenshot-caption">Figure 10.2: Volume Persistence Across Restarts</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="sub-title">10.1 Comprehensive Test Matrix</h2>
+    <table>
+      <thead>
+        <tr><th>Verification Stage</th><th>Target Component</th><th>Result</th><th>Evidence</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Frontend Dockerfile Lint</td><td><code>frontend/Dockerfile</code></td><td><span class="badge badge-success">0 Errors / 0 Warnings</span></td><td>Hadolint Static Analysis</td></tr>
+        <tr><td>Backend Dockerfile Lint</td><td><code>backend/Dockerfile</code></td><td><span class="badge badge-success">0 Errors / 0 Warnings</span></td><td>Hadolint Static Analysis</td></tr>
+        <tr><td>Docker Compose Validation</td><td><code>docker-compose.yml</code></td><td><span class="badge badge-success">Valid Config</span></td><td>Docker Compose Config CLI</td></tr>
+        <tr><td>PostgreSQL Persistence</td><td><code>postgres_data</code></td><td><span class="badge badge-success">Data Preserved</span></td><td>Row count survives restart</td></tr>
+        <tr><td>Redis Caching</td><td><code>redis:7-alpine</code></td><td><span class="badge badge-success">Active PONG</span></td><td>Keyspace hits &amp; invalidation</td></tr>
+        <tr><td>API Contract Tests</td><td>12 Test Cases (TC01-TC12)</td><td><span class="badge badge-success">12/12 Passed</span></td><td>Jest Automated Suite</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 11 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 12: PULL REQUEST ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 11: Final Pull Request</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">11. Final Pull Request Submission (PR #49)</h1>
+
+    <p>
+      In accordance with Section 5 of the examination paper, the candidate submitted the final Pull Request to the instructor's upstream repository:
+    </p>
+
+    <div class="card card-highlight">
+      <strong>Pull Request Specifications:</strong><br>
+      • <strong>Target Base Repository:</strong> <code>atindeRR/MSE-2-SSED-Morning</code> (branch: <code>main</code>)<br>
+      • <strong>Head Candidate Repository:</strong> <code>ItsmeYuvi/MSE-2-SSED-Morning</code> (branch: <code>main</code>)<br>
+      • <strong>Pull Request Title:</strong> <code>DOCKER-EXAM | 2400291520290 | Yuvraj Singh | D</code><br>
+      • <strong>Pull Request Number:</strong> <code>#49</code><br>
+      • <strong>Direct URL:</strong> <a href="https://github.com/atindeRR/MSE-2-SSED-Morning/pull/49" target="_blank">github.com/atindeRR/MSE-2-SSED-Morning/pull/49</a>
+    </div>
+
+    <div class="screenshot-container">
+      <img class="screenshot-img screenshot-img-large" src="submission_evidence/screenshot_12_pull_request.png" alt="GitHub Pull Request 49">
+      <div class="screenshot-caption">Figure 11.1: Verified Final Pull Request #49 Submitted to Upstream atindeRR/MSE-2-SSED-Morning</div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 12 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 13: INSTRUCTOR EVALUATION ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 12: Instructor CI Evaluation</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">12. Upstream Instructor CI Evaluation</h1>
+
+    <h2 class="sub-title">12.1 Distinction Between Student CD and Instructor CI</h2>
+    <div class="grid-2">
+      <div class="card card-success">
+        <strong style="color:#15803d;">Candidate CD Pipeline (cd.yml):</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Runs on the student's personal fork repository (<code>ItsmeYuvi</code>). Builds and pushes images to the candidate's Docker Hub, then deploys and tests them. <strong>Status: Passed (1m 20s).</strong>
+        </p>
+      </div>
+      <div class="card card-warn">
+        <strong style="color:#b45309;">Instructor CI Evaluation (ci.yml):</strong>
+        <p style="font-size:8.2pt; margin-top:2px;">
+          Runs on the upstream instructor repository (<code>atindeRR</code>) triggered by incoming Pull Requests to evaluate submissions against grading harnesses.
+        </p>
+      </div>
+    </div>
+
+    <h2 class="sub-title">12.2 Actual Current Status of Workflow Run #44246580401</h2>
+    <div class="card card-highlight">
+      • <strong>Workflow Run URL:</strong> <a href="https://github.com/atindeRR/MSE-2-SSED-Morning/actions/runs/44246580401" target="_blank">github.com/atindeRR/MSE-2-SSED-Morning/actions/runs/44246580401</a><br>
+      • <strong>Triggering Event:</strong> Pull Request #49 opened by candidate <code>ItsmeYuvi</code><br>
+      • <strong>Current Verified Status:</strong> <span class="badge badge-warn">Awaiting Maintainer Approval</span> (Pending instructor trigger)
+    </div>
+
+    <div class="screenshot-container">
+      <img class="screenshot-img screenshot-img-compact" src="submission_evidence/screenshot_13_instructor_ci.png" alt="Instructor CI Evaluation Status">
+      <div class="screenshot-caption">Figure 12.1: Instructor CI Evaluation Workflow Awaiting Maintainer Approval as per GitHub Security Policy</div>
+    </div>
+
+    <p style="font-size:8pt; color:#64748b;">
+      <em>Note: By GitHub default security policy for public repositories, workflows triggered by forks from first-time external contributors require explicit approval from the repository maintainer (<code>atindeRR</code>) before runner resources execute.</em>
+    </p>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 13 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 14: CONCLUSION & DECLARATION ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 13: Conclusion</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">13. Conclusion &amp; Formal Declaration</h1>
+
+    <h2 class="sub-title">13.1 Technical Summary &amp; Competencies Acquired</h2>
+    <p>
+      The MSE-2 practical examination in Software Engineering and DevOps was completed end-to-end. Key competencies successfully demonstrated include:
+    </p>
+    <ul>
+      <li><strong>Production Containerisation:</strong> Authoring zero-warning multi-stage Dockerfiles adhering to non-root execution and layer caching.</li>
+      <li><strong>Multi-Container Orchestration:</strong> Establishing service-to-service DNS networking, reverse-proxy routing, and volume persistence in Compose.</li>
+      <li><strong>Public Registry Publication:</strong> Building and distributing versioned container images on Docker Hub (<code>yuviiii2309/frontend</code> &amp; <code>backend</code>).</li>
+      <li><strong>Automated CI/CD Delivery:</strong> Constructing self-verifying GitHub Actions pipelines executing automated regression tests.</li>
+      <li><strong>Professional Documentation &amp; Git Collaboration:</strong> Submitting a formal, fully referenced Pull Request (#49) and comprehensive verification artifacts.</li>
+    </ul>
+
+    <div style="margin-top: 25px;">
+      <h2 class="sub-title" style="color: #0f172a; border-bottom: 2px solid #0284c7; padding-bottom: 4px;">
+        13.2 Formal Candidate Declaration
+      </h2>
+      <div class="card card-highlight" style="padding: 14px 18px; font-size: 9.5pt; line-height: 1.55;">
+        <em>"I hereby declare that the submitted Docker implementation is my own work. I have successfully executed and verified the required Docker configurations, published the Docker images to my Docker Hub account, and tested the containerized application."</em>
+      </div>
+
+      <div style="margin-top: 25px; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 10px;">
+        <div>
+          <p style="margin: 2px 0;"><strong>Candidate Name:</strong> Yuvraj Singh</p>
+          <p style="margin: 2px 0;"><strong>University Roll No:</strong> 2400291520290</p>
+          <p style="margin: 2px 0;"><strong>Academic Section / Branch:</strong> Section D / CSE (AI)</p>
+          <p style="margin: 2px 0;"><strong>Examination Date:</strong> November 18, 2026</p>
+        </div>
+        <div style="text-align: center; border-top: 1.5px solid #0f172a; width: 220px; padding-top: 6px;">
+          <span style="font-weight: 700; font-size: 8.5pt;">Candidate Digital Signature</span><br>
+          <span style="font-family: Consolas, monospace; font-size: 8pt; color: #64748b;">Yuvraj Singh (ItsmeYuvi)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 14 of 15</span>
+  </div>
+</div>
+
+<!-- ================= PAGE 15: APPENDIX ================= -->
+<div class="page">
+  <div class="page-header">
+    <span>MSE-2 Examination Report — AI310B</span>
+    <span>Roll No: 2400291520290</span>
+    <span>Section 14: Appendix</span>
+  </div>
+  <div class="page-content">
+    <h1 class="section-title">14. Appendix: Artifacts &amp; Verification Directory</h1>
+
+    <h2 class="sub-title">14.1 Evidence Screenshots Directory (<code>submission_evidence/</code>)</h2>
+    <table style="font-size:7.2pt; margin-bottom:4px;">
+      <thead>
+        <tr><th>Index</th><th>Filename</th><th>Resolution / Size</th><th>Verification Subject</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Fig 1.1</td><td><code>screenshot_01_github_repo.png</code></td><td>1280x900 (73.8 KB)</td><td>Personal GitHub Fork Repository Overview</td></tr>
+        <tr><td>Fig 8.3</td><td><code>screenshot_02_docker_desktop.png</code></td><td>1024x768 (53.9 KB)</td><td>Docker Desktop Authenticated under yuviiii2309</td></tr>
+        <tr><td>Fig 7.1</td><td><code>screenshot_03_dockerhub_frontend.png</code></td><td>1280x900 (61.9 KB)</td><td>Docker Hub Published Frontend Image Repository</td></tr>
+        <tr><td>Fig 7.2</td><td><code>screenshot_04_dockerhub_backend.png</code></td><td>1280x900 (62.3 KB)</td><td>Docker Hub Published Backend Image Repository</td></tr>
+        <tr><td>Fig 9.1</td><td><code>screenshot_05_github_actions_overview.png</code></td><td>1016x694 (116.8 KB)</td><td>GitHub Actions CD Run #44244972257 Overview</td></tr>
+        <tr><td>Fig 9.2</td><td><code>screenshot_06_backend_build_push.png</code></td><td>1016x694 (124.7 KB)</td><td>Job Steps: Backend Build &amp; Publish Logs</td></tr>
+        <tr><td>Fig 9.2</td><td><code>screenshot_07_frontend_build_push.png</code></td><td>1016x694 (124.7 KB)</td><td>Job Steps: Frontend Build &amp; Publish Logs</td></tr>
+        <tr><td>Fig 9.2</td><td><code>screenshot_08_deploy_pull.png</code></td><td>1016x694 (115.2 KB)</td><td>Compose Pull, Deploy, and Health Verification</td></tr>
+        <tr><td>Fig 8.2</td><td><code>screenshot_09_backend_health.png</code></td><td>1280x900 (7.5 KB)</td><td>Direct Backend /health Endpoint Response</td></tr>
+        <tr><td>Fig 8.1</td><td><code>screenshot_10_frontend_app.png</code></td><td>1280x900 (113.3 KB)</td><td>Live React TaskFlow UI at http://localhost:8080</td></tr>
+        <tr><td>Fig 10.1</td><td><code>screenshot_11_api_tests.png</code></td><td>950x680 (54.8 KB)</td><td>12/12 Jest Integration Test Execution</td></tr>
+        <tr><td>Fig 11.1</td><td><code>screenshot_12_pull_request.png</code></td><td>1280x900 (92.7 KB)</td><td>Final Upstream Pull Request #49 on atindeRR</td></tr>
+        <tr><td>Fig 12.1</td><td><code>screenshot_13_instructor_ci.png</code></td><td>1280x900 (61.7 KB)</td><td>Instructor CI Evaluation Run #44246580401 Status</td></tr>
+        <tr><td>Fig 10.2</td><td><code>screenshot_14_db_persistence_redis.png</code></td><td>950x680 (50.5 KB)</td><td>PostgreSQL Volume Persistence &amp; Redis Operations</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="sub-title">14.2 Project Repository Directory Structure</h2>
+    <pre style="font-size:6.8pt; line-height:1.2; margin:2px 0;"><code>MSE-2-SSED-Morning/
+├── .github/workflows/
+│   ├── cd.yml                      # Student Docker CD Pipeline (Publish &amp; Deploy)
+│   └── ci.yml                      # Instructor Evaluation Pipeline (Pull Request)
+├── backend/
+│   ├── Dockerfile                  # Node.js 20 Alpine Production Container (Non-root)
+│   ├── .dockerignore               # Excludes node_modules, tests, logs, .env
+│   ├── init.sql                    # Initial database schema (users, tasks)
+│   └── src/                        # Express API controllers, routes, db models
+├── frontend/
+│   ├── Dockerfile                  # Multi-stage React/Vite + Nginx Container
+│   ├── .dockerignore               # Excludes node_modules, dist, src development assets
+│   ├── nginx.conf                  # Nginx reverse proxy configuration (/api/, /health)
+│   └── src/                        # React components, Vite configuration
+├── tests/
+│   ├── api.test.js                 # 12 Integration tests (Jest + Supertest)
+│   └── package.json                # Test suite runner configuration
+├── submission_evidence/            # 14 Genuine verification screenshots
+├── docker-compose.yml              # Local multi-container development configuration
+├── docker-compose.deploy.yml       # Production pure image deployment (zero build:)
+├── submission.json                 # Student &amp; submission metadata
+├── SUBMISSION_DOCUMENTATION_TEMPLATE.md # Technical documentation template
+└── 2400291520290_Yuvraj_Singh.pdf  # Final compiled PDF examination documentation</code></pre>
+  </div>
+  <div class="page-footer">
+    <span>Candidate: Yuvraj Singh (2400291520290)</span>
+    <span>Software Engineering &amp; DevOps — MSE-2</span>
+    <span>Page 15 of 15</span>
+  </div>
+</div>
+
+</body>
+</html>

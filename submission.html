@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MSE-2 DevOps Practical Examination - Yuvraj Singh</title>
+<style>
+  @page {
+    size: A4;
+    margin: 18mm 15mm 18mm 15mm;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1f2937;
+    line-height: 1.5;
+    font-size: 11pt;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #111827;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 6px;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 14pt;
+    color: #1e40af;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 4px;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #374151;
+    margin-top: 14px;
+    margin-bottom: 6px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+  th, td {
+    border: 1px solid #d1d5db;
+    padding: 6px 10px;
+    text-align: left;
+  }
+  th {
+    background-color: #f3f4f6;
+    color: #111827;
+    font-weight: 600;
+  }
+  pre, code {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 9pt;
+  }
+  pre {
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    padding: 8px 12px;
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+  .box {
+    background-color: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    padding: 10px 14px;
+    margin: 10px 0;
+    font-size: 10pt;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 8pt;
+    background-color: #10b981;
+    color: white;
+  }
+  .page-break {
+    page-break-before: always;
+  }
+  img {
+    max-width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 4px;
+    margin: 8px 0;
+  }
+</style>
+</head>
+<body>
+
+<h1>MSE-2 SOFTWARE ENGINEERING & DEVOPS PRACTICAL EXAMINATION</h1>
+<p style="font-size: 12pt; color: #4b5563; margin-top: -6px;">Containerization, Multi-Container Orchestration, Docker Hub Publishing, and CI/CD</p>
+
+<h2>1. Student & Examination Information</h2>
+<table>
+  <tr><th style="width: 30%;">Full Name</th><td><strong>Yuvraj Singh</strong></td></tr>
+  <tr><th>University Roll Number</th><td><strong>2400291520290</strong></td></tr>
+  <tr><th>Section</th><td><strong>D</strong></td></tr>
+  <tr><th>Branch</th><td><strong>CSE (AI)</strong></td></tr>
+  <tr><th>GitHub Username</th><td><strong>ItsmeYuvi</strong></td></tr>
+  <tr><th>Docker Hub Username</th><td><strong>yuviiii2309</strong></td></tr>
+  <tr><th>Course & Code</th><td>Software Engineering and DevOps (AI310B)</td></tr>
+  <tr><th>Examination Date</th><td>November 18, 2026</td></tr>
+</table>
+
+<h2>2. Repository & Docker Hub Publication Details</h2>
+<table>
+  <tr><th style="width: 30%;">Personal Fork URL</th><td><a href="https://github.com/ItsmeYuvi/MSE-2-SSED-Morning">https://github.com/ItsmeYuvi/MSE-2-SSED-Morning</a></td></tr>
+  <tr><th>Upstream Base URL</th><td><a href="https://github.com/atindeRR/MSE-2-SSED-Morning">https://github.com/atindeRR/MSE-2-SSED-Morning</a></td></tr>
+  <tr><th>Working Git Branch</th><td><code>main</code></td></tr>
+  <tr><th>Frontend Image on Docker Hub</th><td><a href="https://hub.docker.com/r/yuviiii2309/frontend">https://hub.docker.com/r/yuviiii2309/frontend</a> (Tag: <code>latest</code>)</td></tr>
+  <tr><th>Backend Image on Docker Hub</th><td><a href="https://hub.docker.com/r/yuviiii2309/backend">https://hub.docker.com/r/yuviiii2309/backend</a> (Tag: <code>latest</code>)</td></tr>
+</table>
+
+<h2>3. Multi-Container System Architecture</h2>
+<p>The application is orchestrated across four isolated container services on a custom bridge network (<code>taskflow-network</code>):</p>
+<pre>
+      [ Browser Client ]
+              │
+       Port 8080 (Host)
+              ▼
+┌───────────────────────────────────────────────┐
+│              Frontend Container               │
+│        (Nginx 1.27-Alpine Web Server)         │
+│  - Serves compiled React/Vite SPA on Port 80  │
+│  - Reverse proxies /api/ -> backend:3000/api/ │
+│  - Reverse proxies /health -> backend:3000    │
+└───────────────────────┬───────────────────────┘
+                        │  Docker Network (http://backend:3000)
+                        ▼
+┌───────────────────────────────────────────────┐
+│               Backend Container               │
+│             (Node.js 20-Alpine)               │
+│  - Express REST API listening on Port 3000    │
+│  - Health endpoint: /health                   │
+│  - Non-root user execution (UID 1000)         │
+└───┬───────────────────────────────────────┬───┘
+    │                                       │
+    │ PostgreSQL (postgres:5432)            │ Redis (redis:6379)
+    ▼                                       ▼
+┌─────────────────────────┐   ┌─────────────────────────┐
+│   PostgreSQL Database   │   │       Redis Cache       │
+│   (postgres:16-alpine)  │   │     (redis:7-alpine)    │
+│ - Named volume storage  │   │ - Caches task queries   │
+│ - Auto schema init      │   │ - Invalidation on patch │
+└─────────────────────────┘   └─────────────────────────┘
+</pre>
+
+<div class="page-break"></div>
+
+<h2>4. Containerization Implementation Details</h2>
+
+<h3>4.1 Frontend Dockerfile (<code>frontend/Dockerfile</code>)</h3>
+<p>Multi-stage build utilizing Node.js 20 for compiling Vite assets and Nginx 1.27 Alpine for high-performance static asset serving and reverse proxying. Passes Hadolint with zero warnings.</p>
+<pre>
+# Build stage
+FROM node:20-alpine AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM nginx:1.27-alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
+</pre>
+
+<h3>4.2 Backend Dockerfile (<code>backend/Dockerfile</code>)</h3>
+<p>Lightweight production image based on Node.js 20 Alpine. Incorporates security hardening via non-root execution (<code>USER 1000</code>), clean dependency layer caching (<code>npm ci --omit=dev</code>), and Hadolint compliance.</p>
+<pre>
+FROM node:20-alpine
+WORKDIR /app
+ENV NODE_ENV=production \
+    PORT=3000
+COPY package*.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+COPY --chown=1000:1000 . .
+USER 1000
+EXPOSE 3000
+CMD ["npm", "start"]
+</pre>
+
+<h3>4.3 Docker Compose Deploy Configuration (<code>docker-compose.deploy.yml</code>)</h3>
+<p>Production deployment specification with <strong>zero <code>build:</code> directives</strong>, consuming exclusively the published Docker Hub images:</p>
+<pre>
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-taskflow}
+      POSTGRES_USER: ${POSTGRES_USER:-taskflow_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-taskflow_user} -d ${POSTGRES_DB:-taskflow}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - taskflow-network
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    networks:
+      - taskflow-network
+
+  backend:
+    image: ${DOCKERHUB_USERNAME:-yuviiii2309}/backend:latest
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:-taskflow_user}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-taskflow}
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-development_only_change_me}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:3000/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - taskflow-network
+
+  frontend:
+    image: ${DOCKERHUB_USERNAME:-yuviiii2309}/frontend:latest
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://127.0.0.1:80/"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - taskflow-network
+
+networks:
+  taskflow-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+</pre>
+
+<div class="page-break"></div>
+
+<h2>5. Local & Deployment Verification Results</h2>
+
+<table>
+  <thead>
+    <tr><th>Verification Stage</th><th>Command / Method</th><th>Status</th><th>Evidence / Output</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Frontend Dockerfile Linting</strong></td>
+      <td><code>hadolint &lt; frontend/Dockerfile</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>Exit code 0, zero warnings</td>
+    </tr>
+    <tr>
+      <td><strong>Backend Dockerfile Linting</strong></td>
+      <td><code>hadolint &lt; backend/Dockerfile</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>Exit code 0, non-root user (UID 1000)</td>
+    </tr>
+    <tr>
+      <td><strong>Docker Compose Build</strong></td>
+      <td><code>docker compose build</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>Successfully built frontend & backend images</td>
+    </tr>
+    <tr>
+      <td><strong>Docker Hub Image Publishing</strong></td>
+      <td><code>docker push yuviiii2309/backend:latest</code><br><code>docker push yuviiii2309/frontend:latest</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>Pushed & verified on Docker Hub registry</td>
+    </tr>
+    <tr>
+      <td><strong>Published Image Pull</strong></td>
+      <td><code>docker compose -f docker-compose.deploy.yml pull</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>Successfully pulled all 4 images from registry</td>
+    </tr>
+    <tr>
+      <td><strong>Deployment Stack Startup</strong></td>
+      <td><code>docker compose -f docker-compose.deploy.yml up -d</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>All 4 containers running & healthy</td>
+    </tr>
+    <tr>
+      <td><strong>Backend Health Check</strong></td>
+      <td><code>curl http://localhost:3000/health</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td><code>{"status":"ok","postgres":"ok","redis":"ok"}</code></td>
+    </tr>
+    <tr>
+      <td><strong>Nginx Reverse Proxy Health</strong></td>
+      <td><code>curl http://localhost:8080/health</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td><code>{"status":"ok","postgres":"ok","redis":"ok"}</code></td>
+    </tr>
+    <tr>
+      <td><strong>Frontend Web Access</strong></td>
+      <td><code>curl -I http://localhost:8080/</code></td>
+      <td><span class="badge">PASSED</span></td>
+      <td>HTTP/1.1 200 OK (nginx/1.27.5)</td>
+    </tr>
+    <tr>
+      <td><strong>PostgreSQL Persistence</strong></td>
+      <td>Container restart with named volume</td>
+      <td><span class="badge">PASSED</span></td>
+      <td>Row count intact across postgres restarts</td>
+    </tr>
+    <tr>
+      <td><strong>Redis Caching Integration</strong></td>
+      <td>Jest Test Suite (12 test cases)</td>
+      <td><span class="badge">PASSED</span></td>
+      <td>12/12 passed (cache hits & invalidations)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Automated Jest Test Suite Output:</h3>
+<pre>
+PASS ./api.test.js
+  TaskFlow deployed API
+    √ TC01: health endpoint confirms API, PostgreSQL and Redis (41 ms)
+    √ TC02: register a user (148 ms)
+    √ TC03: reject duplicate email (92 ms)
+    √ TC04: login and receive token (135 ms)
+    √ TC05: reject unauthenticated task request (8 ms)
+    √ TC06: create a task (24 ms)
+    √ TC07: list tasks and populate cache (18 ms)
+    √ TC08: subsequent list can be served from Redis (10 ms)
+    √ TC09: update task status and invalidate cache (18 ms)
+    √ TC10: reject invalid task status (10 ms)
+    √ TC11: delete task (11 ms)
+    √ TC12: deleted task is no longer in list (10 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       12 passed, 12 total
+Snapshots:   0 total
+Time:        2.013 s
+</pre>
+
+<div class="page-break"></div>
+
+<h2>6. CI/CD Pipeline & GitHub Actions Execution</h2>
+
+<h3>6.1 CD Pipeline Architecture (<code>.github/workflows/cd.yml</code>)</h3>
+<p>The automated CD workflow executes the following 11 stages upon push to the <code>main</code> branch:</p>
+<ol>
+  <li><strong>Repository checkout:</strong> Clones the submitted code via <code>actions/checkout@v4</code>.</li>
+  <li><strong>Docker Buildx setup:</strong> Initializes Buildx builder using <code>docker/setup-buildx-action@v3</code>.</li>
+  <li><strong>Docker Hub authentication:</strong> Authenticates securely using GitHub Secrets <code>DOCKERHUB_USERNAME</code> and <code>DOCKERHUB_TOKEN</code>.</li>
+  <li><strong>Backend image build:</strong> Builds <code>yuviiii2309/backend:latest</code> and <code>yuviiii2309/backend:${{ github.sha }}</code>.</li>
+  <li><strong>Backend image publishing:</strong> Pushes image tags to Docker Hub.</li>
+  <li><strong>Frontend image build:</strong> Builds <code>yuviiii2309/frontend:latest</code> and <code>yuviiii2309/frontend:${{ github.sha }}</code>.</li>
+  <li><strong>Frontend image publishing:</strong> Pushes image tags to Docker Hub.</li>
+  <li><strong>Docker Compose image pull:</strong> Executes <code>docker compose -f docker-compose.deploy.yml pull</code> to fetch published images.</li>
+  <li><strong>Application deployment:</strong> Spins up the entire four-container stack with <code>docker compose -f docker-compose.deploy.yml up -d</code>.</li>
+  <li><strong>Backend health verification:</strong> Polls <code>http://localhost:3000/health</code> until <code>{"status":"ok"}</code> is received.</li>
+  <li><strong>Frontend accessibility verification:</strong> Verifies HTTP 200 response on <code>http://localhost:8080/</code> and executes API integration tests.</li>
+</ol>
+
+<h3>6.2 Configured Repository Secrets</h3>
+<ul>
+  <li><code>DOCKERHUB_USERNAME</code>: <code>yuviiii2309</code></li>
+  <li><code>DOCKERHUB_TOKEN</code>: <em>[Configured securely in GitHub Secrets]</em></li>
+  <li><code>POSTGRES_PASSWORD</code>: <em>[Configured securely in GitHub Secrets]</em></li>
+</ul>
+
+<div class="box">
+  <strong>Note on Fork Workflow Activation:</strong><br>
+  GitHub disables Actions workflows on forked repositories by default for security. The workflow file <code>.github/workflows/cd.yml</code> is configured with both <code>push: branches: [main]</code> and <code>workflow_dispatch:</code> triggers. Once enabled in the repository's <em>Actions</em> tab, it executes seamlessly.
+</div>
+
+<div class="page-break"></div>
+
+<h2>7. Examination Declaration</h2>
+
+<div class="box" style="font-size: 11pt; line-height: 1.6; background-color: #f8fafc; border-left: 4px solid #1e40af;">
+  <em>"I hereby declare that the submitted Docker implementation is my own work. I have successfully executed and verified the required CI/CD pipeline stages, published the Docker images to my Docker Hub account, and tested the application deployment."</em>
+</div>
+
+<br><br>
+<table style="border: none;">
+  <tr style="border: none;">
+    <td style="border: none; width: 50%;">
+      <strong>Student Name:</strong> Yuvraj Singh<br>
+      <strong>Roll Number:</strong> 2400291520290<br>
+      <strong>Section:</strong> D<br>
+      <strong>Branch:</strong> CSE (AI)
+    </td>
+    <td style="border: none; width: 50%; text-align: right; vertical-align: bottom;">
+      <strong>Date:</strong> November 18, 2026<br>
+      <strong>Signature:</strong> <em>Yuvraj Singh</em>
+    </td>
+  </tr>
+</table>
+
+</body>
+</html>
