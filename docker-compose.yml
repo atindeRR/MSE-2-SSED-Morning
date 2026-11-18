@@ -32,7 +32,7 @@ services:
       - POSTGRES_DB=taskflow
       - POSTGRES_USER=taskflow_user
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432
+      - DATABASE_URL=postgresql://taskflow_user:${POSTGRES_PASSWORD}@postgres:5432/taskflow
       - REDIS_URL=redis://redis:6379
       - JWT_SECRET=super_secret_github_actions_key
       - PORT=3000
